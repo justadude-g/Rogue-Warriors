@@ -103,9 +103,26 @@
     };
   }
 
+  // Weather card (Weather Tables). One per result of an environment's 2D6 table, plus a card back per environment.
+  function weather(env, row) {
+    const k = 'wx:' + env.id + ':' + row.roll, c = custom[k] || {};
+    return {
+      kind: 'weather', key: k, title: c.name || row.name, baseTitle: row.name, setLabel: env.name, env: env.id, envName: env.name, envIcon: ICON + 'weather/' + env.icon + '.svg',
+      roll: row.roll, icon: ICON + 'weather/' + row.icon + '.svg', perk: c.perk ? c.perk : row.text, copies: R.weather.COPIES[row.roll] || 1,
+      ref: ref('weather', env.page), source: row,
+    };
+  }
+  function weatherBack(env) {
+    const k = 'wxb:' + env.id, c = custom[k] || {};
+    return {
+      kind: 'weatherback', key: k, title: c.name || env.name + ' card back', baseTitle: env.name + ' card back', setLabel: env.name, env: env.id, envName: env.name,
+      icon: ICON + 'weather/' + env.icon + '.svg', envIcon: ICON + 'weather/' + env.icon + '.svg', ref: ref('weather', env.page), source: env,
+    };
+  }
+
   // Every card the chosen sets can print, without duplicates (shared tables appear once).
   function deck(setIds) {
-    const out = { team: [], operator: [], weapon: [], gear: [], vehicle: [] };
+    const out = { team: [], operator: [], weapon: [], gear: [], vehicle: [], weather: [] };
     const seenSpec = new Set(), seenW = new Set(), seenG = new Set(), seenT = new Set();
     for (const id of setIds) {
       const s = set(id); if (!s) continue;
@@ -122,6 +139,7 @@
       }
       for (const tid of s.weapons) for (const w of R.weaponTables[tid].items) if (!seenW.has(w.uid)) { seenW.add(w.uid); out.weapon.push(weapon(w, tid)); }
       for (const tid of s.gear) for (const g of R.gearTables[tid].items) if (!seenG.has(g.uid)) { seenG.add(g.uid); out.gear.push(gear(g, tid)); }
+      if (s.weather) { const env = R.weather.envs.find((e) => e.id === s.weather); for (const r of env.rows) out.weather.push(weather(env, r)); out.weather.push(weatherBack(env)); }
       if (s.vehicles) for (const v of R.vehicles) if (!out.vehicle.some((x) => x.source === v)) out.vehicle.push(vehicle(v));
     }
     return out;

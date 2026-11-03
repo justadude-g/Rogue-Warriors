@@ -26,6 +26,11 @@
       "folder": "vehicles",
       "frame": "#a56a26",
       "shape": "hex"
+    },
+    "weather": {
+      "folder": "weather",
+      "frame": "#5d8397",
+      "shape": "circle"
     }
   },
   "icons": [
@@ -2562,6 +2567,1328 @@
       "credit": [
         {
           "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "env-arctic",
+      "category": "weather",
+      "label": "Arctic",
+      "file": "weather/env-arctic.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Arctic",
+          "book": "Weather Tables",
+          "page": "27"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/icebergs.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "env-jungle",
+      "category": "weather",
+      "label": "Jungle",
+      "file": "weather/env-jungle.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Jungle",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/jungle.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "env-desert",
+      "category": "weather",
+      "label": "Desert",
+      "file": "weather/env-desert.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Desert",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/desert.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "env-urban",
+      "category": "weather",
+      "label": "Urban",
+      "file": "weather/env-urban.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Urban",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/modern-city.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "env-coastal",
+      "category": "weather",
+      "label": "Coastal",
+      "file": "weather/env-coastal.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Coastal",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/lighthouse.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "env-mountain",
+      "category": "weather",
+      "label": "Mountain",
+      "file": "weather/env-mountain.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Mountain",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/mountains.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "env-underground",
+      "category": "weather",
+      "label": "Underground",
+      "file": "weather/env-underground.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Underground",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/cave-entrance.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "env-space",
+      "category": "weather",
+      "label": "Space",
+      "file": "weather/env-space.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Space",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/ringed-planet.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "night-sky",
+      "category": "weather",
+      "label": "Polar Night",
+      "file": "weather/night-sky.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Polar Night",
+          "book": "Weather Tables",
+          "page": "27"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/night-sky.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "moon",
+      "category": "weather",
+      "label": "Dark Outside",
+      "file": "weather/moon.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Dark Outside",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/moon.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sunset",
+      "category": "weather",
+      "label": "Lights Out",
+      "file": "weather/sunset.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Lights Out",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/sunset.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "unplugged",
+      "category": "weather",
+      "label": "Power Outage",
+      "file": "weather/unplugged.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Power Outage",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/unplugged.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "falling-star",
+      "category": "weather",
+      "label": "Starry Night",
+      "file": "weather/falling-star.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Starry Night",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/falling-star.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "eclipse",
+      "category": "weather",
+      "label": "Night Fight",
+      "file": "weather/eclipse.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Night Fight",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/eclipse.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "underground-cave",
+      "category": "weather",
+      "label": "Deep & Dark",
+      "file": "weather/underground-cave.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Deep & Dark",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/underground-cave.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "star-formation",
+      "category": "weather",
+      "label": "Shouldn't it always be dark?",
+      "file": "weather/star-formation.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Shouldn't it always be dark?",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/star-formation.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-1",
+      "category": "weather",
+      "label": "White Out",
+      "file": "weather/snowflake-1.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "White Out",
+          "book": "Weather Tables",
+          "page": "27"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/snowflake-1.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "fog",
+      "category": "weather",
+      "label": "Fog",
+      "file": "weather/fog.svg",
+      "colour": "grey",
+      "appliesTo": [
+        {
+          "name": "Dense Fog",
+          "book": "Weather Tables",
+          "page": "28"
+        },
+        {
+          "name": "Freezing Fog",
+          "book": "Weather Tables",
+          "page": "27"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/fog.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sandstorm",
+      "category": "weather",
+      "label": "Sand Storm",
+      "file": "weather/sandstorm.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Sand Storm",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/sandstorm.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "healing-shield",
+      "category": "weather",
+      "label": "Civilian Shields",
+      "file": "weather/healing-shield.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Civilian Shields",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/healing-shield.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "fluffy-cloud",
+      "category": "weather",
+      "label": "Sea Mist",
+      "file": "weather/fluffy-cloud.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Sea Mist",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/fluffy-cloud.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sun-cloud",
+      "category": "weather",
+      "label": "Cloud Cover",
+      "file": "weather/sun-cloud.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Cloud Cover",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/sun-cloud.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "dust-cloud",
+      "category": "weather",
+      "label": "Dusty Disturbance",
+      "file": "weather/dust-cloud.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Dusty Disturbance",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/dust-cloud.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "asteroid",
+      "category": "weather",
+      "label": "Debris Field",
+      "file": "weather/asteroid.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Debris Field",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/asteroid.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "snowing",
+      "category": "weather",
+      "label": "Snow Storm",
+      "file": "weather/snowing.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Snow Storm",
+          "book": "Weather Tables",
+          "page": "27"
+        },
+        {
+          "name": "Snow Storm",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/snowing.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "heavy-rain",
+      "category": "weather",
+      "label": "Heavy Rainfall",
+      "file": "weather/heavy-rain.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Heavy Rainfall",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/heavy-rain.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "flood",
+      "category": "weather",
+      "label": "Flash Flood",
+      "file": "weather/flood.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Flash Flood",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/flood.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "brick-pile",
+      "category": "weather",
+      "label": "City Rubble",
+      "file": "weather/brick-pile.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "City Rubble",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/brick-pile.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "low-tide",
+      "category": "weather",
+      "label": "Mud Flats",
+      "file": "weather/low-tide.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Mud Flats",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/low-tide.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mountain-road",
+      "category": "weather",
+      "label": "Rocky Road",
+      "file": "weather/mountain-road.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Rocky Road",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/mountain-road.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "dig-hole",
+      "category": "weather",
+      "label": "Tight Spaces",
+      "file": "weather/dig-hole.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Tight Spaces",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/dig-hole.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "moon-orbit",
+      "category": "weather",
+      "label": "Microgravity",
+      "file": "weather/moon-orbit.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Microgravity",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/moon-orbit.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "ice-skate",
+      "category": "weather",
+      "label": "Icy Ground",
+      "file": "weather/ice-skate.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Icy Ground",
+          "book": "Weather Tables",
+          "page": "27"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/ice-skate.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "droplets",
+      "category": "weather",
+      "label": "High Humidity",
+      "file": "weather/droplets.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "High Humidity",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/droplets.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sun",
+      "category": "weather",
+      "label": "Blazing Sun",
+      "file": "weather/sun.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Blazing Sun",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/sun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "city-car",
+      "category": "weather",
+      "label": "Crowded Streets",
+      "file": "weather/city-car.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Crowded Streets",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/city-car.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "waves",
+      "category": "weather",
+      "label": "Rip Tide",
+      "file": "weather/waves.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Rip Tide",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/waves.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "hills",
+      "category": "weather",
+      "label": "Steep Slopes",
+      "file": "weather/hills.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Steep Slopes",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/hills.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "droplet-splash",
+      "category": "weather",
+      "label": "Flooding",
+      "file": "weather/droplet-splash.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Flooding",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/droplet-splash.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "vortex",
+      "category": "weather",
+      "label": "Artificial Gravity Failure",
+      "file": "weather/vortex.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Artificial Gravity Failure",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/vortex.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "clear-day",
+      "category": "weather",
+      "label": "As Good As It Gets",
+      "file": "weather/clear-day.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "As Good As It Gets",
+          "book": "Weather Tables",
+          "page": "27"
+        },
+        {
+          "name": "As Good As It Gets",
+          "book": "Weather Tables",
+          "page": "28"
+        },
+        {
+          "name": "As Good As It Gets",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/sunrise.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "snowflake-2",
+      "category": "weather",
+      "label": "Blizzard",
+      "file": "weather/snowflake-2.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Blizzard",
+          "book": "Weather Tables",
+          "page": "27"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/snowflake-2.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "lightning-tree",
+      "category": "weather",
+      "label": "Monsoon Storms",
+      "file": "weather/lightning-tree.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Monsoon Storms",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/lightning-tree.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "tornado",
+      "category": "weather",
+      "label": "Dust Devil",
+      "file": "weather/tornado.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Dust Devil",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/tornado.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "poison-gas",
+      "category": "weather",
+      "label": "Gas Leak",
+      "file": "weather/poison-gas.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Gas Leak",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/poison-gas.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "crab",
+      "category": "weather",
+      "label": "Crabs",
+      "file": "weather/crab.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Crabs",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/crab.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "maze",
+      "category": "weather",
+      "label": "It's A Maze",
+      "file": "weather/maze.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "It's A Maze",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/maze.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "astronaut-helmet",
+      "category": "weather",
+      "label": "Life Support Failure",
+      "file": "weather/astronaut-helmet.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Life Support Failure",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/astronaut-helmet.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "windy-stripes",
+      "category": "weather",
+      "label": "Windstorms",
+      "file": "weather/windy-stripes.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Windstorms",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/windy-stripes.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "oasis",
+      "category": "weather",
+      "label": "Midnight at the Oasis",
+      "file": "weather/oasis.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Midnight at the Oasis",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/oasis.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "megaphone",
+      "category": "weather",
+      "label": "Propaganda Broadcast",
+      "file": "weather/megaphone.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Propaganda Broadcast",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/megaphone.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "seagull",
+      "category": "weather",
+      "label": "Seagull Swarms",
+      "file": "weather/seagull.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Seagull Swarms",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/seagull.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "falling-rocks",
+      "category": "weather",
+      "label": "Avalanche",
+      "file": "weather/falling-rocks.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Avalanche",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/falling-rocks.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "falling-boulder",
+      "category": "weather",
+      "label": "Cave In",
+      "file": "weather/falling-boulder.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Cave In",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/falling-boulder.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "meteor-impact",
+      "category": "weather",
+      "label": "Meteor Strike",
+      "file": "weather/meteor-impact.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Meteor Strike",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/meteor-impact.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "thermometer-cold",
+      "category": "weather",
+      "label": "Frostbite Warning",
+      "file": "weather/thermometer-cold.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Frostbite Warning",
+          "book": "Weather Tables",
+          "page": "27"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/thermometer-cold.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "thermometer-hot",
+      "category": "weather",
+      "label": "Extreme Heat",
+      "file": "weather/thermometer-hot.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Extreme Heat",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/thermometer-hot.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sun-radiations",
+      "category": "weather",
+      "label": "Scorching Heat",
+      "file": "weather/sun-radiations.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Scorching Heat",
+          "book": "Weather Tables",
+          "page": "28"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/sun-radiations.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "big-wave",
+      "category": "weather",
+      "label": "Storm Surge",
+      "file": "weather/big-wave.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Storm Surge",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/big-wave.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "lungs",
+      "category": "weather",
+      "label": "Altitude Sickness",
+      "file": "weather/lungs.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Altitude Sickness",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/lungs.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "gas-mask",
+      "category": "weather",
+      "label": "Stale Air",
+      "file": "weather/gas-mask.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Stale Air",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/gas-mask.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cracked-glass",
+      "category": "weather",
+      "label": "Hull Breach",
+      "file": "weather/cracked-glass.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Hull Breach",
+          "book": "Weather Tables",
+          "page": "29"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/cracked-glass.html",
+          "license": "CC BY 3.0"
         }
       ]
     },

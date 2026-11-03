@@ -11,6 +11,7 @@ Every card is a standard poker card (63 x 88 mm), so the whole deck uses one sle
 - **Team card:** the Team Expertise, its perk and promotion perk, the gear budget and a line for the team name.
 - **Operator card:** one per Specialisation, with the soldier type's stats, the Specialisation perk and promotion, the sidearm and a Hearts box sized for a 12 mm die, which tracks health.
 - **Vehicle card:** one per Desert Heroes vehicle type (One-Man ATV, Jeep, APC, Light Helicopter, Light Tank, Ranged Ordnance) with stats, a Hearts box for a 12 mm die, capacity, crew, the numbered vehicle notes and the Primary and Secondary weapon. The vehicle-only weapons and vehicle gear are ordinary weapon and gear cards. Tick "Desert Heroes: Vehicles" in the deck to print them.
+- **Weather cards:** one per result of each Weather Tables environment (Arctic, Jungle, Desert, Urban, Coastal, Mountain, Underground, Space), with an icon, the 2D6 roll and the effect. Every environment has its own colour, name and badge, so the decks stay apart. Print the copies, shuffle one environment face down and draw a card. The default is 14 cards per environment, which follows the 2D6 odds closely (five copies of "As Good As It Gets"); exact odds need 36 cards, so raise the counts if you want that. An optional card back per environment is off by default. The Weather Tables are free, so this wording is part of the public build.
 - **Weapon and gear cards:** built to tuck under the card above. Everything needed in play sits in the bottom half: name, points, stat changes and rules text. The top half holds the picture and is hidden in a stack.
 
 Lay an operator card down, tuck its weapon card under it so the bottom half shows, then tuck each gear card under that. Each Warrior becomes one column you read top to bottom.
@@ -63,6 +64,7 @@ Print the PDF at 100% (actual size), not "fit to page". Cut along the crop marks
 index.html                    app shell
 css/                          fonts.css (self-hosted fonts), styles.css
 js/data/rules.js              books, factions, Expertise, Specialisations, weapons, gear, ranks, page references
+js/data/weather.js            Weather Tables (free, so public)
 js/data/private/rules-text.js rules wording (private repo only)
 js/catalog.js                 turns the data into card records
 js/render.js                  canvas card renderer, all positions in millimetres
@@ -89,4 +91,4 @@ npm test
 
 Rogue Warriors (c) Lee Fox-Smith and Nicholas Fox-Smith, Tabletop Skirmish Games. Used with permission.
 
-Icons are adapted from [game-icons.net](https://game-icons.net) by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Ten silhouettes (nine weapons and a howitzer) were drawn for this project. See `assets/icons/CREDITS.md`.
+Icons are adapted from [game-icons.net](https://game-icons.net) by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Ten silhouettes (nine weapons and a howitzer) were drawn for this project. The Weather Tables are a free supplement by Lee Fox-Smith and Nicholas Fox-Smith. See `assets/icons/CREDITS.md`.

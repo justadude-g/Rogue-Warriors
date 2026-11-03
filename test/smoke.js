@@ -52,9 +52,20 @@ srv.listen(0, async () => {
     await p.fill('#editor input[list="veh-names"]', 'Willys MB Jeep');
     await p.waitForTimeout(500);
     await (await p.$('#preview-pane .preview canvas')).screenshot({ path: path.join(out, 'vehicle-card.png') });
+    // weather: tick Arctic, expect 8 results plus a back, 14 suggested copies, the hint line and no picture controls
+    await p.click('#set-list label:text-is("Arctic")');
+    await p.click('#deck-tabs button[data-kind="weather"]');
+    const nWx = await p.evaluate(() => document.querySelectorAll('#card-list li:not(.empty)').length);
+    if (nWx !== 9) throw new Error('expected 9 weather cards, got ' + nWx);
+    const wxCopies = await p.evaluate(() => [...document.querySelectorAll('#card-list li output')].reduce((n, o) => n + parseInt(o.textContent, 10), 0));
+    if (wxCopies !== 14) throw new Error('expected 14 suggested weather copies, got ' + wxCopies);
+    await p.click('#card-list li >> nth=4');
+    await p.waitForSelector('#preview-pane canvas');
+    await p.waitForTimeout(500);
+    await (await p.$('#preview-pane .preview canvas')).screenshot({ path: path.join(out, 'weather-card.png') });
     // print one card of each kind
     await p.click('#copies-zero');
-    for (const k of ['team', 'operator', 'weapon', 'gear', 'vehicle']) {
+    for (const k of ['team', 'operator', 'weapon', 'gear', 'vehicle', 'weather']) {
       await p.click(`#deck-tabs button[data-kind="${k}"]`);
       await p.click('#card-list li .stepper button[aria-label="One more"] >> nth=0');
     }

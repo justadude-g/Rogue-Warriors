@@ -1,12 +1,12 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../css/fonts.css"></head><body style="margin:0;background:#888">
-<script>window.RW_BASE="../";</script><script src="../js/data/rules.js"></script><script src="../js/catalog.js"></script><script src="../js/render.js"></script>
+<script>window.RW_BASE="../";</script><script src="../js/data/rules.js"></script><script src="../js/data/weather.js"></script><script src="../js/catalog.js"></script><script src="../js/render.js"></script>
 <script>
 window.renderSamples = async (withText) => {
   RWCatalog.setPack(withText ? (window.RW_TEXT || {}) : {});
-  const d = RWCatalog.deck(['tb-specops', 'us-faa', 'ibz-specops', 'dh-vehicles']);
+  const d = RWCatalog.deck(['tb-specops', 'us-faa', 'ibz-specops', 'dh-vehicles', 'wx-arctic', 'wx-desert', 'wx-space']);
   const pick = (arr, keys) => keys.map(k => arr.find(c => c.key.includes(k))).filter(Boolean);
   const cards = [].concat(pick(d.team, ['tb-specops-hostage-rescue','us-faa-guerilla']), pick(d.operator, ['spec-tb-tactician','spec-us-scout','spec-us-propagandist']),
-    pick(d.weapon, ['wpn-tb-specops-lmg','wpn-us-grenade-launcher','wpn-ibz-drones-storm-piercer','wpn-tb-specops-melee']), pick(d.gear, ['gear-tb-specops-body-armour','gear-us-incendiary','gear-us-c4','v-fuel-tank']), pick(d.weapon, ['dh-vehicle-flame-cannon','dh-vehicle-at-rifle']), d.vehicle);
+    pick(d.weapon, ['wpn-tb-specops-lmg','wpn-us-grenade-launcher','wpn-ibz-drones-storm-piercer','wpn-tb-specops-melee']), pick(d.gear, ['gear-tb-specops-body-armour','gear-us-incendiary','gear-us-c4','v-fuel-tank']), pick(d.weapon, ['dh-vehicle-flame-cannon','dh-vehicle-at-rifle']), d.vehicle, pick(d.weather, ['wx:arctic:7-9','wx:desert:11','wx:space:2','wx:arctic:12','wxb:desert','wxb:space']));
   const camp = Object.assign({}, pick(d.operator,['spec-tb-fire-support'])[0], { kind:'campaign', name:'Mason "Ghost" Turner', platoonLabel:'Tiger Blood: Spec Ops', rankName:'Petty Officer Second Class', specName:'Fire Support', xp: 120, badges:'Squared Away, Team Player', injuries:'', promoUnlocked:true,
     ranks: RW.rankTables['tb-specops'].names.map((n,i)=>({xp:RW.RANK_XP[i], name:n, perk:(RWCatalog.rankPerks('standard')||[])[i]||''})) });
   cards.push(camp);

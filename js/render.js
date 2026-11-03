@@ -1,7 +1,7 @@
 /* Canvas renderer. Every position is in millimetres; render(card, dpi) returns a canvas at that resolution.
    Card sizes: team, operator, weapon and gear 63 x 88 mm (poker), campaign 127 x 89 mm. */
 (function () {
-  const SIZE = { team: [63, 88], operator: [63, 88], weapon: [63, 88], gear: [63, 88], vehicle: [63, 88], campaign: [127, 89] };
+  const SIZE = { team: [63, 88], operator: [63, 88], weapon: [63, 88], gear: [63, 88], vehicle: [63, 88], weather: [63, 88], weatherback: [63, 88], campaign: [127, 89] };
   const THEME = {
     team: { dark: '#4a3408', mid: '#b8862a', light: '#e2b84e', paper: '#fffaea', paper2: '#f3e6c2', ink: '#2a1f08' },
     operator: { dark: '#132c52', mid: '#2c5f9e', light: '#4f86cc', paper: '#f7fafd', paper2: '#dde8f4', ink: '#10223d' },
@@ -9,6 +9,17 @@
     gear: { dark: '#2c3816', mid: '#647a2c', light: '#8aa040', paper: '#fbfcef', paper2: '#e3e8c9', ink: '#1f2810' },
     vehicle: { dark: '#4a2e0c', mid: '#a56a26', light: '#d29a4c', paper: '#fdf8ee', paper2: '#efe0c0', ink: '#2a1a08' },
     campaign: { dark: '#132c52', mid: '#2c5f9e', light: '#4f86cc', paper: '#fbf8ef', paper2: '#ece4cc', ink: '#10223d' },
+  };
+  // One colour scheme per environment so the decks can be told apart at a glance and shuffled separately.
+  const WX = {
+    arctic: { dark: '#12394f', mid: '#2f86b1', light: '#8fd0ee', paper: '#f4fafd', paper2: '#d3e8f2', ink: '#0c2735' },
+    jungle: { dark: '#123b1c', mid: '#2f8a3e', light: '#7bc67f', paper: '#f4fbf2', paper2: '#d4e8cc', ink: '#0c2412' },
+    desert: { dark: '#5a3208', mid: '#c27a1c', light: '#efc06a', paper: '#fff7e6', paper2: '#f1dcae', ink: '#3a2005' },
+    urban: { dark: '#262c33', mid: '#6b7784', light: '#aab4bf', paper: '#f4f5f7', paper2: '#d4d9de', ink: '#171b20' },
+    coastal: { dark: '#0b4a4f', mid: '#1c9aa0', light: '#76d6d6', paper: '#f0fbfa', paper2: '#c9e8e6', ink: '#062d30' },
+    mountain: { dark: '#3d2a4f', mid: '#7b5ea0', light: '#b9a2d6', paper: '#f8f4fc', paper2: '#ddd2ea', ink: '#261a33' },
+    underground: { dark: '#2d1d12', mid: '#7a4b2a', light: '#b58559', paper: '#faf3ec', paper2: '#e2cfba', ink: '#1c1209' },
+    space: { dark: '#0d0f2e', mid: '#3a3fa8', light: '#7f86e6', paper: '#f1f1fc', paper2: '#d0d2ee', ink: '#0a0c22' },
   };
   const RED = '#a3261c';
   const F = { title: "'League Gothic', 'Oswald', sans-serif", num: "'Anton', 'Oswald', sans-serif", label: "'Oswald', sans-serif", body: "'PT Sans Narrow', 'Arial Narrow', sans-serif" };
@@ -340,6 +351,40 @@
     paragraphs(X, [{ runs: [{ t: c.perk }] }], 5.6, 58.8, 51.8, 23.4, BODY_MAX, BODY_MIN - 0.1, T.ink);
   }
 
+  // Weather card: environment name and colour on top, the result in the middle, the effect below.
+  async function drawWeather(X, c) {
+    const T = WX[c.env], W = 63, H = 88, b = 2.2;
+    frame(X, T, W, H, b);
+    const [icon, env] = await Promise.all([loadImage(c.icon), loadImage(c.envIcon)]);
+    X.rect(b, b, W - 2 * b, 8.8, X.grad(b, b + 8.8, T.mid, T.dark));
+    if (env) drawPicture(X, env, 3.0, 2.6, 8, 8, 'contain');
+    X.fitLine(c.envName.toUpperCase(), 13, b + 6.8, W - 2 * b - 13 - 2, 7, 4, F.title, '#ffffff', 'left');
+    X.fitLine('WEATHER', W - b - 2, b + 5.7, 18, LBL_SM, 1.6, F.label, T.light, 'right', '600');
+    drawPicture(X, icon, 17.5, 14.2, 28, 28, 'contain');
+    chip(X, ('2D6 ROLL ' + c.roll).toUpperCase(), W / 2, 43.0, 4.4, T.dark, '#ffffff', 'center');
+    X.rect(b, 49.4, W - 2 * b, 9.6, X.grad(49.4, 59, T.mid, T.dark));
+    X.fitLine(String(c.title).toUpperCase(), W / 2, 56.8, W - 2 * b - 5, 6.8, 3.2, F.title, '#ffffff', 'center');
+    box(X, 4, 61.0, 55, 21.0, T, '#ffffff');
+    const lines = String(c.perk || '').split('\n').filter(Boolean).map((t, i) => ({ gapBefore: i ? 0.3 : 0, runs: [{ t }] }));
+    paragraphs(X, lines, 5.6, 61.8, 51.8, 19.6, 4.0, 2.3, T.ink);
+    X.text('WEATHER TABLES', 4, 85.0, FOOT, F.label, T.mid, 'left', '600');
+    X.text(c.ref.replace('Weather ', ''), W - 4, 85.0, FOOT, F.label, T.mid, 'right', '600');
+  }
+
+  // Card back, one design per environment: dark panel in the environment colour with its badge, so the face-down deck is recognisable.
+  async function drawWeatherBack(X, c) {
+    const T = WX[c.env], W = 63, H = 88, b = 2.2;
+    frame(X, T, W, H, b);
+    X.rr(5, 5, W - 10, H - 10, 2.2); X.fill(X.grad(5, H - 5, T.mid, T.dark));
+    X.rr(6.6, 6.6, W - 13.2, H - 13.2, 1.4); X.stroke(T.light, 0.35);
+    const icon = await loadImage(c.icon);
+    X.ctx.beginPath(); X.ctx.arc(W / 2 * X.k, 36 * X.k, 21 * X.k, 0, Math.PI * 2); X.fill(T.paper); X.stroke(T.light, 0.6);
+    drawPicture(X, icon, W / 2 - 17, 19, 34, 34, 'contain');
+    X.fitLine(c.envName.toUpperCase(), W / 2, 68, W - 18, 11, 5, F.title, '#ffffff', 'center');
+    X.line(18, 71.4, W - 18, 71.4, T.light, 0.3);
+    X.text('WEATHER', W / 2, 77.2, 3.2, F.label, T.light, 'center', '600');
+  }
+
   // Campaign Warrior card: one per Platoon member, landscape.
   async function drawCampaign(X, c) {
     const T = THEME.campaign, W = 127, H = 89, b = 2.2;
@@ -396,7 +441,7 @@
     lines('INJURIES', 66.5, 75.6, 56, c.injuries);
   }
 
-  const DRAW = { operator: drawOperator, team: drawTeam, weapon: drawWeapon, gear: drawGear, vehicle: drawVehicle, campaign: drawCampaign };
+  const DRAW = { operator: drawOperator, team: drawTeam, weapon: drawWeapon, gear: drawGear, vehicle: drawVehicle, weather: drawWeather, weatherback: drawWeatherBack, campaign: drawCampaign };
 
   async function render(card, dpi) {
     await fonts();

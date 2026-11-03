@@ -65,10 +65,13 @@
   // =====================================================================
   // CARD DECK
   // =====================================================================
-  let deck = { team: [], operator: [], weapon: [], gear: [], vehicle: [] };
-  const KIND_LABEL = { team: 'Team', operator: 'Operators', weapon: 'Weapons', gear: 'Gear', vehicle: 'Vehicles' };
+  let deck = { team: [], operator: [], weapon: [], gear: [], vehicle: [], weather: [] };
+  const KIND_LABEL = { team: 'Team', operator: 'Operators', weapon: 'Weapons', gear: 'Gear', vehicle: 'Vehicles', weather: 'Weather' };
+  const isFaction = (s) => !s.vehicles && !s.weather;
 
   function suggested(card) {
+    if (card.kind === 'weatherback') return 0;
+    if (card.kind === 'weather') return card.copies;
     if (card.kind === 'team' || card.kind === 'operator' || card.kind === 'vehicle') return 1;
     if (card.kind === 'weapon') {
       if (card.source.sidearm) return 2;
@@ -102,6 +105,9 @@
       b.setAttribute('aria-selected', String(b.dataset.kind === S.ui.kind));
       b.querySelector('span').textContent = deck[b.dataset.kind].length;
     });
+    const kh = $('#kind-hint');
+    kh.hidden = S.ui.kind !== 'weather';
+    kh.textContent = 'Shuffle one environment face down and draw a card for the day. Copies follow 2D6 odds in 14 cards. Card backs are set to 0; add them if you want to print the backs.';
     renderCardList();
     renderDeckCount();
     renderEditor();
@@ -119,6 +125,8 @@
       const sub = c.kind === 'team' ? `${c.setLabel} · ${c.mechLabel} · ${c.ref}`
         : c.kind === 'operator' ? `${c.warriorName ? c.warriorName + ' · ' : ''}${c.perkName ? c.perkName + ' · ' : ''}${c.ref}`
         : c.kind === 'vehicle' ? `${c.vehicleName ? c.vehicleName + ' · ' : ''}${c.pv} PV · Capacity ${c.stats.capacity} · ${c.ref}`
+        : c.kind === 'weather' ? `2D6 roll ${c.roll} · ${c.ref}`
+        : c.kind === 'weatherback' ? `Back for the shuffled ${c.envName} deck · ${c.ref}`
         : c.kind === 'weapon' ? `${c.typeLabel} · ${c.range} · ${c.ref}`
         : `${c.pts} pts · ${c.ref}`;
       const cu0 = S.custom[c.key] || {};
@@ -216,7 +224,11 @@
       }, { passive: false });
     }
     pane.append(prev, h('p', { class: 'caption' }, cu.image ? 'Drag the picture to move it. Scroll over it to zoom.' : card.title));
-    ed.append(h('div', { class: 'ed-top' }, h('h2', {}, 'Picture'), controls,
+    const noPic = card.kind === 'weather' || card.kind === 'weatherback';
+    ed.append(noPic
+      ? h('div', { class: 'ed-top' }, h('h2', {}, card.kind === 'weather' ? 'Weather card' : 'Card back'), h('p', { class: 'hint' }, card.kind === 'weather'
+        ? 'Print the copies, shuffle them face down and draw one at the start of the game. Copies follow 2D6 odds.' : 'Optional. Print one back for each card in the deck, or sleeve the cards with an opaque sleeve and skip it.'))
+      : h('div', { class: 'ed-top' }, h('h2', {}, 'Picture'), controls,
       h('p', { class: 'hint' }, cu.image ? 'Drag the picture on the card to move it. Scroll or use Zoom to resize.' : picHint)));
 
     // ---- text and options ----
@@ -234,7 +246,7 @@
       nameBox.querySelector('input').setAttribute('list', 'veh-names');
       ed.append(nameBox, list, h('p', { class: 'hint' }, 'Suggestions are the D10 vehicle prompts from Desert Heroes p. 10. Type anything you like.'));
     }
-    if (card.kind !== 'campaign') ed.append(text('perk', card.kind === 'team' ? 'Team perk wording' : card.kind === 'vehicle' ? 'Vehicle notes (one numbered line per row)' : 'Perk wording', true, 'Standard wording'));
+    if (card.kind !== 'campaign' && card.kind !== 'weatherback') ed.append(text('perk', card.kind === 'team' ? 'Team perk wording' : card.kind === 'vehicle' ? 'Vehicle notes (one numbered line per row)' : card.kind === 'weather' ? 'Effect wording' : 'Perk wording', true, 'Standard wording'));
     if (card.promo != null) ed.append(text('promo', 'Promotion wording', true, 'Standard wording'));
     if (card.kind === 'weapon') ed.append(text('drawback', 'Drawback wording', true, 'Standard wording'));
     ed.append(h('div', { class: 'stack inline' },
@@ -261,7 +273,7 @@
     $('#copies-default').addEventListener('click', () => { for (const k of Object.keys(deck)) for (const c of deck[k]) delete S.copies[c.key]; save(); renderDeck(); toast('Suggested copies restored.'); });
     $('#copies-zero').addEventListener('click', () => { for (const k of Object.keys(deck)) for (const c of deck[k]) S.copies[c.key] = 0; save(); renderDeck(); });
     $('#print-deck').addEventListener('click', () => {
-      const items = []; for (const k of ['team', 'operator', 'weapon', 'gear', 'vehicle']) for (const c of deck[k]) items.push({ card: c, copies: copiesOf(c) });
+      const items = []; for (const k of ['team', 'operator', 'weapon', 'gear', 'vehicle', 'weather']) for (const c of deck[k]) items.push({ card: c, copies: copiesOf(c) });
       printItems(items, 'rogue-warriors-deck', $('#deck-progress'));
     });
   }
@@ -331,7 +343,7 @@
     const field = (label, el) => h('label', { class: 'field' }, h('span', {}, label), el);
     const name = h('input', { type: 'text', value: t.name });
     name.addEventListener('change', () => { t.name = name.value || 'Team'; save(); renderTeams(); });
-    const setSel = h('select', { onchange: (e) => { const n = teamDefaults(e.target.value); Object.assign(t, { setId: n.setId, expId: n.expId, slots: n.slots }); redraw(); } }, R.sets.filter((s) => !s.vehicles).map((s) => opt(s.id, s.label, s.id === t.setId)));
+    const setSel = h('select', { onchange: (e) => { const n = teamDefaults(e.target.value); Object.assign(t, { setId: n.setId, expId: n.expId, slots: n.slots }); redraw(); } }, R.sets.filter(isFaction).map((s) => opt(s.id, s.label, s.id === t.setId)));
     const expSel = h('select', { onchange: (e) => { t.expId = e.target.value; redraw(); } }, L.expertise.map((e) => opt(e.source.id, `${e.baseTitle} (${e.mechLabel})`, e.source.id === t.expId)));
     const extra = h('input', { type: 'number', min: -5, max: 20, value: t.extraGear || 0 });
     extra.addEventListener('change', () => { t.extraGear = parseInt(extra.value, 10) || 0; redraw(); });
@@ -557,7 +569,7 @@
       const next = cur === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = next;
       try { localStorage.setItem('rw-theme', next); } catch (e) { /* private window */ }
     });
-    $('#team-new').addEventListener('click', () => { const t = teamDefaults(S.sets.find((id) => id !== 'core' && id !== 'dh-vehicles') || S.sets.find((id) => id !== 'dh-vehicles') || 'core'); S.teams.push(t); S.ui.team = t.id; save(); renderTeams(); });
+    $('#team-new').addEventListener('click', () => { const t = teamDefaults((S.sets.find((id) => id !== 'core' && isFaction(C.set(id))) || S.sets.find((id) => isFaction(C.set(id))) || 'core')); S.teams.push(t); S.ui.team = t.id; save(); renderTeams(); });
     $('#platoon-new').addEventListener('click', () => { const p = newPlatoon(); S.platoons.push(p); S.ui.platoon = p.id; save(); renderPlatoons(); });
     wireDeck(); wireAbout();
     addEventListener('pagehide', () => window.RWStore.put('state', S));

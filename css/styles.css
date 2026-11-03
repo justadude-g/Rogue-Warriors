@@ -70,7 +70,7 @@ label.field > span { display: block; margin-bottom: 4px; font: 600 13px Oswald, 
 #view-deck > .content { container-type: inline-size; }
 .subtabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
 @container (min-width: 480px) { .subtabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@container (min-width: 640px) { .subtabs { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+@container (min-width: 720px) { .subtabs { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 .subtabs button { font: 600 14.5px Oswald, sans-serif; text-transform: uppercase; letter-spacing: .03em; padding: 6px 8px; white-space: nowrap; min-width: 0; }
 .subtabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .subtabs span { opacity: .75; font-weight: 400; }

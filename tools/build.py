@@ -29,10 +29,11 @@ CAT = {
     'specialisation': ('#3874bd', '#15315a', '#f5f9fd', '#d3e2f1', 'circle'),
     'expertise':      ('#d9a93a', '#6a4b0c', '#fffaea', '#efdeb0', 'shield'),
     'vehicle':        ('#a56a26', '#4a2e0c', '#fdf8ee', '#efe0c0', 'hex'),
+    'weather':        ('#5d8397', '#25404f', '#f8fcfe', '#d9e8ef', 'circle'),
 }
 
 B = {'CORE': 'Core Rulebook', 'RD': 'Rapid Deployment', 'TB': 'Tiger Blood', 'US': 'Urban Strike',
-     'IBZ': 'Ice Base Zero', 'TOD': 'Tour of Duty', 'DH': 'Desert Heroes'}
+     'IBZ': 'Ice Base Zero', 'TOD': 'Tour of Duty', 'DH': 'Desert Heroes', 'WX': 'Weather Tables'}
 
 
 def ref(spec):
@@ -182,6 +183,70 @@ ICONS = [
     ('light-tank', 'vehicle', 'Light Tank', 'lorc/battle-tank', 'olive', 'Light Tank@DH:51'),
     ('ranged-ordnance', 'vehicle', 'Ranged Ordnance', 'custom:howitzer', 'olive', 'Ranged Ordnance@DH:51'),
 
+    # ---------------- WEATHER ----------------
+    ('env-arctic', 'weather', 'Arctic', 'lorc/icebergs', 'ice', 'Arctic@WX:27'),
+    ('env-jungle', 'weather', 'Jungle', 'delapouite/jungle', 'green', 'Jungle@WX:28'),
+    ('env-desert', 'weather', 'Desert', 'delapouite/desert', 'orange', 'Desert@WX:28'),
+    ('env-urban', 'weather', 'Urban', 'delapouite/modern-city', 'gunmetal', 'Urban@WX:28'),
+    ('env-coastal', 'weather', 'Coastal', 'delapouite/lighthouse', 'teal', 'Coastal@WX:29'),
+    ('env-mountain', 'weather', 'Mountain', 'lorc/mountains', 'purple', 'Mountain@WX:29'),
+    ('env-underground', 'weather', 'Underground', 'delapouite/cave-entrance', 'brown', 'Underground@WX:29'),
+    ('env-space', 'weather', 'Space', 'lorc/ringed-planet', 'navy', 'Space@WX:29'),
+    ('night-sky', 'weather', 'Polar Night', 'lorc/night-sky', 'navy', 'Polar Night@WX:27'),
+    ('moon', 'weather', 'Dark Outside', 'lorc/moon', 'khaki', 'Dark Outside@WX:28'),
+    ('sunset', 'weather', 'Lights Out', 'delapouite/sunset', 'orange', 'Lights Out@WX:28'),
+    ('unplugged', 'weather', 'Power Outage', 'sbed/unplugged', 'gunmetal', 'Power Outage@WX:28'),
+    ('falling-star', 'weather', 'Starry Night', 'delapouite/falling-star', 'brass', 'Starry Night@WX:29'),
+    ('eclipse', 'weather', 'Night Fight', 'lorc/eclipse', 'purple', 'Night Fight@WX:29'),
+    ('underground-cave', 'weather', 'Deep & Dark', 'delapouite/underground-cave', 'brown', 'Deep & Dark@WX:29'),
+    ('star-formation', 'weather', "Shouldn't it always be dark?", 'delapouite/star-formation', 'navy', "Shouldn't it always be dark?@WX:29"),
+    ('snowflake-1', 'weather', 'White Out', 'lorc/snowflake-1', 'ice', 'White Out@WX:27'),
+    ('fog', 'weather', 'Fog', 'delapouite/fog', 'grey', 'Dense Fog@WX:28;Freezing Fog@WX:27'),
+    ('sandstorm', 'weather', 'Sand Storm', 'delapouite/sandstorm', 'khaki', 'Sand Storm@WX:28'),
+    ('healing-shield', 'weather', 'Civilian Shields', 'delapouite/healing-shield', 'teal', 'Civilian Shields@WX:28'),
+    ('fluffy-cloud', 'weather', 'Sea Mist', 'lorc/fluffy-cloud', 'steel', 'Sea Mist@WX:29'),
+    ('sun-cloud', 'weather', 'Cloud Cover', 'delapouite/sun-cloud', 'steel', 'Cloud Cover@WX:29'),
+    ('dust-cloud', 'weather', 'Dusty Disturbance', 'lorc/dust-cloud', 'khaki', 'Dusty Disturbance@WX:29'),
+    ('asteroid', 'weather', 'Debris Field', 'delapouite/asteroid', 'gunmetal', 'Debris Field@WX:29'),
+    ('snowing', 'weather', 'Snow Storm', 'lorc/snowing', 'ice', 'Snow Storm@WX:27,WX:29'),
+    ('heavy-rain', 'weather', 'Heavy Rainfall', 'lorc/heavy-rain', 'navy', 'Heavy Rainfall@WX:28'),
+    ('flood', 'weather', 'Flash Flood', 'delapouite/flood', 'ice', 'Flash Flood@WX:28'),
+    ('brick-pile', 'weather', 'City Rubble', 'delapouite/brick-pile', 'brown', 'City Rubble@WX:28'),
+    ('low-tide', 'weather', 'Mud Flats', 'delapouite/low-tide', 'brown', 'Mud Flats@WX:29'),
+    ('mountain-road', 'weather', 'Rocky Road', 'delapouite/mountain-road', 'khaki', 'Rocky Road@WX:29'),
+    ('dig-hole', 'weather', 'Tight Spaces', 'delapouite/dig-hole', 'brown', 'Tight Spaces@WX:29'),
+    ('moon-orbit', 'weather', 'Microgravity', 'delapouite/moon-orbit', 'purple', 'Microgravity@WX:29'),
+    ('ice-skate', 'weather', 'Icy Ground', 'delapouite/ice-skate', 'ice', 'Icy Ground@WX:27'),
+    ('droplets', 'weather', 'High Humidity', 'lorc/droplets', 'teal', 'High Humidity@WX:28'),
+    ('sun', 'weather', 'Blazing Sun', 'lorc/sun', 'yellow', 'Blazing Sun@WX:28'),
+    ('city-car', 'weather', 'Crowded Streets', 'delapouite/city-car', 'red', 'Crowded Streets@WX:28'),
+    ('waves', 'weather', 'Rip Tide', 'lorc/waves', 'ice', 'Rip Tide@WX:29'),
+    ('hills', 'weather', 'Steep Slopes', 'delapouite/hills', 'olive', 'Steep Slopes@WX:29'),
+    ('droplet-splash', 'weather', 'Flooding', 'lorc/droplet-splash', 'ice', 'Flooding@WX:29'),
+    ('vortex', 'weather', 'Artificial Gravity Failure', 'lorc/vortex', 'purple', 'Artificial Gravity Failure@WX:29'),
+    ('clear-day', 'weather', 'As Good As It Gets', 'delapouite/sunrise', 'yellow', 'As Good As It Gets@WX:27,WX:28,WX:29'),
+    ('snowflake-2', 'weather', 'Blizzard', 'lorc/snowflake-2', 'ice', 'Blizzard@WX:27'),
+    ('lightning-tree', 'weather', 'Monsoon Storms', 'lorc/lightning-tree', 'green', 'Monsoon Storms@WX:28'),
+    ('tornado', 'weather', 'Dust Devil', 'lorc/tornado', 'khaki', 'Dust Devil@WX:28'),
+    ('poison-gas', 'weather', 'Gas Leak', 'lorc/poison-gas', 'toxic', 'Gas Leak@WX:28'),
+    ('crab', 'weather', 'Crabs', 'lorc/crab', 'red', 'Crabs@WX:29'),
+    ('maze', 'weather', "It's A Maze", 'lorc/maze', 'brown', "It's A Maze@WX:29"),
+    ('astronaut-helmet', 'weather', 'Life Support Failure', 'delapouite/astronaut-helmet', 'steel', 'Life Support Failure@WX:29'),
+    ('windy-stripes', 'weather', 'Windstorms', 'lorc/windy-stripes', 'steel', 'Windstorms@WX:28'),
+    ('oasis', 'weather', 'Midnight at the Oasis', 'delapouite/oasis', 'teal', 'Midnight at the Oasis@WX:28'),
+    ('megaphone', 'weather', 'Propaganda Broadcast', 'delapouite/megaphone', 'red', 'Propaganda Broadcast@WX:28'),
+    ('seagull', 'weather', 'Seagull Swarms', 'delapouite/seagull', 'steel', 'Seagull Swarms@WX:29'),
+    ('falling-rocks', 'weather', 'Avalanche', 'delapouite/falling-rocks', 'steel', 'Avalanche@WX:29'),
+    ('falling-boulder', 'weather', 'Cave In', 'lorc/falling-boulder', 'brown', 'Cave In@WX:29'),
+    ('meteor-impact', 'weather', 'Meteor Strike', 'lorc/meteor-impact', 'orange', 'Meteor Strike@WX:29'),
+    ('thermometer-cold', 'weather', 'Frostbite Warning', 'delapouite/thermometer-cold', 'ice', 'Frostbite Warning@WX:27'),
+    ('thermometer-hot', 'weather', 'Extreme Heat', 'delapouite/thermometer-hot', 'red', 'Extreme Heat@WX:28'),
+    ('sun-radiations', 'weather', 'Scorching Heat', 'lorc/sun-radiations', 'orange', 'Scorching Heat@WX:28'),
+    ('big-wave', 'weather', 'Storm Surge', 'lorc/big-wave', 'navy', 'Storm Surge@WX:29'),
+    ('lungs', 'weather', 'Altitude Sickness', 'delapouite/lungs', 'red', 'Altitude Sickness@WX:29'),
+    ('gas-mask', 'weather', 'Stale Air', 'skoll/gas-mask', 'olive', 'Stale Air@WX:29'),
+    ('cracked-glass', 'weather', 'Hull Breach', 'lorc/cracked-glass', 'ice', 'Hull Breach@WX:29'),
+
     # ---------------- SPECIALISATIONS ----------------
     ('tactician', 'specialisation', 'Tactician', 'skoll/chess-knight', 'navy', 'Tactician@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
     ('medic', 'specialisation', 'Medic', 'sbed/medical-pack', 'red', 'Medic@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
@@ -323,7 +388,7 @@ def icon_svg(entry):
             f'<title>{label}</title><defs>{defs}</defs>{frame}{obj}</svg>')
 
 
-FOLDER = {'weapon': 'weapons', 'gear': 'gear', 'specialisation': 'specialisations', 'expertise': 'expertise', 'vehicle': 'vehicles'}
+FOLDER = {'weapon': 'weapons', 'gear': 'gear', 'specialisation': 'specialisations', 'expertise': 'expertise', 'vehicle': 'vehicles', 'weather': 'weather'}
 
 
 def main():

@@ -6,8 +6,8 @@
 <title>Rogue Warriors Quartermaster</title>
 <meta name="description" content="Design and print modular cards for Rogue Warriors: team, operator, weapon and gear cards for one-off Missions, plus campaign Warrior cards.">
 <link rel="icon" href="assets/icons/expertise/exp-shooting.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/fonts.css?v=202611031516">
-<link rel="stylesheet" href="css/styles.css?v=202611031516">
+<link rel="stylesheet" href="css/fonts.css?v=202611031524">
+<link rel="stylesheet" href="css/styles.css?v=202611031524">
 <script>try { const t = localStorage.getItem('rw-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
@@ -47,8 +47,10 @@
         <button data-kind="weapon">Weapons <span></span></button>
         <button data-kind="gear">Gear <span></span></button>
         <button data-kind="vehicle">Vehicles <span></span></button>
+        <button data-kind="weather">Weather <span></span></button>
       </div>
       <div class="filter"><input id="deck-search" type="search" placeholder="Filter by name"></div>
+      <p class="hint kind-hint" id="kind-hint" hidden></p>
       <ul class="card-list" id="card-list"></ul>
     </div>
     <div class="preview-pane" id="preview-pane">
@@ -89,23 +91,26 @@
       <h2>Tracking health with a die</h2>
       <p>The Hearts box on each operator and vehicle card is sized for a 12 mm die. Read the starting number printed in the box, then set a die on top of it to show the Warrior's current Hearts. Turn the die down each time they lose a Heart.</p>
       <p>A D6 only counts to 6. Extra Heart, Tactical Body Armour and similar gear can take a Warrior to 7 or 8 Hearts, so use a 12 mm D10 for those Warriors (read the 0 as 10). Vehicles never go above 6.</p>
+      <h2>Weather cards</h2>
+      <p>Tick an environment under Weather Tables, open the Weather tab and print. Each environment has its own colour, name and badge, so the decks stay apart. Shuffle one environment's cards face down and draw one at the start of the game. The suggested copies follow the 2D6 odds closely: 14 cards per environment, with five copies of "As Good As It Gets". Exact odds need 36 cards, so raise the counts if you want that. Card backs are off by default.</p>
       <h2>Rules text</h2>
       <p id="text-status"></p>
       <h2>About</h2>
       <p><strong>Rogue Warriors</strong> is a modern warfare skirmish game by Lee Fox-Smith and Nicholas Fox-Smith, published by Tabletop Skirmish Games. Card data is used with permission. Get the books at <a href="https://www.tabletopskirmishgames.com" target="_blank" rel="noopener">tabletopskirmishgames.com</a>.</p>
-      <p>Icons are adapted from <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Some weapon silhouettes were drawn for this project. Fonts: League Gothic, Anton, Oswald and PT Sans Narrow (SIL Open Font License).</p>
+      <p>Icons are adapted from <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Some weapon silhouettes were drawn for this project. The Weather Tables are a free supplement by Lee Fox-Smith and Nicholas Fox-Smith. Fonts: League Gothic, Anton, Oswald and PT Sans Narrow (SIL Open Font License).</p>
     </div>
   </section>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/jspdf.umd.min.js?v=202611031516"></script>
-<script src="js/data/rules.js?v=202611031516"></script>
-<script src="js/catalog.js?v=202611031516"></script>
-<script src="js/render.js?v=202611031516"></script>
-<script src="js/print.js?v=202611031516"></script>
-<script src="js/store.js?v=202611031516"></script>
-<script src="js/app.js?v=202611031516"></script>
+<script src="js/vendor/jspdf.umd.min.js?v=202611031524"></script>
+<script src="js/data/rules.js?v=202611031524"></script>
+<script src="js/data/weather.js?v=202611031524"></script>
+<script src="js/catalog.js?v=202611031524"></script>
+<script src="js/render.js?v=202611031524"></script>
+<script src="js/print.js?v=202611031524"></script>
+<script src="js/store.js?v=202611031524"></script>
+<script src="js/app.js?v=202611031524"></script>
 </body>
 </html>

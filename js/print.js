@@ -30,7 +30,7 @@
     const paper = PAPER[opts.paper] || PAPER.letter;
     const dpi = opts.dpi || 300;
     const groups = [
-      { kinds: ['team', 'operator', 'weapon', 'gear', 'vehicle'], size: [63, 88], orient: 'p' },
+      { kinds: ['team', 'operator', 'weapon', 'gear', 'vehicle', 'weather', 'weatherback'], size: [63, 88], orient: 'p' },
       { kinds: ['campaign'], size: [127, 89], orient: 'l' },
     ];
     const total = items.reduce((n, it) => n + (it.copies > 0 ? 1 : 0), 0);
