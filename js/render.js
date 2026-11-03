@@ -360,8 +360,7 @@
     if (env) drawPicture(X, env, 3.0, 2.6, 8, 8, 'contain');
     X.fitLine(c.envName.toUpperCase(), 13, b + 6.8, W - 2 * b - 13 - 2, 7, 4, F.title, '#ffffff', 'left');
     X.fitLine('WEATHER', W - b - 2, b + 5.7, 18, LBL_SM, 1.6, F.label, T.light, 'right', '600');
-    drawPicture(X, icon, 17.5, 14.2, 28, 28, 'contain');
-    chip(X, ('2D6 ROLL ' + c.roll).toUpperCase(), W / 2, 43.0, 4.4, T.dark, '#ffffff', 'center');
+    drawPicture(X, icon, 15, 13.6, 33, 33, 'contain');
     X.rect(b, 49.4, W - 2 * b, 9.6, X.grad(49.4, 59, T.mid, T.dark));
     X.fitLine(String(c.title).toUpperCase(), W / 2, 56.8, W - 2 * b - 5, 6.8, 3.2, F.title, '#ffffff', 'center');
     box(X, 4, 61.0, 55, 21.0, T, '#ffffff');
