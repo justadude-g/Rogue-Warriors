@@ -175,6 +175,11 @@
   // perk and promotion text always share a size, and body text never drops below BODY_MIN.
   const LBL = 2.4, LBL_SM = 2.0, FOOT = 2.3, BODY_MAX = 3.1, BODY_MIN = 2.2;
 
+  // Source of the card (book, faction) in the bottom right corner, so printed cards sort by book.
+  function fromFooter(X, T, c, maxW) {
+    if (c.fromLabel) X.fitLine(c.fromLabel.toUpperCase(), 59, 85.2, maxW || 50, FOOT, 1.7, F.label, T.mid, 'right', '600');
+  }
+
   // Perk text on top, promotion anchored to the bottom of the box, both at the same size.
   function perkPromo(X, T, perkBlocks, promo, x, top, w, bottom, max, min) {
     const promoBlocks = promo ? [{ runs: [{ t: promo }] }] : [];
@@ -221,19 +226,20 @@
     X.text('NAME', 4, 41.9, LBL, F.label, T.mid, 'left', '600');
     X.line(12, 42.1, 59, 42.1, T.mid, 0.25);
     if (c.warriorName) X.fitLine(c.warriorName, 13, 41.5, 46, 3.8, 2.4, F.title, T.ink, 'left');
-    const top = 44.0, bottom = 73.4;
+    const top = 44.0, bottom = c.sidearm ? 72.6 : 82.6;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
     perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, 3.5, BODY_MIN);
+    fromFooter(X, T, c);
     if (c.sidearm) {
-      const s = c.sidearm, y = 74.8;
-      X.rr(4, y, 55, 9.4, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
-      X.text('SIDEARM', 5.6, y + 3.6, LBL, F.label, T.mid, 'left', '600');
-      X.fitLine(s.name, 18.4, y + 3.7, 39.2, 3.0, 2.3, F.body, T.ink, 'left', 'bold');
+      const s = c.sidearm, y = 74.0;
+      X.rr(4, y, 55, 8.8, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
+      X.text('SIDEARM', 5.6, y + 3.4, LBL, F.label, T.mid, 'left', '600');
+      X.fitLine(s.name, 18.4, y + 3.5, 39.2, 3.0, 2.3, F.body, T.ink, 'left', 'bold');
       const vals = [['RANGE', s.range], ['DICE', String(s.dice)], ['DMG', String(s.dmg)], ['AP', s.ap === '-' ? '–' : String(s.ap)]];
       vals.forEach(([lab, v], i) => {
         const x = 5.6 + i * 13.3;
-        X.text(lab, x, y + 7.9, LBL_SM, F.label, T.mid, 'left', '600');
-        X.text(v, x + X.width(lab, LBL_SM, F.label, '600') + 1.2, y + 8.1, 3.1, F.num, T.ink, 'left');
+        X.text(lab, x, y + 7.4, LBL_SM, F.label, T.mid, 'left', '600');
+        X.text(v, x + X.width(lab, LBL_SM, F.label, '600') + 1.2, y + 7.6, 3.1, F.num, T.ink, 'left');
       });
     }
   }
@@ -270,24 +276,25 @@
     const blocks = String(c.perk || '').split('\n').filter((l) => l.trim()).map((l, i) => ({ gapBefore: i ? 0.3 : 0, runs: [{ t: l }] }));
     paragraphs(X, blocks, 5.6, top + 0.8, 51.8, bottom - top - 1.4, 3.0, 2.0, T.ink);
     [0, 1].forEach((i) => {
-      const w = c.weapons[i], y = 67.4 + i * 9.0;
-      X.rr(4, y, 55, 8.6, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
-      X.text(i ? 'SECONDARY' : 'PRIMARY', 5.6, y + 3.3, LBL_SM, F.label, T.mid, 'left', '600');
-      if (!w) { X.text('NONE', 22, y + 5.2, LBL, F.label, T.mid, 'left', '600'); return; }
-      X.fitLine(w.name, 22, y + 3.5, 35.4, 3.0, 2.2, F.body, T.ink, 'left', 'bold');
+      const w = c.weapons[i], y = 66.8 + i * 8.4;
+      X.rr(4, y, 55, 8.0, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
+      X.text(i ? 'SECONDARY' : 'PRIMARY', 5.6, y + 3.1, LBL_SM, F.label, T.mid, 'left', '600');
+      if (!w) { X.text('NONE', 22, y + 5.0, LBL, F.label, T.mid, 'left', '600'); return; }
+      X.fitLine(w.name, 22, y + 3.3, 35.4, 3.0, 2.2, F.body, T.ink, 'left', 'bold');
       [['RANGE', w.range], ['DICE', String(w.dice)], ['DMG', String(w.dmg)], ['AP', w.ap === '-' ? '–' : String(w.ap)]].forEach(([lab, v], j) => {
         const x = [5.6, 25.0, 37.2, 47.8][j];
-        X.text(lab, x, y + 7.3, LBL_SM - 0.2, F.label, T.mid, 'left', '600');
-        X.text(v, x + X.width(lab, LBL_SM - 0.2, F.label, '600') + 1.0, y + 7.5, 3.0, F.num, T.ink, 'left');
+        X.text(lab, x, y + 6.9, LBL_SM - 0.2, F.label, T.mid, 'left', '600');
+        X.text(v, x + X.width(lab, LBL_SM - 0.2, F.label, '600') + 1.0, y + 7.1, 3.0, F.num, T.ink, 'left');
       });
     });
+    fromFooter(X, T, c);
   }
 
   async function drawTeam(X, c) {
     const T = THEME.team, W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
     header(X, T, W, b, 8.6, c.title, 7.2, 4.2);
-    X.fitLine(c.setLabel.toUpperCase(), W / 2, 14.4, 55, LBL, 1.9, F.label, T.mid, 'center', '600');
+    X.fitLine((c.fromLabel || c.setLabel).toUpperCase(), W / 2, 14.4, 55, LBL, 1.9, F.label, T.mid, 'center', '600');
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
     if (pic) { box(X, 18.5, 16.2, 26, 26, T, '#ffffff'); drawPicture(X, pic, 18.7, 16.4, 25.6, 25.6, 'cover', c.imageFit); }
     else drawPicture(X, icon, 18, 15.8, 27, 27, 'contain');
@@ -342,6 +349,7 @@
     box(X, 4, 67.0, 55, 15.8, T, '#ffffff');
     paragraphs(X, textBlocks(c, T, { drawback: true }), 5.6, 67.8, 51.8, 14.6, BODY_MAX, BODY_MIN - 0.1, T.ink);
     X.text('WEAPON', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
+    fromFooter(X, T, c, 38);
   }
 
   async function drawGear(X, c) {
@@ -357,6 +365,7 @@
     chipsRow(X, modChips(c.mods).map((m) => [m, RED]), 53.5, 59);
     box(X, 4, 58, 55, 24.8, T, '#ffffff');
     paragraphs(X, [{ runs: [{ t: c.perk }] }], 5.6, 58.8, 51.8, 23.4, BODY_MAX, BODY_MIN - 0.1, T.ink);
+    fromFooter(X, T, c);
   }
 
   // Weather card: environment name and colour on top, the result in the middle, the effect below.

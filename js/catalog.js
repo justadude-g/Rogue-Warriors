@@ -12,6 +12,15 @@
   const packText = (k) => (Object.prototype.hasOwnProperty.call(pack, k) ? pack[k] : undefined);
   const set = (id) => R.sets.find((s) => s.id === id);
 
+  // Where a card comes from, printed on the card: "Core", a book ("Urban Strike"), or book and faction ("Tiger Blood: Spec Ops").
+  // A table shared by several factions of one book is labelled with the book only.
+  const bookLabel = (b) => (b === 'core' ? 'Core' : R.books[b].name);
+  const setLabelOf = (s) => (s.id === 'core' ? 'Core' : s.id === 'dh-vehicles' ? 'Desert Heroes' : s.label);
+  function tableSource(kind, tableId, book) {
+    const users = R.sets.filter((s) => [].concat(s[kind] || []).includes(tableId));
+    return users.length === 1 ? setLabelOf(users[0]) : bookLabel(book);
+  }
+
   function sidearmFor(weaponTableIds) {
     for (const t of weaponTableIds) {
       const p = (R.weaponTables[t].items || []).find((w) => w.sidearm);
@@ -29,7 +38,7 @@
       icon: ICON + m.icon, image: c.image || null, imageFit: c.imageFit,
       perk: c.perk != null && c.perk !== '' ? c.perk : (packText('mech:' + e.mech) || see(e.book, e.page)),
       promo: e.promo ? (c.promo != null && c.promo !== '' ? c.promo : (promoRaw || see(e.book, e.page))) : null,
-      gearPoints: s.gearPoints, teamSize: s.team, mods: m.mods || {}, ref: ref(e.book, e.page), set: s.id, source: e,
+      gearPoints: s.gearPoints, teamSize: s.team, mods: m.mods || {}, ref: ref(e.book, e.page), set: s.id, source: e, fromLabel: setLabelOf(s),
     };
   }
 
@@ -47,7 +56,7 @@
       promo: hasPromo ? (c.promo ? c.promo : (txt.promo || see(t.book, t.page))) : null,
       soldierType: c.soldierType || soldierType || 'warrior', soldierLabel: st.label,
       stats: { ma: st.ma + (mods.ma || 0), hits: st.hits, mdp: st.mdp + (mods.mdp || 0), hearts: st.hearts + (mods.hearts || 0) },
-      sidearm, ref: ref(t.book, t.page), table: tableId, source: item,
+      sidearm, ref: ref(t.book, t.page), table: tableId, source: item, fromLabel: tableSource('specs', tableId, t.book),
     };
   }
 
@@ -73,7 +82,7 @@
       range: w.range, dice: w.dice, dmg: w.dmg, ap: w.ap, mods: w.mods || {}, tags,
       perk: c.perk ? c.perk : (txt.perk != null ? txt.perk : fallback),
       drawback: c.drawback ? c.drawback : (txt.perk != null ? txt.drawback : ''),
-      ref: ref(t.book, t.page), table: tableId, source: w,
+      ref: ref(t.book, t.page), table: tableId, source: w, fromLabel: tableSource('weapons', tableId, t.book),
     };
   }
 
@@ -85,7 +94,7 @@
       kind: 'gear', key: k, title: c.name || g.name, baseTitle: g.name, pts: g.pts,
       icon: ICON + (g.weaponIcon ? 'weapons/' : 'gear/') + g.type + '.svg', image: c.image || null, imageFit: c.imageFit,
       mods: g.mods || {}, perk: c.perk ? c.perk : (txt || see(t.book, t.page)),
-      ref: ref(t.book, t.page), table: tableId, source: g,
+      ref: ref(t.book, t.page), table: tableId, source: g, fromLabel: tableSource('gear', tableId, t.book),
     };
   }
 
@@ -99,7 +108,7 @@
       icon: ICON + 'vehicles/' + v.icon + '.svg', image: c.image || null, imageFit: c.imageFit,
       perk: c.perk ? c.perk : (txt || see('dh', v.page)),
       stats: { ma: v.ma, hits: v.hits, hearts: v.hearts, armour: v.armour, capacity: v.capacity, crew: v.crew },
-      weapons: v.weapons, ref: ref('dh', v.page), source: v,
+      weapons: v.weapons, ref: ref('dh', v.page), source: v, fromLabel: 'Desert Heroes',
     };
   }
 
