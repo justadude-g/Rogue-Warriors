@@ -28,7 +28,7 @@
 
   window.RW_ONESHOTS = [
     {
-      id: 'os-1', code: 'RWOS-1', title: 'Operation Silent Thunder', date: 'April 2024',
+      id: 'os-1', code: 'RWOS-1', url: 'https://tabletopskirmishgames.com/products/one-shot-mission-os1-operation-silent-thunder', title: 'Operation Silent Thunder', date: 'April 2024',
       tagline: 'Small boat infiltration. Sabotage the battery. Take out the defenders.',
       briefing: [
         'In the heart of the Pacific, a strategic chokepoint threatens the balance of power in the escalating conflict between two formidable adversaries. The island of Taratonga, dominated by its long-range gun battery, is the linchpin in a chain of islands forming an impenetrable barrier. Guarded by an elite special forces team, the battery has been pounding the approaching fleets, thwarting any attempt to secure a foothold in the crucial archipelago.',
@@ -87,7 +87,7 @@
       ],
     },
     {
-      id: 'os-2', code: 'RWOS-2', title: 'Operation Make It Rain', date: 'May 2024',
+      id: 'os-2', code: 'RWOS-2', url: 'https://tabletopskirmishgames.com/products/one-shot-mission-os2-operation-make-it-rain', title: 'Operation Make It Rain', date: 'May 2024',
       tagline: 'Secure the cash. Take out the enemy. Make it rain.',
       briefing: [
         'A convoy of light armoured vehicles, heavy with gold and cash bound for insurgent coffers, winds its way through the rubble-strewn streets. Without warning, the quiet of the early dawn is shattered by a deafening blast; a precision drone strike hits its mark, turning the street into a scene of chaos and fiery destruction.',

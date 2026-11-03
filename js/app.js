@@ -532,7 +532,7 @@
     const progress = h('div', { class: 'progress', hidden: true }, h('div'));
     const results = m.teams.map((t) => computeTeam(Object.assign({ vehicles: [] }, t)));
     box.append(h('div', { class: 'os-head' }, h('div', {}, h('h2', {}, m.code + ' · One Shot Mission'), h('h3', { class: 'os-title' }, m.title), h('p', { class: 'os-tag' }, m.tagline)),
-      h('div', { class: 'stack inline' }, h('button', { class: 'primary', onclick: () => {
+      h('div', { class: 'stack inline' }, h('a', { class: 'button', href: m.url, target: '_blank', rel: 'noopener' }, 'Official page'), h('button', { class: 'primary', onclick: () => {
         const items = []; results.forEach((res) => teamCardItems(res).forEach((it) => items.push(it)));
         printItems(items, m.id + '-all-cards', progress);
       } }, 'Print all cards for both teams'))), progress);
@@ -579,7 +579,7 @@
           } }, 'Open in Mission team')),
         tprog));
     });
-    box.append(h('p', { class: 'hint os-credit' }, `${m.title} is a free One Shot Mission by Lee Fox-Smith and Nicholas Fox-Smith, Tabletop Skirmish Games, ${m.date}. More free content at `, h('a', { href: 'https://www.tabletopskirmishgames.com', target: '_blank', rel: 'noopener' }, 'tabletopskirmishgames.com'), '.'));
+    box.append(h('p', { class: 'hint os-credit' }, `${m.title} is a free One Shot Mission by Lee Fox-Smith and Nicholas Fox-Smith, Tabletop Skirmish Games, ${m.date}. Official page: `, h('a', { href: m.url, target: '_blank', rel: 'noopener' }, m.url.replace('https://', '')), '.'));
   }
 
   // =====================================================================
