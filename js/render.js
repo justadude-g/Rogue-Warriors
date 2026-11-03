@@ -10,6 +10,14 @@
     vehicle: { dark: '#4a2e0c', mid: '#a56a26', light: '#d29a4c', paper: '#fdf8ee', paper2: '#efe0c0', ink: '#2a1a08' },
     campaign: { dark: '#132c52', mid: '#2c5f9e', light: '#4f86cc', paper: '#fbf8ef', paper2: '#ece4cc', ink: '#10223d' },
   };
+  // Operator and campaign Warrior cards can print in black instead of blue (for example to go with black sleeves).
+  const BLACK = {
+    operator: { dark: '#0b0b0d', mid: '#3a3b40', light: '#6b6d74', paper: '#f7f7f8', paper2: '#e0e1e4', ink: '#141416' },
+    campaign: { dark: '#0b0b0d', mid: '#3a3b40', light: '#6b6d74', paper: '#fbf8ef', paper2: '#ece4cc', ink: '#141416' },
+  };
+  let opColour = 'blue';
+  const theme = (kind) => (opColour === 'black' && BLACK[kind] ? BLACK[kind] : THEME[kind]);
+
   // One colour scheme per environment so the decks can be told apart at a glance and shuffled separately.
   const WX = {
     arctic: { dark: '#12394f', mid: '#2f86b1', light: '#8fd0ee', paper: '#f4fafd', paper2: '#d3e8f2', ink: '#0c2735' },
@@ -194,7 +202,7 @@
 
   // ---------------- card types ----------------
   async function drawOperator(X, c) {
-    const T = THEME.operator, W = 63, H = 88, b = 2.2;
+    const T = theme('operator'), W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
     header(X, T, W, b, 8.6, c.title, 7.2, 4.5);
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
@@ -386,7 +394,7 @@
 
   // Campaign Warrior card: one per Platoon member, landscape.
   async function drawCampaign(X, c) {
-    const T = THEME.campaign, W = 127, H = 89, b = 2.2;
+    const T = theme('campaign'), W = 127, H = 89, b = 2.2;
     frame(X, T, W, H, b);
     X.rect(b, b, W - 2 * b, 8.4, X.grad(b, b + 8.4, T.mid, T.dark));
     X.fitLine((c.name || '').toUpperCase() || ' ', 5, b + 6.7, 70, 6.6, 3.5, F.title, '#ffffff', 'left');
@@ -453,5 +461,5 @@
     return cv;
   }
 
-  window.RWRender = { render, SIZE, loadImage };
+  window.RWRender = { render, SIZE, loadImage, setOperatorColour(c) { opColour = c === 'black' ? 'black' : 'blue'; } };
 })();

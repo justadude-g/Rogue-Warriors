@@ -4,7 +4,7 @@
   const uid = () => Math.random().toString(36).slice(2, 10);
 
   // ---------- state ----------
-  const DEFAULT = { sets: ['core'], paper: 'letter', crop: true, copies: {}, custom: {}, teams: [], platoons: [],
+  const DEFAULT = { sets: ['core'], paper: 'letter', crop: true, opColour: 'blue', copies: {}, custom: {}, teams: [], platoons: [],
     ui: { view: 'deck', kind: 'team', sel: null, team: null, platoon: null } };
   let S = JSON.parse(JSON.stringify(DEFAULT));
   const save = () => window.RWStore.putLater('state', S);
@@ -98,6 +98,8 @@
   }
 
   function renderDeck() {
+    window.RWRender.setOperatorColour(S.opColour);
+    $('#op-colour').value = S.opColour === 'black' ? 'black' : 'blue';
     rebuildDeck();
     renderSetList();
     $('#paper').value = S.paper; $('#crop').checked = S.crop;
@@ -269,6 +271,7 @@
     document.querySelectorAll('#deck-tabs button').forEach((b) => b.addEventListener('click', () => { S.ui.kind = b.dataset.kind; save(); renderDeck(); }));
     $('#deck-search').addEventListener('input', renderCardList);
     $('#paper').addEventListener('change', (e) => { S.paper = e.target.value; save(); });
+    $('#op-colour').addEventListener('change', (e) => { S.opColour = e.target.value; window.RWRender.setOperatorColour(S.opColour); save(); renderDeck(); });
     $('#crop').addEventListener('change', (e) => { S.crop = e.target.checked; save(); });
     $('#copies-default').addEventListener('click', () => { for (const k of Object.keys(deck)) for (const c of deck[k]) delete S.copies[c.key]; save(); renderDeck(); toast('Suggested copies restored.'); });
     $('#copies-zero').addEventListener('click', () => { for (const k of Object.keys(deck)) for (const c of deck[k]) S.copies[c.key] = 0; save(); renderDeck(); });
@@ -574,6 +577,7 @@
     wireDeck(); wireAbout();
     addEventListener('pagehide', () => window.RWStore.put('state', S));
     document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') window.RWStore.put('state', S); });
+    window.RWRender.setOperatorColour(S.opColour);
     showView(S.ui.view || 'deck');
   }
   start();
