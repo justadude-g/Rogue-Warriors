@@ -104,6 +104,24 @@ srv.listen(0, async () => {
     await p.waitForSelector('#platoon-editor .preview canvas');
     await p.screenshot({ path: path.join(out, 'app-campaign.png'), fullPage: true });
     await save(() => p.click('button:has-text("Print campaign cards")'), 'campaign.pdf');
+    // rules index: counts, search, book filter
+    await p.click('.tabs button[data-view="index"]');
+    await p.waitForSelector('#ri-list li');
+    const riAll = await p.evaluate(() => document.querySelectorAll('#ri-list li').length);
+    if (riAll < 300) throw new Error('rules index too small: ' + riAll);
+    await p.fill('#ri-search', 'fubar');
+    const riF = await p.evaluate(() => document.querySelector('#ri-list li') && document.querySelector('#ri-list li').textContent);
+    if (!/FUBAR/.test(riF || '') || !/Core\s*p\. 14/.test(riF || '')) throw new Error('rules index: fubar not found: ' + riF);
+    await p.fill('#ri-search', 'booby');
+    const riB = await p.evaluate(() => [...document.querySelectorAll('#ri-list li')].map((l) => l.textContent).join(' '));
+    if (!/ToD\s*p\. 12/.test(riB)) throw new Error('rules index: booby traps not found: ' + riB);
+    await p.fill('#ri-search', 'tactician');
+    await p.screenshot({ path: path.join(out, 'app-index.png') });
+    await p.fill('#ri-search', '');
+    await p.selectOption('#ri-book', 'weather');
+    const riW = await p.evaluate(() => document.querySelectorAll('#ri-list li').length);
+    if (riW < 60) throw new Error('weather entries missing from index: ' + riW);
+    await p.selectOption('#ri-book', 'all');
     // backup
     await p.click('.tabs button[data-view="backup"]');
     await save(() => p.click('#export'), 'backup.json');

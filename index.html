@@ -6,8 +6,8 @@
 <title>Rogue Warriors Quartermaster</title>
 <meta name="description" content="Design and print modular cards for Rogue Warriors: team, operator, weapon and gear cards for one-off Missions, plus campaign Warrior cards.">
 <link rel="icon" href="assets/icons/expertise/exp-shooting.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/fonts.css?v=202611031553">
-<link rel="stylesheet" href="css/styles.css?v=202611031553">
+<link rel="stylesheet" href="css/fonts.css?v=202611031601">
+<link rel="stylesheet" href="css/styles.css?v=202611031601">
 <script>try { const t = localStorage.getItem('rw-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
@@ -17,6 +17,7 @@
     <button role="tab" data-view="deck" aria-selected="true">Card deck</button>
     <button role="tab" data-view="mission">Mission team</button>
     <button role="tab" data-view="campaign">Campaign</button>
+    <button role="tab" data-view="index">Rules index</button>
     <button role="tab" data-view="backup">Backup</button>
     <button role="tab" data-view="about">About</button>
   </nav>
@@ -83,6 +84,21 @@
     <div class="content wide" id="platoon-editor"></div>
   </section>
 
+  <!-- RULES INDEX -->
+  <section class="view" id="view-index" hidden>
+    <div class="content prose rules-index">
+      <h2>Rules index</h2>
+      <p class="hint">Find a keyword, then read the rule in the book. The index lists the book and printed page number only.</p>
+      <div class="ri-tools">
+        <input id="ri-search" type="search" placeholder="Search a keyword, for example pinned, FUBAR, booby trap" autocomplete="off" aria-label="Search the rules index">
+        <select id="ri-book" aria-label="Book"></select>
+      </div>
+      <div class="ri-cats" id="ri-cats" role="group" aria-label="Category"></div>
+      <p class="hint" id="ri-count"></p>
+      <ul class="ri-list" id="ri-list"></ul>
+    </div>
+  </section>
+
   <!-- BACKUP -->
   <section class="view" id="view-backup" hidden>
     <div class="content prose">
@@ -118,13 +134,14 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/jspdf.umd.min.js?v=202611031553"></script>
-<script src="js/data/rules.js?v=202611031553"></script>
-<script src="js/data/weather.js?v=202611031553"></script>
-<script src="js/catalog.js?v=202611031553"></script>
-<script src="js/render.js?v=202611031553"></script>
-<script src="js/print.js?v=202611031553"></script>
-<script src="js/store.js?v=202611031553"></script>
-<script src="js/app.js?v=202611031553"></script>
+<script src="js/vendor/jspdf.umd.min.js?v=202611031601"></script>
+<script src="js/data/rules.js?v=202611031601"></script>
+<script src="js/data/weather.js?v=202611031601"></script>
+<script src="js/data/rules-index.js?v=202611031601"></script>
+<script src="js/catalog.js?v=202611031601"></script>
+<script src="js/render.js?v=202611031601"></script>
+<script src="js/print.js?v=202611031601"></script>
+<script src="js/store.js?v=202611031601"></script>
+<script src="js/app.js?v=202611031601"></script>
 </body>
 </html>

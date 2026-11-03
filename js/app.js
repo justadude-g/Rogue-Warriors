@@ -59,6 +59,7 @@
     if (v === 'deck') renderDeck();
     if (v === 'mission') renderTeams();
     if (v === 'campaign') renderPlatoons();
+    if (v === 'index') renderIndex();
     if (v === 'backup') renderBackup();
   }
 
@@ -533,6 +534,91 @@
       const prev = h('div', { class: 'preview' });
       box.append(h('h2', {}, 'Preview'), prev);
       window.RWRender.render(campaignCard(p, first), 110).then((cv) => prev.append(cv));
+    }
+  }
+
+  // =====================================================================
+  // RULES INDEX: keyword -> book and printed page. No rules wording.
+  // =====================================================================
+  let rulesIndex = null;
+  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'weather'];
+  const normKey = (s) => String(s).toLowerCase().replace(/[’']/g, "'").replace(/&/g, ' and ').replace(/[^a-z0-9+' -]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+  function buildRulesIndex() {
+    const map = new Map();
+    const add = (term, cat, book, page, aliases) => {
+      if (!term || !R.books[book]) return;
+      const key = normKey(term);
+      let e = map.get(key);
+      if (!e) { e = { term, cats: new Set(), locs: new Map(), alias: new Set() }; map.set(key, e); }
+      e.cats.add(cat);
+      if (page != null) e.locs.set(book + ':' + page, { book, page });
+      for (const a of aliases || []) if (a) e.alias.add(a);
+    };
+    for (const r of R.indexTerms || []) {
+      const aliases = r[3] ? r[3].split('|') : [];
+      for (const l of r[2].split(',')) { const [b, p] = l.split(':'); add(r[0], r[1], b, parseInt(p, 10), aliases); }
+    }
+    // from the tables the cards are built from
+    for (const set of R.sets) for (const e of set.expertise || []) add(e.name, 'Expertise', e.book, e.page, ['team expertise']);
+    for (const t of Object.values(R.specTables)) for (const it of t.items) {
+      add(R.specs[it.spec].name, 'Specialisations', t.book, t.page, ['specialist']);
+      if (it.perkName) add(it.perkName, 'Perks', t.book, t.page, [R.specs[it.spec].name, 'perk']);
+    }
+    for (const t of Object.values(R.weaponTables)) for (const w of t.items) add(w.name, 'Weapons', t.book, t.page, ['weapon']);
+    for (const t of Object.values(R.gearTables)) for (const g of t.items) add(g.name, 'Gear', t.book, t.page, ['gear']);
+    for (const v of R.vehicles || []) add(v.title, 'Vehicles', 'dh', v.page, ['vehicle', 'card']);
+    if (R.weather) for (const env of R.weather.envs) {
+      add(env.name + ' weather', 'Weather', 'weather', env.page, ['environment', env.name]);
+      for (const r of env.rows) add(r.name, 'Weather', 'weather', env.page, ['weather', env.name]);
+    }
+    const list = [...map.values()].map((e) => {
+      const byBook = new Map();
+      for (const l of [...e.locs.values()].sort((a, b) => BOOK_ORDER.indexOf(a.book) - BOOK_ORDER.indexOf(b.book) || a.page - b.page)) {
+        if (!byBook.has(l.book)) byBook.set(l.book, []);
+        byBook.get(l.book).push(l.page);
+      }
+      const cats = [...e.cats];
+      const hay = normKey([e.term, ...e.alias, ...cats, ...[...byBook.keys()].map((b) => R.books[b].name + ' ' + R.books[b].short)].join(' '));
+      return { term: e.term, cats, byBook, hay, sort: normKey(e.term).replace(/^(the|a) /, '') };
+    });
+    list.sort((a, b) => a.sort.localeCompare(b.sort));
+    return list;
+  }
+
+  const RI = { q: '', cat: 'All', book: 'all' };
+  function renderIndex() {
+    if (!rulesIndex) rulesIndex = buildRulesIndex();
+    const bookSel = $('#ri-book');
+    if (!bookSel.options.length) {
+      bookSel.append(opt('all', 'All books', true));
+      for (const b of BOOK_ORDER) if (rulesIndex.some((e) => e.byBook.has(b))) bookSel.append(opt(b, R.books[b].name, false));
+      bookSel.addEventListener('change', () => { RI.book = bookSel.value; drawIndex(); });
+      $('#ri-search').addEventListener('input', (e) => { RI.q = e.target.value; drawIndex(); });
+    }
+    drawIndex();
+    const q = $('#ri-search'); if (!matchMedia('(pointer: coarse)').matches) q.focus();
+  }
+  function drawIndex() {
+    const tokens = normKey(RI.q).split(' ').filter(Boolean);
+    const inBook = (e) => RI.book === 'all' || e.byBook.has(RI.book);
+    const base = rulesIndex.filter((e) => inBook(e) && tokens.every((t) => e.hay.includes(t)));
+    // category chips with counts for the current search
+    const counts = new Map(); for (const e of base) for (const c of e.cats) counts.set(c, (counts.get(c) || 0) + 1);
+    const cats = [...new Set(rulesIndex.flatMap((e) => e.cats))].sort();
+    if (RI.cat !== 'All' && !cats.includes(RI.cat)) RI.cat = 'All';
+    const box = $('#ri-cats'); box.textContent = '';
+    for (const c of ['All'].concat(cats)) {
+      const n = c === 'All' ? base.length : (counts.get(c) || 0);
+      if (n === 0 && c !== 'All' && RI.cat !== c) continue;
+      box.append(h('button', { class: 'chip', 'aria-pressed': String(RI.cat === c), onclick: () => { RI.cat = c; drawIndex(); } }, c, h('span', {}, ' ' + n)));
+    }
+    const shown = base.filter((e) => RI.cat === 'All' || e.cats.includes(RI.cat));
+    $('#ri-count').textContent = shown.length ? `${shown.length} ${shown.length === 1 ? 'keyword' : 'keywords'}` : 'No keyword matches. Try a shorter word, or choose All books and All.';
+    const ul = $('#ri-list'); ul.textContent = '';
+    for (const e of shown) {
+      const where = [...e.byBook].map(([b, pages]) => h('span', { class: 'where', title: R.books[b].name }, h('b', {}, R.books[b].short), ` p. ${pages.join(', ')}`));
+      ul.append(h('li', {}, h('div', { class: 'ri-term' }, e.term, h('small', {}, e.cats.join(' · '))), h('div', { class: 'ri-where' }, where)));
     }
   }
 
