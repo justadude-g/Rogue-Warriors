@@ -503,7 +503,7 @@
     svg.append(sv('rect', { x: 0, y: 0, width: 36, height: 36, class: 'os-board' }));
     for (const g of [12, 24]) svg.append(sv('line', { x1: g, y1: 0, x2: g, y2: 36, class: 'os-grid' }), sv('line', { x1: 0, y1: g, x2: 36, y2: g, class: 'os-grid' }));
     for (const sh of map.shapes) {
-      if (sh.k === 'bag' || sh.k === 'safe') svg.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: sh.k === 'safe' ? 2.4 : 1.6, class: 'os-k-' + sh.k }));
+      if (sh.k === 'bag' || sh.k === 'safe' || sh.k === 'hostage') svg.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: sh.k === 'safe' ? 2.4 : sh.k === 'hostage' ? 1.1 : 1.6, class: 'os-k-' + sh.k }));
       else if (sh.k === 'building') {
         svg.append(sv('rect', { x: sh.cx - sh.w / 2, y: sh.cy - sh.h / 2, width: sh.w, height: sh.h, class: 'os-k-building', transform: `rotate(${sh.rot} ${sh.cx} ${sh.cy})` }));
         if (sh.ring) svg.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: sh.ring, class: 'os-ring' }));
@@ -529,11 +529,12 @@
   }
 
   // The private build adds the Mission text (briefing, maps, sheet wording) from js/data/private/oneshots-text.js; the public build has none.
-  const oneShotText = (id) => ((window.RW_ONESHOT_TEXT || {}).missions || {})[id] || null;
+  // Fan-made Missions (Code Three) carry their own text, which is public.
+  const oneShotText = (m) => ((window.RW_ONESHOT_TEXT || {}).missions || {})[m.id] || m.text || null;
   function oneShotTeam(m, t) {
-    const X = oneShotText(m.id), XT = X && X.teams[t.id];
+    const X = oneShotText(m), XT = X && X.teams[t.id];
     const c = JSON.parse(JSON.stringify(t)); c.vehicles = [];
-    c.slots.forEach((sl, i) => { const x = XT && XT.slots[i]; if (x) { sl.sheet = { spec: x.spec, weapon: x.weapon, gear: x.gear }; if (x.gearText) sl.gearText = x.gearText; } });
+    c.slots.forEach((sl, i) => { const x = XT && XT.slots && XT.slots[i]; if (x) { sl.sheet = { spec: x.spec, weapon: x.weapon, gear: x.gear }; if (x.gearText) sl.gearText = x.gearText; } });
     return c;
   }
 
@@ -545,12 +546,12 @@
     const box = $('#os-root'); box.textContent = '';
     const m = list.find((x) => x.id === S.ui.oneshot);
     if (!m) return;
-    const X = oneShotText(m.id);
+    const X = oneShotText(m);
     const progress = h('div', { class: 'progress', hidden: true }, h('div'));
     const teams = m.teams.map((t) => oneShotTeam(m, t));
     const results = teams.map((t) => computeTeam(t));
     box.append(h('div', { class: 'os-head' }, h('div', {}, h('h2', {}, m.code + ' · One Shot Mission'), h('h3', { class: 'os-title' }, m.title), X ? h('p', { class: 'os-tag' }, X.tagline) : null),
-      h('div', { class: 'stack inline' }, h('a', { class: 'button', href: m.url, target: '_blank', rel: 'noopener' }, 'Official page'), h('button', { class: 'primary', onclick: () => {
+      h('div', { class: 'stack inline' }, m.url ? h('a', { class: 'button', href: m.url, target: '_blank', rel: 'noopener' }, 'Official page') : null, h('button', { class: 'primary', onclick: () => {
         const items = []; results.forEach((res) => teamCardItems(res).forEach((it) => items.push(it)));
         printItems(items, m.id + '-all-cards', progress);
       } }, 'Print all cards for both teams'))), progress);
@@ -567,7 +568,7 @@
           h('h2', {}, 'Deployment code: ' + X.map.code), missionMap(X.map),
           h('ul', { class: 'os-legend' }, X.map.legend.map(([k, label]) => h('li', {}, h('i', { class: 'os-sw os-k-' + k }), label))),
           X.map.note ? h('p', { class: 'hint' }, X.map.note) : null,
-          h('p', { class: 'hint' }, 'Redrawn from the printed diagram on a 36 by 36 inch Battlefield, with grid lines every 12 inches. Check distances against the PDF if you play on a smaller table.'))));
+          h('p', { class: 'hint' }, m.fan ? 'A 36 by 36 inch Battlefield, with grid lines every 12 inches. Scale the zones down if you play on a smaller table.' : 'Redrawn from the printed diagram on a 36 by 36 inch Battlefield, with grid lines every 12 inches. Check distances against the PDF if you play on a smaller table.'))));
     } else {
       box.append(h('p', { class: 'os-pub' }, 'The briefing, special rules and deployment map are in the free Mission PDF on the ', h('a', { href: m.url, target: '_blank', rel: 'noopener' }, 'official page'), '. This page builds the teams and prints their cards.'));
     }
@@ -588,7 +589,7 @@
         h('p', {}, h('b', {}, 'Team Expertise: '), XT ? XT.expertise : res.exp.title),
         h('div', { class: 'table-wrap' }, h('table', { class: 'os-table' },
           h('thead', {}, h('tr', {}, ['Warrior', 'Specialisation', 'Weapons', 'Gear', 'Move', 'Hearts', 'Hits on', 'MDP'].map((x) => h('th', {}, x)))), h('tbody', {}, rows))),
-        h('p', { class: 'hint' }, 'Move, Hearts, Hits on and MDP are the final numbers that print on the cards.' + (X ? ' The text columns are as printed in the Mission.' : '')),
+        h('p', { class: 'hint' }, 'Move, Hearts, Hits on and MDP are the final numbers that print on the cards.' + (t.slots.some((x) => x.sheet) ? ' The text columns are as printed in the Mission.' : '')),
         diffs.length ? h('div', { class: 'warn' }, h('strong', {}, 'Mission sheet and cards differ'), h('ul', {}, diffs.map((d) => h('li', {}, d)))) : null,
         t.extraGear ? h('p', { class: 'hint' }, `This team's gear costs ${res.used} points, over the Core budget of ${L.set.gearPoints}. The team builder is set to ${t.extraGear} extra gear points so it stays legal.`) : null,
         h('div', { class: 'stack inline' },
@@ -601,7 +602,8 @@
           } }, 'Open in Mission team')),
         tprog));
     });
-    box.append(h('p', { class: 'hint os-credit' }, `${m.title} is a free One Shot Mission by Lee Fox-Smith and Nicholas Fox-Smith, Tabletop Skirmish Games, ${m.date}. Official page: `, h('a', { href: m.url, target: '_blank', rel: 'noopener' }, m.url.replace('https://', '')), '.'));
+    box.append(m.fan ? h('p', { class: 'hint os-credit' }, `${m.title} is a fan-made One Shot Mission for Code Three, written for this site. It is not an official Tabletop Skirmish Games product and has not been play-tested.`)
+      : h('p', { class: 'hint os-credit' }, `${m.title} is a free One Shot Mission by Lee Fox-Smith and Nicholas Fox-Smith, Tabletop Skirmish Games, ${m.date}. Official page: `, h('a', { href: m.url, target: '_blank', rel: 'noopener' }, m.url.replace('https://', '')), '.'));
   }
 
   // Left-hand index for the About page: one link per section heading, the section in view is highlighted.

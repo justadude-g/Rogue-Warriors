@@ -143,7 +143,14 @@ srv.listen(0, async () => {
     await p.click('.tabs button[data-view="oneshot"]');
     await p.waitForSelector('#os-root .os-table');
     const os = await p.evaluate(() => ({ missions: document.querySelectorAll('#os-list li').length, tables: document.querySelectorAll('#os-root .os-table').length, rows: document.querySelectorAll('#os-root .os-table tbody tr').length, map: !!document.querySelector('#os-root svg.os-map'), priv: !!window.RW_ONESHOT_TEXT }));
-    if (os.missions !== 2 || os.tables !== 2 || os.rows !== 8 || os.map !== os.priv) throw new Error('One Shot view wrong: ' + JSON.stringify(os));
+    if (os.missions !== 4 || os.tables !== 2 || os.rows !== 8 || os.map !== os.priv) throw new Error('One Shot view wrong: ' + JSON.stringify(os));
+    // Code Three fan Missions show in full in every build, map included
+    for (const n of [2, 3]) {
+      await p.click('#os-list li >> nth=' + n);
+      const f = await p.evaluate(() => ({ tables: document.querySelectorAll('#os-root .os-table').length, map: !!document.querySelector('#os-root svg.os-map'), brief: document.querySelectorAll('#os-root .os-cols p').length, budgets: [...document.querySelectorAll('#os-root .os-team .hint')].map((x) => x.textContent).join(' ') }));
+      if (f.tables !== 2 || !f.map || f.brief < 3 || /over the Core budget/.test(f.budgets)) throw new Error('Code Three Mission view wrong: ' + JSON.stringify(f));
+    }
+    await p.click('#os-list li >> nth=0');
     await save(() => p.click('#os-root button:has-text("Print cards")'), 'oneshot-team-cards.pdf');
     await p.click('.tabs button[data-view="about"]');
     const nav = await p.evaluate(() => document.querySelectorAll('#about-nav a').length);
