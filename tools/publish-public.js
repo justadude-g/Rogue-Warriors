@@ -22,6 +22,9 @@ if (fs.realpathSync(DEST) === fs.realpathSync(SRC)) die('the target is this repo
 const srcRemote = git(SRC, 'remote', 'get-url', 'origin'), destRemote = git(DEST, 'remote', 'get-url', 'origin');
 if (srcRemote.replace(/\.git$/, '').toLowerCase() === destRemote.replace(/\.git$/, '').toLowerCase()) die('the target pushes to the same remote as this repository (' + destRemote + ')');
 
+// bring the public clone up to date first, so the push is never rejected as out of date
+try { git(DEST, 'pull', '--ff-only', '-q'); } catch (e) { if (!/couldn't find remote ref|no tracking information|does not have any commits/i.test(String(e.stderr || e.message))) die('could not update ' + DEST + ': ' + (e.stderr || e.message)); }
+
 // clear the target, keeping its .git
 for (const f of fs.readdirSync(DEST)) if (f !== '.git') fs.rmSync(path.join(DEST, f), { recursive: true, force: true });
 
