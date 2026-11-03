@@ -197,7 +197,7 @@ table.platoon td:last-child button { padding: 5px 9px; }
 #view-index { max-width: 820px; }
 
 /* Quick reference (private build) */
-#view-quickref { display: block; max-width: 1160px; margin-inline: auto; }
+#view-quickref { display: block; max-width: 1440px; margin-inline: auto; }
 .qr-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin-bottom: 14px; }
 .qr-bar h2 { margin: 0 0 2px; }
 .qr-bar .hint { margin: 0; max-width: 62ch; }
