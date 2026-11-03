@@ -297,7 +297,8 @@
   // MISSION TEAM (one-off)
   // =====================================================================
   // Soldier types a slot can take: Warrior, Enlisted, Recruit, plus the set's Big Guys ('big:<id>').
-  const bigItems = (set) => [].concat(set.bigGuys || []).flatMap((tid) => R.bigGuyTables[tid].items);
+  // Fighters bought as Gear (the Code Three dogs) are not a soldier type.
+  const bigItems = (set) => [].concat(set.bigGuys || []).flatMap((tid) => R.bigGuyTables[tid].items).filter((b) => !b.fighter);
   const soldierKinds = (set) => Object.entries(R.soldierTypes).map(([k, v]) => [k, v.label]).concat(bigItems(set).map((b) => ['big:' + b.id, 'Big Guy: ' + b.name]));
   function soldierStats(set, key) {
     if (key && key.indexOf('big:') === 0) {
@@ -326,6 +327,9 @@
     const warnings = [];
     let used = 0;
     const seen = {};
+    // Gear that costs less when the Team has a given Specialisation (Code Three: K9 Handler and Police K9).
+    const teamSpecs = new Set(t.slots.map((sl) => (L.operators.find((o) => o.source.id === sl.op) || {}).spec));
+    const cost = (g) => (g.source.cheapWith && teamSpecs.has(g.source.cheapWith[0]) ? g.source.cheapWith[1] : g.pts);
     const rows = t.slots.map((sl, i) => {
       const op = L.operators.find((o) => o.source.id === sl.op);
       const w = L.weapons.find((x) => x.source.uid === sl.weapon);
@@ -335,11 +339,11 @@
       const mods = [exp.mods || {}, op ? (R.specs[op.spec].mods || {}) : {}, w ? w.mods : {}].concat(gear.map((g) => g.mods));
       const sum = (k) => mods.reduce((n, m) => n + (m[k] || 0), 0);
       const stats = { ma: st.ma + sum('ma'), hits: st.hits, mdp: st.mdp == null ? null : st.mdp + sum('mdp'), hearts: st.hearts + sum('hearts') };
-      gear.forEach((g) => { used += g.pts; });
+      gear.forEach((g) => { used += cost(g); });
       const who = sl.name || (op ? op.baseTitle : 'Warrior ' + (i + 1));
       if (!op) warnings.push(`${who}: choose a Specialisation.`);
       if (op) { if (seen[op.spec]) warnings.push(`Two ${op.baseTitle}s. The rules recommend one of each Specialisation (Core p. 9).`); seen[op.spec] = true; }
-      if (op && op.spec === 'scout' && w && w.source.noScout) warnings.push(`${who}: a Scout cannot take the ${w.baseTitle}.`);
+      if (op && (op.spec === 'scout' || R.specs[op.spec].scout) && w && w.source.noScout) warnings.push(`${who}: a Scout cannot take the ${w.baseTitle}.`);
       if (powers.length && (!op || op.spec !== 'psychic')) warnings.push(`${who}: only a Psychic can use Psychic Powers.`);
       if (powers.length > 2 && op && op.spec === 'psychic') warnings.push(`${who}: a Psychic starts with 2 Psychic Powers; a 3rd comes with the Promotion Perk (${C.ref('evo', 15)}).`);
       if (w && w.source.droneOnly && (!op || op.spec !== 'drone-operator')) warnings.push(`${who}: only a Drone Operator can take the ${w.baseTitle}.`);
@@ -360,7 +364,7 @@
       return { vh, card, gear, stats, name: vh.name || '', label };
     });
     const vpv = vehicles.reduce((n, v) => n + v.card.pv, 0);
-    return { team: t, L, exp, budget, used, rows, warnings, vehicles, vpv };
+    return { team: t, L, exp, budget, used, rows, warnings, vehicles, vpv, costOf: cost };
   }
 
   // Cards a team needs on the table: its Expertise, then per Warrior the Specialisation (with name and final stats), Big Guy, weapons, gear;
@@ -374,7 +378,10 @@
       if (r.st.big) { const bc = L.bigGuys.find((b) => b.source.id === r.st.big.id); if (bc) items.push({ card: bc, copies: 1 }); }
       if (r.w) items.push({ card: sl.weaponTitle ? Object.assign({}, r.w, { key: r.w.key + '|' + sl.weaponTitle, title: sl.weaponTitle }) : r.w, copies: 1 });
       r.powers.forEach((p) => items.push({ card: p, copies: 1 }));
-      r.gear.forEach((g) => { const txt = sl.gearText && sl.gearText[g.source.uid]; items.push({ card: txt ? Object.assign({}, g, { key: g.key + '|mission', perk: txt }) : g, copies: 1 }); });
+      r.gear.forEach((g) => {
+        const txt = sl.gearText && sl.gearText[g.source.uid]; items.push({ card: txt ? Object.assign({}, g, { key: g.key + '|mission', perk: txt }) : g, copies: 1 });
+        if (g.source.fighter) { const fc = L.bigGuys.find((b) => b.source.id === g.source.fighter); if (fc) items.push({ card: fc, copies: 1 }); }
+      });
     });
     res.vehicles.forEach((v) => {
       items.push({ card: Object.assign({}, v.card, { key: v.card.key + '|' + v.name, vehicleName: v.name || v.card.vehicleName, stats: Object.assign({}, v.stats) }), copies: 1 });
@@ -386,7 +393,7 @@
 
   function teamPull(res) {
     const by = { Team: [res.exp.title], Operators: [], Weapons: [], Gear: [] };
-    res.rows.forEach((r) => { if (r.op) by.Operators.push(r.op.title); if (r.w) by.Weapons.push(r.slot.weaponTitle || r.w.title); r.powers.forEach((p) => by.Weapons.push(p.title)); if (r.st.big) by.Operators.push(r.st.big.name + ' (Big Guy)'); r.gear.forEach((g) => by.Gear.push(g.title)); });
+    res.rows.forEach((r) => { if (r.op) by.Operators.push(r.op.title); if (r.w) by.Weapons.push(r.slot.weaponTitle || r.w.title); r.powers.forEach((p) => by.Weapons.push(p.title)); if (r.st.big) by.Operators.push(r.st.big.name + ' (Big Guy)'); r.gear.forEach((g) => { by.Gear.push(g.title); if (g.source.fighter) by.Operators.push(g.title + ' (Fighter card)'); }); });
     if (res.vehicles.length) { by.Vehicles = res.vehicles.map((v) => v.card.baseTitle); res.vehicles.forEach((v) => v.gear.forEach((g) => by.Gear.push(g.title + ' (vehicle)'))); }
     (res.team.cards || []).forEach((id) => { const mc = C.missionGear(id); if (mc) by.Gear.push(`${mc.title} x ${res.rows.length} (Mission)`); });
     return Object.entries(by).filter(([, v]) => v.length);
@@ -436,7 +443,7 @@
       const gSel = h('select', { onchange: (e) => { if (e.target.value) { sl.gear.push(e.target.value); redraw(); } } }, opt('', 'Add gear...', true), L.gear.map((g) => opt(g.source.uid, `${g.title} (${g.pts} pts)`)));
       const psychicList = L.weapons.filter((w) => w.source.psychic);
       const pSel = psychicList.length ? h('select', { onchange: (e) => { if (e.target.value) { sl.powers = (sl.powers || []).concat(e.target.value); redraw(); } } }, opt('', 'Add a Psychic Power...', true), psychicList.map((w) => opt(w.source.uid, w.title))) : null;
-      const chips = h('div', { class: 'chips' }, r.powers.map((p, pi) => h('span', { class: 'chip' }, `${p.title} · power`, h('button', { 'aria-label': 'Remove ' + p.title, onclick: () => { sl.powers.splice(pi, 1); redraw(); } }, '×'))), r.gear.map((g, gi) => h('span', { class: 'chip' }, `${g.title} · ${g.pts}`, h('button', { 'aria-label': 'Remove ' + g.title, onclick: () => { sl.gear.splice(gi, 1); redraw(); } }, '×'))));
+      const chips = h('div', { class: 'chips' }, r.powers.map((p, pi) => h('span', { class: 'chip' }, `${p.title} · power`, h('button', { 'aria-label': 'Remove ' + p.title, onclick: () => { sl.powers.splice(pi, 1); redraw(); } }, '×'))), r.gear.map((g, gi) => h('span', { class: 'chip' }, `${g.title} · ${res.costOf(g)}`, h('button', { 'aria-label': 'Remove ' + g.title, onclick: () => { sl.gear.splice(gi, 1); redraw(); } }, '×'))));
       const s = r.stats;
       slots.append(h('div', { class: 'slot' },
         h('img', { class: 'spec', src: r.op ? r.op.icon : 'assets/icons/specialisations/non-specialist.svg', alt: '' }),
@@ -466,7 +473,7 @@
           h('div', { class: 'stats' }, [['Move', s2.ma + '"'], ['Hits on', s2.hits + '+'], ['Hearts', s2.hearts], ['Armour', (s2.armour > 0 ? '+' : '') + s2.armour], ['Capacity', s2.capacity], ['Crew', s2.crew ? 'Yes' : 'No']].map(([a, b]) => h('span', { class: 'stat' }, a, h('b', {}, b))),
             h('button', { class: 'ghost danger', onclick: () => { t.vehicles.splice(i, 1); redraw(); } }, 'Remove')))));
     });
-    const addV = h('select', { onchange: (e) => { if (e.target.value) { t.vehicles.push({ type: e.target.value, name: '', gear: [] }); redraw(); } } }, opt('', 'Add a vehicle...', true), vcards.map((x) => opt(x.source.id, `${x.baseTitle} (${x.pv} PV, counts as ${x.value})`)));
+    const addV = h('select', { onchange: (e) => { if (e.target.value) { t.vehicles.push({ type: e.target.value, name: '', gear: [] }); redraw(); } } }, opt('', 'Add a vehicle...', true), vcards.map((x) => opt(x.source.id, `${x.baseTitle} (${x.pv} PV, counts as ${x.value})${x.source.book ? ' · ' + x.fromLabel : ''}`)));
     box.append(vlist, h('div', { class: 'stack inline' }, addV), res.vehicles.length ? h('p', { class: 'budget' }, `Vehicle points: ${res.vpv} PV`) : null);
 
     box.append(res.warnings.length ? h('div', { class: 'warn' }, h('strong', {}, 'Check'), h('ul', {}, res.warnings.map((w) => h('li', {}, w)))) : h('div', { class: 'ok' }, 'Team is legal.'));
@@ -744,13 +751,13 @@
   // RULES INDEX: keyword -> book and printed page. No rules wording.
   // =====================================================================
   let rulesIndex = null;
-  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'evo', 'uw', 'weather', 'faq'];
+  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'evo', 'uw', 'weather', 'faq', 'c3'];
   const normKey = (s) => String(s).toLowerCase().replace(/[’']/g, "'").replace(/&/g, ' and ').replace(/[^a-z0-9+' -]+/g, ' ').replace(/\s+/g, ' ').trim();
 
   function buildRulesIndex() {
     const map = new Map();
     const add = (term, cat, book, page, aliases) => {
-      if (!term || !R.books[book]) return;
+      if (!term || !R.books[book] || R.books[book].fan) return; // fan-made content has no book pages
       const key = normKey(term);
       let e = map.get(key);
       if (!e) { e = { term, cats: new Set(), locs: new Map(), alias: new Set() }; map.set(key, e); }

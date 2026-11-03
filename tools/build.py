@@ -10,7 +10,7 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', 'assets', '
 
 AUTHORS = {'lorc': 'Lorc', 'delapouite': 'Delapouite', 'skoll': 'Skoll', 'john-colburn': 'John Colburn',
            'sbed': 'Sbed', 'darkzaitzev': 'DarkZaitzev', 'rihlsul': 'Rihlsul', 'cathelineau': 'Cathelineau',
-           'lord-berandas': 'Lord Berandas', 'badges': 'Badges', 'quoting': 'Quoting'}
+           'lord-berandas': 'Lord Berandas', 'badges': 'Badges', 'quoting': 'Quoting', 'andymeneely': 'Andy Meneely'}
 
 # object colours: (light, dark)
 PAL = {
@@ -33,7 +33,7 @@ CAT = {
 }
 
 B = {'CORE': 'Core Rulebook', 'RD': 'Rapid Deployment', 'TB': 'Tiger Blood', 'US': 'Urban Strike',
-     'IBZ': 'Ice Base Zero', 'TOD': 'Tour of Duty', 'DH': 'Desert Heroes', 'WX': 'Weather Tables', 'EVO': 'Evolution (Sci-Fi)', 'UW': 'Ungentlemanly Warriors'}
+     'IBZ': 'Ice Base Zero', 'TOD': 'Tour of Duty', 'DH': 'Desert Heroes', 'WX': 'Weather Tables', 'EVO': 'Evolution (Sci-Fi)', 'UW': 'Ungentlemanly Warriors', 'C3': 'Code Three (Fan Made)'}
 
 
 def ref(spec):
@@ -434,6 +434,40 @@ ICONS = [
     ('camo-paints', 'gear', 'Camouflage Paints', 'delapouite/paint-brush', 'olive', 'Camouflage Paints@UW:20'),
     ('cup-of-tea', 'gear', 'Proper Cup of Tea', 'delapouite/teapot-leaves', 'brown', 'Proper Cup of Tea@UW:20'),
     ('caltrops', 'gear', 'Caltrops', 'delapouite/caltrops', 'gunmetal', 'Caltrops@UW:20'),
+    # ---------------- CODE THREE (FAN MADE) ----------------
+    ('k9-handler', 'specialisation', 'K9 Handler', [('lorc/hound', 'navy', (0, 0, 1, True)), ('andymeneely/police-badge', 'brass', (300, 290, 0.36, False))], 'navy', 'K9 Handler@C3:fan'),
+    ('negotiator', 'specialisation', 'Negotiator', 'delapouite/megaphone', 'orange', 'Negotiator@C3:fan'),
+    ('detective', 'specialisation', 'Detective', 'lorc/magnifying-glass', 'brass', 'Detective@C3:fan'),
+    ('mastermind', 'specialisation', 'Mastermind', 'skoll/chess-king', 'purple', 'Mastermind@C3:fan'),
+    ('getaway-driver', 'specialisation', 'Getaway Driver', 'delapouite/steering-wheel', 'black', 'Getaway Driver@C3:fan'),
+    ('safecracker', 'specialisation', 'Safecracker', 'delapouite/dial-padlock', 'steel', 'Safecracker@C3:fan'),
+    ('hacker', 'specialisation', 'Hacker', 'delapouite/laptop', 'teal', 'Hacker@C3:fan'),
+    ('bagman', 'specialisation', 'Bagman', 'delapouite/money-stack', 'green', 'Bagman@C3:fan'),
+    ('k9-dog', 'specialisation', 'Police K9', [('lorc/hound', 'khaki', (0, 0, 1, False)), ('andymeneely/police-badge', 'brass', (20, 290, 0.36, False))], 'khaki', 'Police K9@C3:fan'),
+    ('attack-dog', 'specialisation', 'Attack Dog', 'lorc/wolf-head', 'black', 'Attack Dog@C3:fan'),
+    ('bean-bag', 'weapon', 'Bean Bag Shotgun', 'delapouite/shotgun-rounds', 'orange', 'Bean Bag Shotgun@C3:fan'),
+    ('taser', 'weapon', 'Taser', 'john-colburn/pistol-gun', 'yellow', 'Taser X26@C3:fan'),
+    ('telescopic-baton', 'weapon', 'Telescopic Baton', 'skoll/telescopic-baton', 'black', 'Telescopic Baton@C3:fan'),
+    ('revolver', 'weapon', 'Revolver', 'skoll/revolver', 'gunmetal', 'Snub-Nose Revolver@C3:fan'),
+    ('sawn-off', 'weapon', 'Sawn-Off Shotgun', 'delapouite/sawed-off-shotgun', 'wood', 'Sawn-Off Shotgun@C3:fan'),
+    ('machete', 'weapon', 'Machete', 'lorc/machete', 'steel', 'Machete@C3:fan'),
+    ('handcuffs', 'gear', 'Handcuffs', 'lorc/handcuffs', 'steel', 'Handcuffs@C3:fan'),
+    ('respirator', 'gear', 'Gas Mask', 'skoll/gas-mask', 'black', 'Gas Mask@C3:fan'),
+    ('cs-gas', 'gear', 'CS Gas Grenade', 'lorc/poison-gas', 'toxic', 'CS Gas Grenade@C3:fan'),
+    ('battering-ram', 'gear', 'Battering Ram', 'lorc/flat-hammer', 'gunmetal', 'Battering Ram@C3:fan'),
+    ('riot-shield-gear', 'gear', 'Riot Shield', 'lorc/riot-shield', 'navy', 'Riot Shield@C3:fan'),
+    ('k9', 'gear', 'Police K9', [('lorc/hound', 'khaki', (0, 0, 1, False)), ('andymeneely/police-badge', 'brass', (20, 290, 0.36, False))], 'khaki', 'Police K9@C3:fan'),
+    ('attack-dog', 'gear', 'Attack Dog', 'lorc/wolf-head', 'black', 'Attack Dog@C3:fan'),
+    ('balaclava', 'gear', 'Balaclava', 'skoll/balaclava', 'black', 'Balaclava@C3:fan'),
+    ('lockpicks', 'gear', 'Lock Picks', 'delapouite/lockpicks', 'steel', 'Lock Picks@C3:fan'),
+    ('crowbar', 'gear', 'Crowbar', 'delapouite/crowbar', 'red', 'Crowbar@C3:fan'),
+    ('burner-phone', 'gear', 'Burner Phone', 'delapouite/smartphone', 'black', 'Burner Phone@C3:fan'),
+    ('thermal-drill', 'gear', 'Thermal Drill', 'delapouite/drill', 'orange', 'Thermal Drill@C3:fan'),
+    ('bent-copper', 'gear', 'Bent Copper', 'andymeneely/police-badge', 'brass', 'Bent Copper@C3:fan'),
+    ('police-car', 'vehicle', 'Police Interceptor', 'delapouite/police-car', 'navy', 'Police Interceptor@C3:fan'),
+    ('armoured-rescue', 'vehicle', 'Armoured Rescue Vehicle', 'delapouite/truck', 'black', 'Armoured Rescue Vehicle@C3:fan'),
+    ('getaway-car', 'vehicle', 'Getaway Car', 'skoll/race-car', 'red', 'Getaway Car@C3:fan'),
+    ('cash-van', 'vehicle', 'Armoured Cash Van', [('delapouite/truck', 'grey', (0, 0, 1, False)), ('delapouite/money-stack', 'green', (300, 40, 0.38, False))], 'grey', 'Armoured Cash Van@C3:fan'),
 ]
 
 PATH_RE = re.compile(r'<path\b([^>]*?)/?>')

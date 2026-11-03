@@ -126,6 +126,19 @@ srv.listen(0, async () => {
     const uw = await p.evaluate(() => { const d = RWCatalog.deck(['uw-gang']); const L = RWCatalog.forSet('uw-gang');
       return { team: d.team.length, op: d.operator.length, w: d.weapon.length, g: d.gear.length, gearOnly: L.weapons.filter((w) => w.source.gearOnly).length }; });
     if (uw.team !== 6 || uw.op !== 10 || uw.w !== 16 || uw.g !== 23 || uw.gearOnly !== 2) throw new Error('Ungentlemanly Warriors deck wrong: ' + JSON.stringify(uw));
+    // Code Three (Fan Made): card counts, fan wording in place, K9 Handler discount, dog Fighter not a soldier type
+    const c3 = await p.evaluate(() => { const a = RWCatalog.deck(['c3-swat']), b = RWCatalog.deck(['c3-syn']), v = RWCatalog.deck(['c3-vehicles']), dh = RWCatalog.deck(['dh-vehicles']);
+      const all = [].concat(...Object.values(a), ...Object.values(b), ...v.vehicle);
+      return { a: [a.team.length, a.operator.length, a.weapon.length, a.gear.length], b: [b.team.length, b.operator.length, b.weapon.length, b.gear.length], v: v.vehicle.length, dh: dh.vehicle.length,
+        noText: all.filter((c) => !c.perk || /^See /.test(c.perk)).map((c) => c.key) }; });
+    if (JSON.stringify(c3.a) !== '[6,11,10,13]' || JSON.stringify(c3.b) !== '[6,11,10,13]' || c3.v !== 4 || c3.dh !== 6 || c3.noText.length) throw new Error('Code Three deck wrong: ' + JSON.stringify(c3));
+    await p.click('.tabs button[data-view="mission"]');
+    await p.click('#team-new');
+    await p.evaluate(() => { const sel = document.querySelectorAll('#team-editor .team-head select')[0]; sel.value = 'c3-swat'; sel.dispatchEvent(new Event('change')); });
+    await p.evaluate(() => { const s = document.querySelector('#team-editor .slot .grid'); const sels = s.querySelectorAll('select'); sels[0].value = 'spec-c3-swat-c3-k9-handler'; sels[0].dispatchEvent(new Event('change')); });
+    await p.evaluate(() => { const sels = document.querySelector('#team-editor .slot .grid').querySelectorAll('select'); const g = sels[sels.length - 1]; g.value = 'gear-c3-swat-k9'; g.dispatchEvent(new Event('change')); });
+    const k9 = await p.evaluate(() => ({ budget: document.querySelector('#team-editor .budget').textContent, kinds: [...document.querySelector('#team-editor .slot .grid').querySelectorAll('select')[1].options].map((o) => o.textContent) }));
+    if (!/Gear: 3 of 10/.test(k9.budget) || k9.kinds.some((k) => /K9|Dog/.test(k))) throw new Error('Code Three team builder wrong: ' + JSON.stringify(k9));
     // One Shot Missions: two Missions, two teams each, cards print; FAQ list on the About page
     await p.click('.tabs button[data-view="oneshot"]');
     await p.waitForSelector('#os-root .os-table');
@@ -167,7 +180,7 @@ srv.listen(0, async () => {
     const keptTeam = await p.evaluate(() => document.querySelectorAll('#team-saved li:not(.empty)').length);
     await p.click('.tabs button[data-view="campaign"]');
     const keptPlatoon = await p.evaluate(() => document.querySelectorAll('#platoon-saved li:not(.empty)').length);
-    const kept = keptTeam === 1 && keptPlatoon === 1;
+    const kept = keptTeam === 2 && keptPlatoon === 1; // the Code Three check adds a second team
     // phone width
     await p.setViewportSize({ width: 390, height: 844 });
     if (hasQr) {

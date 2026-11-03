@@ -7785,6 +7785,719 @@
           "license": "CC BY 3.0"
         }
       ]
+    },
+    {
+      "id": "k9-handler",
+      "category": "specialisation",
+      "label": "K9 Handler",
+      "file": "specialisations/k9-handler.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "K9 Handler",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/hound.html",
+          "license": "CC BY 3.0"
+        },
+        {
+          "author": "Andy Meneely",
+          "source": "https://game-icons.net/1x1/andymeneely/police-badge.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "negotiator",
+      "category": "specialisation",
+      "label": "Negotiator",
+      "file": "specialisations/negotiator.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Negotiator",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/megaphone.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "detective",
+      "category": "specialisation",
+      "label": "Detective",
+      "file": "specialisations/detective.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Detective",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/magnifying-glass.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mastermind",
+      "category": "specialisation",
+      "label": "Mastermind",
+      "file": "specialisations/mastermind.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Mastermind",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/chess-king.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "getaway-driver",
+      "category": "specialisation",
+      "label": "Getaway Driver",
+      "file": "specialisations/getaway-driver.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Getaway Driver",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/steering-wheel.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "safecracker",
+      "category": "specialisation",
+      "label": "Safecracker",
+      "file": "specialisations/safecracker.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Safecracker",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/dial-padlock.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "hacker",
+      "category": "specialisation",
+      "label": "Hacker",
+      "file": "specialisations/hacker.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Hacker",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/laptop.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bagman",
+      "category": "specialisation",
+      "label": "Bagman",
+      "file": "specialisations/bagman.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Bagman",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/money-stack.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "k9-dog",
+      "category": "specialisation",
+      "label": "Police K9",
+      "file": "specialisations/k9-dog.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Police K9",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/hound.html",
+          "license": "CC BY 3.0"
+        },
+        {
+          "author": "Andy Meneely",
+          "source": "https://game-icons.net/1x1/andymeneely/police-badge.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "attack-dog",
+      "category": "specialisation",
+      "label": "Attack Dog",
+      "file": "specialisations/attack-dog.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Attack Dog",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/wolf-head.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bean-bag",
+      "category": "weapon",
+      "label": "Bean Bag Shotgun",
+      "file": "weapons/bean-bag.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Bean Bag Shotgun",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/shotgun-rounds.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "taser",
+      "category": "weapon",
+      "label": "Taser",
+      "file": "weapons/taser.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Taser X26",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "John Colburn",
+          "source": "https://game-icons.net/1x1/john-colburn/pistol-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "telescopic-baton",
+      "category": "weapon",
+      "label": "Telescopic Baton",
+      "file": "weapons/telescopic-baton.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Telescopic Baton",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/telescopic-baton.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "revolver",
+      "category": "weapon",
+      "label": "Revolver",
+      "file": "weapons/revolver.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Snub-Nose Revolver",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/revolver.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sawn-off",
+      "category": "weapon",
+      "label": "Sawn-Off Shotgun",
+      "file": "weapons/sawn-off.svg",
+      "colour": "wood",
+      "appliesTo": [
+        {
+          "name": "Sawn-Off Shotgun",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/sawed-off-shotgun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "machete",
+      "category": "weapon",
+      "label": "Machete",
+      "file": "weapons/machete.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Machete",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/machete.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "handcuffs",
+      "category": "gear",
+      "label": "Handcuffs",
+      "file": "gear/handcuffs.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Handcuffs",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/handcuffs.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "respirator",
+      "category": "gear",
+      "label": "Gas Mask",
+      "file": "gear/respirator.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Gas Mask",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/gas-mask.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cs-gas",
+      "category": "gear",
+      "label": "CS Gas Grenade",
+      "file": "gear/cs-gas.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "CS Gas Grenade",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/poison-gas.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "battering-ram",
+      "category": "gear",
+      "label": "Battering Ram",
+      "file": "gear/battering-ram.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Battering Ram",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/flat-hammer.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "riot-shield-gear",
+      "category": "gear",
+      "label": "Riot Shield",
+      "file": "gear/riot-shield-gear.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Riot Shield",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/riot-shield.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "k9",
+      "category": "gear",
+      "label": "Police K9",
+      "file": "gear/k9.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Police K9",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/hound.html",
+          "license": "CC BY 3.0"
+        },
+        {
+          "author": "Andy Meneely",
+          "source": "https://game-icons.net/1x1/andymeneely/police-badge.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "attack-dog",
+      "category": "gear",
+      "label": "Attack Dog",
+      "file": "gear/attack-dog.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Attack Dog",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/wolf-head.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "balaclava",
+      "category": "gear",
+      "label": "Balaclava",
+      "file": "gear/balaclava.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Balaclava",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/balaclava.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "lockpicks",
+      "category": "gear",
+      "label": "Lock Picks",
+      "file": "gear/lockpicks.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Lock Picks",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/lockpicks.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "crowbar",
+      "category": "gear",
+      "label": "Crowbar",
+      "file": "gear/crowbar.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Crowbar",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/crowbar.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "burner-phone",
+      "category": "gear",
+      "label": "Burner Phone",
+      "file": "gear/burner-phone.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Burner Phone",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/smartphone.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "thermal-drill",
+      "category": "gear",
+      "label": "Thermal Drill",
+      "file": "gear/thermal-drill.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Thermal Drill",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/drill.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bent-copper",
+      "category": "gear",
+      "label": "Bent Copper",
+      "file": "gear/bent-copper.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Bent Copper",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Andy Meneely",
+          "source": "https://game-icons.net/1x1/andymeneely/police-badge.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "police-car",
+      "category": "vehicle",
+      "label": "Police Interceptor",
+      "file": "vehicles/police-car.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Police Interceptor",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/police-car.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "armoured-rescue",
+      "category": "vehicle",
+      "label": "Armoured Rescue Vehicle",
+      "file": "vehicles/armoured-rescue.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Armoured Rescue Vehicle",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/truck.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "getaway-car",
+      "category": "vehicle",
+      "label": "Getaway Car",
+      "file": "vehicles/getaway-car.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Getaway Car",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/race-car.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cash-van",
+      "category": "vehicle",
+      "label": "Armoured Cash Van",
+      "file": "vehicles/cash-van.svg",
+      "colour": "grey",
+      "appliesTo": [
+        {
+          "name": "Armoured Cash Van",
+          "book": "Code Three (Fan Made)",
+          "page": "fan"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/truck.html",
+          "license": "CC BY 3.0"
+        },
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/money-stack.html",
+          "license": "CC BY 3.0"
+        }
+      ]
     }
   ]
 }

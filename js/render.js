@@ -229,7 +229,7 @@
     const top = 44.0, bottom = c.sidearm ? 72.6 : 82.6;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
     perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, 3.5, BODY_MIN, c.bigGuy ? 'EXTRA RULES' : null);
-    if (c.bigGuy) X.text('BIG GUY', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
+    if (c.bigGuy) X.text(c.source && c.source.fighter ? 'FIGHTER' : 'BIG GUY', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
     fromFooter(X, T, c, c.bigGuy ? 38 : 50);
     if (c.sidearm) {
       const s = c.sidearm, y = 74.0;

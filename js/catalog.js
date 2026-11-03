@@ -7,15 +7,18 @@
   let custom = {};          // per-card overrides from the store: { key: { name, perk, promo, drawback, image, ... } }
 
   const bookShort = (b) => R.books[b].short;
-  const ref = (book, page) => `${bookShort(book)} p. ${page}`;
+  // Fan-made books have no page numbers: their wording is always on the card.
+  const ref = (book, page) => (R.books[book].fan ? 'Fan made' : `${bookShort(book)} p. ${page}`);
   const see = (book, page) => `See ${ref(book, page)}.`;
-  const packText = (k) => (Object.prototype.hasOwnProperty.call(pack, k) ? pack[k] : undefined);
+  // Rules wording (private build), then fan-made wording (js/data/fan, public).
+  const packText = (k) => (Object.prototype.hasOwnProperty.call(pack, k) ? pack[k] : Object.prototype.hasOwnProperty.call(window.RW_FAN_TEXT || {}, k) ? window.RW_FAN_TEXT[k] : undefined);
   const set = (id) => R.sets.find((s) => s.id === id);
 
   // Where a card comes from, printed on the card: "Core", a book ("Urban Strike"), or book and faction ("Tiger Blood: Spec Ops").
   // A table shared by several factions of one book is labelled with the book only.
   const bookLabel = (b) => (b === 'core' ? 'Core' : R.books[b].name);
   const setLabelOf = (s) => (s.id === 'core' ? 'Core' : s.id === 'dh-vehicles' ? 'Desert Heroes' : s.cardLabel || s.label);
+  const bookLabelFan = (b) => (R.books[b].fan ? (R.sets.find((s) => s.book === b && s.cardLabel) || {}).cardLabel || R.books[b].name : null);
   function tableSource(kind, tableId, book) {
     const users = R.sets.filter((s) => [].concat(s[kind] || []).includes(tableId));
     return users.length === 1 ? setLabelOf(users[0]) : bookLabel(book);
@@ -70,9 +73,9 @@
       icon: ICON + 'specialisations/' + item.icon + '.svg', image: c.image || null, imageFit: c.imageFit,
       perk: c.perk ? c.perk : (txt.perk || see(t.book, t.page)),
       promo: c.promo ? c.promo : (txt.extra || ''),
-      soldierType: 'big', soldierLabel: 'Big Guy',
+      soldierType: 'big', soldierLabel: item.fighter ? 'Fighter' : 'Big Guy',
       stats: { ma: item.ma, hits: item.hits, mdp: item.mdp, hearts: item.hearts },
-      sidearm: item.mount ? null : sidearm, ref: ref(t.book, t.page), table: tableId, source: item, fromLabel: tableSource('bigGuys', tableId, t.book),
+      sidearm: item.mount || item.fighter ? null : sidearm, ref: ref(t.book, t.page), table: tableId, source: item, fromLabel: tableSource('bigGuys', tableId, t.book),
     };
   }
 
@@ -117,14 +120,14 @@
   // Vehicle card (Desert Heroes). Details are numbered lines separated by newlines.
   function vehicle(v) {
     const k = 'veh:' + v.id, c = custom[k] || {};
-    const txt = packText('veh:' + v.id);
+    const txt = packText('veh:' + v.id), book = v.book || 'dh';
     return {
       kind: 'vehicle', key: k, title: c.name || v.title, baseTitle: v.title, cls: v.cls, pv: v.pv, value: v.value,
       vehicleName: c.vehicleName || '', names: v.names,
       icon: ICON + 'vehicles/' + v.icon + '.svg', image: c.image || null, imageFit: c.imageFit,
-      perk: c.perk ? c.perk : (txt || see('dh', v.page)),
+      perk: c.perk ? c.perk : (txt || see(book, v.page)),
       stats: { ma: v.ma, hits: v.hits, hearts: v.hearts, armour: v.armour, capacity: v.capacity, crew: v.crew },
-      weapons: v.weapons, ref: ref('dh', v.page), source: v, fromLabel: 'Desert Heroes',
+      weapons: v.weapons, ref: ref(book, v.page), source: v, fromLabel: book === 'dh' ? 'Desert Heroes' : bookLabelFan(book) || R.books[book].name,
     };
   }
 
@@ -166,7 +169,7 @@
       for (const tid of s.weapons) for (const w of R.weaponTables[tid].items) if (!seenW.has(w.uid)) { seenW.add(w.uid); out.weapon.push(weapon(w, tid)); }
       for (const tid of s.gear) for (const g of R.gearTables[tid].items) if (!seenG.has(g.uid)) { seenG.add(g.uid); out.gear.push(gear(g, tid)); }
       if (s.weather) { const env = R.weather.envs.find((e) => e.id === s.weather); for (const r of env.rows) out.weather.push(weather(env, r)); out.weather.push(weatherBack(env)); }
-      if (s.vehicles) for (const v of R.vehicles) if (!out.vehicle.some((x) => x.source === v)) out.vehicle.push(vehicle(v));
+      if (s.vehicles) for (const v of R.vehicles) if ((v.book || 'dh') === s.book && !out.vehicle.some((x) => x.source === v)) out.vehicle.push(vehicle(v));
     }
     return out;
   }
