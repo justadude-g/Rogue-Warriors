@@ -90,7 +90,7 @@
     team.rows.forEach((r, i) => {
       y += 9;
       const cells = [[String(i + 1), 5], [r.name || '-', 32], [r.spec, 30], [r.weapon || 'Pistol only', 36], [r.gear.join(', ') || '-', 40],
-        [r.stats.ma + '"', 9], [r.stats.hits + '+', 9], [String(r.stats.mdp), 9], [String(r.stats.hearts), 9]];
+        [r.stats.ma + '"', 9], [r.stats.hits == null ? '-' : r.stats.hits + '+', 9], [r.stats.mdp == null ? '-' : String(r.stats.mdp), 9], [String(r.stats.hearts), 9]];
       let lines = 1;
       cells.forEach(([t, w], c) => { const parts = pdf.splitTextToSize(t, w); lines = Math.max(lines, parts.length); pdf.text(parts, cols[c], y); });
       y += (lines - 1) * 4;

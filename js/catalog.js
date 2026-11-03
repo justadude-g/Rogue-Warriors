@@ -15,7 +15,7 @@
   // Where a card comes from, printed on the card: "Core", a book ("Urban Strike"), or book and faction ("Tiger Blood: Spec Ops").
   // A table shared by several factions of one book is labelled with the book only.
   const bookLabel = (b) => (b === 'core' ? 'Core' : R.books[b].name);
-  const setLabelOf = (s) => (s.id === 'core' ? 'Core' : s.id === 'dh-vehicles' ? 'Desert Heroes' : s.label);
+  const setLabelOf = (s) => (s.id === 'core' ? 'Core' : s.id === 'dh-vehicles' ? 'Desert Heroes' : s.cardLabel || s.label);
   function tableSource(kind, tableId, book) {
     const users = R.sets.filter((s) => [].concat(s[kind] || []).includes(tableId));
     return users.length === 1 ? setLabelOf(users[0]) : bookLabel(book);
@@ -57,6 +57,22 @@
       soldierType: c.soldierType || soldierType || 'warrior', soldierLabel: st.label,
       stats: { ma: st.ma + (mods.ma || 0), hits: st.hits, mdp: st.mdp + (mods.mdp || 0), hearts: st.hearts + (mods.hearts || 0) },
       sidearm, ref: ref(t.book, t.page), table: tableId, source: item, fromLabel: tableSource('specs', tableId, t.book),
+    };
+  }
+
+  // Big Guy (Evolution). Drawn on the operator card: stats from the table, the Perk on top, the Extra Rules where a Promotion would go.
+  function bigGuy(item, tableId, sidearm) {
+    const t = R.bigGuyTables[tableId];
+    const k = 'op:' + item.id, c = custom[k] || {};
+    const txt = packText('big:' + item.id) || {};
+    return {
+      kind: 'operator', bigGuy: true, key: k, title: c.name || item.name, baseTitle: item.name, spec: item.id, perkName: '', warriorName: c.warriorName || '',
+      icon: ICON + 'specialisations/' + item.icon + '.svg', image: c.image || null, imageFit: c.imageFit,
+      perk: c.perk ? c.perk : (txt.perk || see(t.book, t.page)),
+      promo: c.promo ? c.promo : (txt.extra || ''),
+      soldierType: 'big', soldierLabel: 'Big Guy',
+      stats: { ma: item.ma, hits: item.hits, mdp: item.mdp, hearts: item.hearts },
+      sidearm: item.mount ? null : sidearm, ref: ref(t.book, t.page), table: tableId, source: item, fromLabel: tableSource('bigGuys', tableId, t.book),
     };
   }
 
@@ -146,6 +162,7 @@
           out.operator.push(operator(it, tid, sa, s.soldierType));
         }
       }
+      for (const tid of [].concat(s.bigGuys || [])) for (const b of R.bigGuyTables[tid].items) if (!seenSpec.has(b.id)) { seenSpec.add(b.id); out.operator.push(bigGuy(b, tid, sa)); }
       for (const tid of s.weapons) for (const w of R.weaponTables[tid].items) if (!seenW.has(w.uid)) { seenW.add(w.uid); out.weapon.push(weapon(w, tid)); }
       for (const tid of s.gear) for (const g of R.gearTables[tid].items) if (!seenG.has(g.uid)) { seenG.add(g.uid); out.gear.push(gear(g, tid)); }
       if (s.weather) { const env = R.weather.envs.find((e) => e.id === s.weather); for (const r of env.rows) out.weather.push(weather(env, r)); out.weather.push(weatherBack(env)); }
@@ -162,6 +179,7 @@
       set: s,
       expertise: s.expertise.map((e) => team(e, s)),
       operators: specs.map(({ it, tid }) => operator(it, tid, sidearmFor(s.weapons), s.soldierType)),
+      bigGuys: [].concat(s.bigGuys || []).flatMap((tid) => R.bigGuyTables[tid].items.map((b) => bigGuy(b, tid, sidearmFor(s.weapons)))),
       weapons: s.weapons.flatMap((tid) => R.weaponTables[tid].items.map((w) => weapon(w, tid))),
       gear: s.gear.flatMap((tid) => R.gearTables[tid].items.map((g) => gear(g, tid))),
     };

@@ -181,7 +181,7 @@
   }
 
   // Perk text on top, promotion anchored to the bottom of the box, both at the same size.
-  function perkPromo(X, T, perkBlocks, promo, x, top, w, bottom, max, min) {
+  function perkPromo(X, T, perkBlocks, promo, x, top, w, bottom, max, min, label) {
     const promoBlocks = promo ? [{ runs: [{ t: promo }] }] : [];
     const avail = bottom - top - 1.8, LH = 3.8;
     let size = max, hp, hq;
@@ -195,7 +195,7 @@
       hq = layout(X, promoBlocks, w, size, 1.18).height + LH;
       const py = Math.max(bottom - hq - 0.7, top + Math.min(hp, avail * 0.55) + 1.4);
       X.line(x - 1, py, x + w + 1, py, T.mid, 0.2, [0.6, 0.5]);
-      X.text('PROMOTION', x, py + 3.1, LBL, F.label, RED, 'left', '600');
+      X.text(label || 'PROMOTION', x, py + 3.1, LBL, F.label, RED, 'left', '600');
       X.rr(x + w - 2.8, py + 0.8, 2.8, 2.8, 0.4); X.stroke(RED, 0.25);
       paragraphs(X, promoBlocks, x, py + LH - 0.2, w, bottom - py - LH, size, size, T.ink);
       paragraphs(X, perkBlocks, x, top + 1.0, w, py - top - 1.4, size, size, T.ink);
@@ -214,7 +214,7 @@
     box(X, 4, 12.6, 24.5, 25.2, T, '#ffffff');
     if (pic) drawPicture(X, pic, 4.2, 12.8, 24.1, 24.8, 'cover', c.imageFit); else drawPicture(X, icon, 5, 14.0, 22.5, 22.5, 'contain');
     if (pic && icon) drawPicture(X, icon, 22.2, 31.5, 6.3, 6.3, 'contain');
-    const st = c.stats, cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits + '+'], ['MDP', String(st.mdp)], ['HEARTS', String(st.hearts)]];
+    const st = c.stats, cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits == null ? '–' : st.hits + '+'], ['MDP', st.mdp == null ? '–' : String(st.mdp)], ['HEARTS', String(st.hearts)]];
     cells.forEach(([lab, val], i) => {
       // the Hearts cell (bottom right) is 13.8 x 12.6 mm so a 12 mm die sits on it to track health
       const x = 30.3 + (i % 2) * 14.6, y = 12.6 + Math.floor(i / 2) * 12.6, hot = i === 3, bar = hot ? RED : T.dark;
@@ -228,8 +228,9 @@
     if (c.warriorName) X.fitLine(c.warriorName, 13, 41.5, 46, 3.8, 2.4, F.title, T.ink, 'left');
     const top = 44.0, bottom = c.sidearm ? 72.6 : 82.6;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
-    perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, 3.5, BODY_MIN);
-    fromFooter(X, T, c);
+    perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, 3.5, BODY_MIN, c.bigGuy ? 'EXTRA RULES' : null);
+    if (c.bigGuy) X.text('BIG GUY', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
+    fromFooter(X, T, c, c.bigGuy ? 38 : 50);
     if (c.sidearm) {
       const s = c.sidearm, y = 74.0;
       X.rr(4, y, 55, 8.8, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
@@ -416,7 +417,7 @@
     X.fitLine(c.rankName || 'Specialist', 4.5, 54.4, 33, 3.8, 2.6, F.title, T.ink, 'left');
     X.text('TYPE', 4.5, 59.0, LBL, F.label, T.mid, 'left', '600');
     X.fitLine(c.soldierLabel, 4.5, 63.2, 33, 3.6, 2.6, F.title, T.ink, 'left');
-    const st = c.stats, cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits + '+'], ['MDP', String(st.mdp)], ['HEARTS', String(st.hearts)]];
+    const st = c.stats, cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits == null ? '–' : st.hits + '+'], ['MDP', st.mdp == null ? '–' : String(st.mdp)], ['HEARTS', String(st.hearts)]];
     cells.forEach(([lab, val], i) => {
       const x = 40.4 + i * 10.9, y = 12.4;
       X.rr(x, y, 10.2, 10.6, 0.9); X.fill('#ffffff'); X.stroke(T.mid, 0.25);

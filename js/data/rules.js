@@ -18,6 +18,7 @@
     ibz: { name: 'Ice Base Zero', short: 'IBZ' },
     tod: { name: 'Tour of Duty', short: 'ToD' },
     dh: { name: 'Desert Heroes', short: 'DH' },
+    evo: { name: 'Evolution (Sci-Fi)', short: 'Evolution' },
   };
 
   const soldierTypes = {
@@ -37,6 +38,16 @@
     insertion: { label: 'Insertion', icon: 'expertise/exp-insertion.svg' },
     vehicle: { label: 'Vehicle first', icon: 'expertise/exp-vehicle.svg' },
   };
+  // Evolution (Sci-Fi): sixteen Expertise, each with its own effect. The label is the name of the perk, not its wording.
+  const EVO_EXPERTISE = [
+    ['Space Raiders', 'Crisp Movements', { ma: 1 }], ['Kill Team', 'Game Over'], ['Force Users', 'A Bad Feeling'], ['Psychics', "It's Afraid"],
+    ['Warpers', 'Foresight'], ['Bio-Suits', 'More Than A Suit'], ['Inter-Dimensionals', 'Quantum Leap'], ['Away Team', 'Beam Us Down'],
+    ['Desert Dwellers', 'Spicy'], ['Jungle Hunters', 'If it Bleeds'], ['Flux Warriors', 'Stargate'], ['Xeno-Morphs', "It's Moving"],
+    ['Brutes', 'Clobbering Time'], ['Assimilation', "It's Futile"], ['Simulants', 'Dodge This'], ['Assault Jumpers', 'No Fear'],
+  ];
+  const evoSlug = (n) => n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  for (const [n, perk, mods] of EVO_EXPERTISE) mechanics['evo-' + evoSlug(n)] = { label: perk, icon: 'expertise/exp-evo-' + evoSlug(n) + '.svg', mods };
+  const evoExpertise = () => EVO_EXPERTISE.map(([n]) => E('evo-' + evoSlug(n), n, 'evo-' + evoSlug(n)));
   const SIX = ['movement', 'shooting', 'initiative', 'activation', 'deployment', 'armour'];
   const six = (prefix, names) => names.map((n, i) => E(prefix + '-' + n.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), n, SIX[i]));
 
@@ -58,6 +69,12 @@
     mechanic: { name: 'Mechanic', icon: 'mechanic' }, gunner: { name: 'Gunner', icon: 'gunner' },
     navigator: { name: 'Navigator', icon: 'navigator' }, commander: { name: 'Commander', icon: 'commander' },
     'security-detail': { name: 'Security Detail', icon: 'security-detail' },
+    // Evolution (Sci-Fi)
+    commando: { name: 'Commando', icon: 'commando' }, defender: { name: 'Defender', icon: 'defender' },
+    'tech-comms': { name: 'Tech & Comms', icon: 'tech-comms' }, 'fire-team-veteran': { name: 'Fire Team Veteran', icon: 'fire-team-veteran' },
+    psychic: { name: 'Psychic', icon: 'psychic' }, hunter: { name: 'Hunter', icon: 'hunter' },
+    'bio-mechanic': { name: 'Bio-Mechanic', icon: 'bio-mechanic' }, translator: { name: 'Translator', icon: 'translator' },
+    android: { name: 'Android', icon: 'android' }, 'alien-beast': { name: 'Alien Beast', icon: 'alien-beast', mods: { ma: 1 } },
   };
 
   const CORE10 = [S('tactician', 'Prior Preparation'), S('medic', 'Man Down'), S('sniper', 'One Shot, One Kill'),
@@ -79,6 +96,11 @@
       S('designated-marksman', 'Good Shot'), S('scout', 'Lead The Way'), S('fire-support', 'Cover Me'), S('non-specialist', 'Rank & File', { noPromo: true })] },
     dh: { book: 'dh', page: 16, promo: true, items: [S('mechanic', ''), S('gunner', ''), S('navigator', ''), S('forward-observer', ''),
       S('commander', ''), S('security-detail', '')] },
+    evo: { book: 'evo', page: 15, promo: true, items: [S('tactician', 'Victory Is Mine'), S('medic', 'Dammit, Jim'), S('sniper', 'One Shot, One Kill'),
+      S('commando', 'Stick Around'), S('demolitions', 'Boom'), S('defender', "I'll Be Back"), S('tech-comms', 'Affirmative'),
+      S('fire-team-veteran', 'Stay Frosty'), S('scout', 'I See You'), S('fire-support', 'Get Some'), S('psychic', 'I See Things'),
+      S('hunter', "It's A Trap"), S('bio-mechanic', 'Hang On'), S('translator', 'False Commands'), S('android', 'Adaptive Learning'),
+      S('alien-beast', 'A Good Bug')] },
   };
   for (const [tid, t] of Object.entries(specTables)) t.items = t.items.map((s) => Object.assign({}, s, { id: 'spec-' + tid + '-' + s.spec, table: tid }));
 
@@ -173,6 +195,48 @@
       W('rpg', 'RPG-2 or RPG-7', 'rocket-launcher-rpg', '3-24"', 1, 1, '-2', { single: true })] },
   };
 
+  // Evolution (Sci-Fi Supplement). Every Warrior and Big Guy starts with a Blast Pistol and a Combat Blade, then picks one extra weapon.
+  const SC = { noScout: true };
+  weaponTables['evo-shooting'] = { book: 'evo', page: 17, items: [
+    W('blast-pistol', 'Blast Pistol', 'blast-pistol', '6"', 2, 1, '-', { sidearm: true, type2: 'Pistol' }),
+    W('plasma-pistol', 'Plasma Pistol', 'plasma-pistol', '8"', 3, 1, '-1', { type2: 'Pistol' }),
+    W('flamer', 'Flamer', 'flamethrower', '8"', 1, 1, '-', { type2: 'Flamethrower' }),
+    W('nova-blaster', 'Nova Blaster', 'nova-blaster', '3-12"', 1, 3, '-2', { type2: 'Blaster' }),
+    W('vortex-blaster', 'Vortex Blaster', 'vortex-blaster', '12"', 5, 1, '-', { type2: 'Blaster' }),
+    W('photon-blaster', 'Photon Blaster', 'photon-blaster', '15"', 4, 1, '-', { type2: 'Blaster' }),
+    W('grenade-launcher', 'Grenade Launcher', 'grenade-launcher', '6-24"', 1, '-', '-', { type2: 'Grenade Launcher' }),
+    W('ion-blaster', 'Ion Blaster', 'ion-blaster', '18"', 3, 1, '-', { type2: 'Ion Weapon' }),
+    W('ion-repeater', 'Ion Repeater', 'ion-repeater', '18"', 3, 1, '-', { type2: 'Ion Weapon' }),
+    W('ion-longshot', 'Ion Longshot', 'ion-longshot', '20"', 2, 1, '-', { type2: 'Ion Weapon' }),
+    W('heavy-ion-blaster', 'Heavy Ion Blaster', 'heavy-ion-blaster', '3-24"', 4, 1, '-', Object.assign({ type2: 'Ion Weapon' }, MA_DOWN)),
+    W('eclipse-longshot', 'Eclipse Longshot', 'eclipse-longshot', '6-36"', 1, 1, '-1', { type2: 'Longshot' }),
+    W('nova-longshot', 'Nova Longshot', 'nova-longshot', '6-36"', 1, 2, '-2', { type2: 'Longshot' }),
+    W('starfire-grenade', 'Starfire Grenade', 'starfire-grenade', '6"', 1, 1, '-2', { single: true, type2: 'Grenade' }),
+    W('plasma-high-beam', 'Plasma High Beam', 'plasma-high-beam', '3-24"', 1, 2, '-2', { type2: 'Plasma Weapon' }),
+    W('plasma-launcher', 'Plasma Launcher', 'plasma-launcher', '6-24"', 1, 1, '-2', { type2: 'Plasma Weapon' })] };
+  const XW = (id, name, range, dice, dmg, ap, x) => W(id, name, id, range, dice, dmg, ap, Object.assign({ type2: 'Experimental' }, x || {}));
+  weaponTables['evo-experimental'] = { book: 'evo', page: 18, items: [
+    XW('cool-whip', 'Cool Whip', '3"', 3, 1, '-'), XW('stun-phaser', 'Stun Phaser', '6"', 2, 1, '-'),
+    XW('anti-gravity-pistol', 'Anti-gravity Pistol', '8"', 2, 1, '-1'), W('cryo-flamer', 'Cryo-Flamer', 'cryo-flamer', '8"', 1, '-', '-', { type2: 'Experimental' }),
+    XW('nano-swarm-disruptor', 'Nano-Swarm Disruptor', '3-12"', 1, 1, '-2'), XW('neuro-toxin-blaster', 'Neuro-Toxin Blaster', '12"', 4, 1, '-', { single: true }),
+    XW('radiation-blaster', 'Radiation Blaster', '15"', 4, 1, '-', { single: true }), XW('homing-arrow', 'Homing Arrow', '18"', 2, 1, '-'),
+    XW('electro-pulse-disruptor', 'Electro-Pulse Disruptor', '20"', 2, 1, '-', SC), XW('temporal-disruptor', 'Temporal Disruptor', '3-24"', 3, 1, '-', SC),
+    XW('phase-disruptor', 'Phase Disruptor', '6-30"', 1, 1, '-'), XW('magno-disruptor', 'Magno Disruptor', '3-24"', 3, 1, '-', SC),
+    XW('black-hole-generator', 'Black Hole Generator', '6"', 1, '-', '-', { single: true }), XW('quantum-flux-launcher', 'Quantum Flux Launcher', '6-24"', 1, 1, '-2', { single: true }),
+    XW('singularity-launcher', 'Singularity Launcher', '3-24"', 5, '-', '-', { single: true })] };
+  const MW = (id, name, x) => W(id, name, id, 'Base', '-', '-', '-', Object.assign({ type2: 'Melee Weapon' }, x || {}));
+  weaponTables['evo-melee'] = { book: 'evo', page: 19, items: [
+    MW('chain-blade', 'Chain Blade', MDP_UP), MW('neutron-axe', 'Neutron Axe'), MW('plasma-blade', 'Plasma Blade'), MW('bio-claw', 'Bio-Claw'),
+    MW('graviton-hammer', 'Graviton Hammer', { mods: { ma: -1 } }), MW('power-gauntlet', 'Power Gauntlet'), MW('venom-blade', 'Venom Blade (or Venom Teeth)')] };
+  const PW = (id, name) => W(id, name, id, '9"', 2, '-', '-', { type2: 'Psychic Power', psychic: true });
+  weaponTables['evo-psychic'] = { book: 'evo', page: 19, psychic: true, items: [
+    PW('psychic-attack', 'Psychic Attack'), PW('psychic-move', 'Psychic Move'), PW('psychic-heal', 'Psychic Heal'),
+    PW('psychic-focus', 'Psychic Focus'), PW('psychic-empower', 'Psychic Empower'), PW('psychic-protect', 'Psychic Protect')] };
+  // Weapons for the Beast or Bike (Mount) Big Guy only. The sixth option, any Shooting weapon, is not a card.
+  const MTW = (id, name) => W(id, name, id, 'Base', '-', '-', '-', { type2: 'Mount Weapon', mountOnly: true });
+  weaponTables['evo-mount'] = { book: 'evo', page: 14, mountOnly: true, items: [
+    MTW('mount-claws-teeth', 'Claws & Teeth'), MTW('mount-ramming-charge', 'Ramming Charge'), MTW('mount-venom-teeth', 'Venom Teeth'), MTW('mount-armour', 'Mount Armour')] };
+
   // Desert Heroes vehicle-only weapons (DH p. 8).
   const VW = (id, name, type, range, dice, ap) => W(id, name, type, range, dice, 1, ap, { type2: 'Vehicle Weapon', vehicleOnly: true });
   weaponTables['dh-vehicle'] = { book: 'dh', page: 8, items: [
@@ -237,6 +301,29 @@
       G('v-tyres', 'Improved Tyres', 'improved-tyres', 3), G('v-cargo', 'Modular Cargo System', 'cargo-system', 3, { mods: { capacity: 1 } }),
       G('v-fuel-tank', 'Auxiliary Fuel Tank', 'fuel-tank', 4, { mods: { ma: 1 } }), G('v-dozer', 'Bulldozer Blade', 'bulldozer-blade', 5)] },
   };
+
+  // Evolution (Sci-Fi): 10 points of Gear, Heavy Gear and Mech Drones per Team (Evolution p. 20).
+  gearTables.evo = { book: 'evo', page: 20, items: [
+    G('micro-boosters', 'Micro Boosters', 'micro-boosters', 1), G('temporal-dial', 'Temporal Dial', 'temporal-dial', 1), G('tactical-visor', 'Tactical Visor', 'tactical-visor', 1),
+    G('sub-sonic-upgrade', 'Sub-Sonic Upgrade', 'suppressor', 2), G('melee-upgrade', 'Melee Upgrade', 'melee-upgrade', 2), G('nano-stim-shot', 'Nano Stim Shot', 'stim-pen', 2),
+    G('all-terrain-boots', 'All Terrain Boots', 'boots', 2), G('scanner', 'Scanner', 'scanner', 2), G('pulse-grenade', 'Pulse Grenade', 'pulse-grenade', 2),
+    G('smoke-grenade', 'Smoke Grenade', 'smoke-grenade', 2), G('starfire-grenade', 'Starfire Grenade', 'starfire-grenade', 3, { weaponIcon: true }),
+    G('stun-grenade', 'Stun Grenade', 'flash-bang', 3), G('solar-grenade', 'Solar Grenade', 'solar-grenade', 3), G('nano-med-kit', 'Nano-Med Kit', 'med-kit', 3),
+    G('holo-scopes', 'Holo-Scopes', 'holo-scopes', 3), G('nova-scopes', 'Nova Scopes', 'nova-scopes', 4), G('repulsor-shield', 'Repulsor Shield', 'repulsor-shield', 4),
+    G('refractor-cloak', 'Refractor Cloak', 'refractor-cloak', 4), G('adrenaline-stim', 'Adrenaline Stim', 'adrenaline-stim', 4), G('energy-capacitor', 'Energy Capacitor', 'energy-capacitor', 4),
+    G('cloaking-device', 'Cloaking Device', 'cloaking-device', 5), G('deflector-shield', 'Deflector Shield', 'deflector-shield', 5), G('force-shield', 'Force Shield', 'force-shield', 5),
+    G('deflector-array', 'Deflector Array', 'deflector-array', 5), G('gravity-generator', 'Gravity Generator', 'gravity-generator', 5), G('rager-stim', 'Rager Stim Shot', 'rager-stim', 5),
+    G('electro-stim', 'Electro Stim Shot', 'electro-stim', 5), G('chest-armour', 'Chest Armour Upgrade', 'body-armour', 5, HEART),
+    G('starfire-launcher', 'Starfire Grenade Launcher', 'grenade-launcher', 5, { weaponIcon: true }), G('ap-rounds', 'Armour Piercing Rounds', 'ap-rounds', 5),
+    G('mag-extender', 'Mag Extender', 'mag-extender', 5)] };
+  gearTables['evo-heavy'] = { book: 'evo', page: 21, items: [
+    G('jump-pack', 'Jump Pack', 'jump-pack', 5), G('booster-pack', 'Booster Pack', 'booster-pack', 5), G('psychic-booster', 'Psychic Range Booster', 'psychic-booster', 5),
+    G('teleporter', 'Teleporter', 'teleporter', 5), G('experimental-weapon', 'Experimental Weapon', 'experimental-weapon', 5),
+    G('bio-upgrade', 'Bio Upgrade', 'bio-upgrade', 6, MDP_UP), G('force-field-generator', 'Force Field Generator', 'force-field-generator', 7)] };
+  gearTables['evo-drones'] = { book: 'evo', page: 21, items: [
+    G('hop-pit', 'HOP-PIT Mech', 'mech-hop-pit', 3), G('ro-dent', 'RO-DENT Bomb Mech', 'mech-ro-dent', 4), G('k9-medic', 'K9 Mech - Medic', 'mech-k9-medic', 5),
+    G('k9-attack', 'K9 Mech - Attack', 'mech-k9-attack', 5), G('k9-mine', 'K9 Mech - Mine Detection', 'mech-k9-mine', 5), G('hawk-eye', 'Hawk Eye Mech', 'mech-hawk-eye', 5),
+    G('slither', 'Slither Mech', 'mech-slither', 7)] };
   for (const [tid, t] of Object.entries(weaponTables)) t.items = t.items.map((x) => Object.assign({}, x, { uid: 'wpn-' + tid + '-' + x.id, table: tid }));
   for (const [tid, t] of Object.entries(gearTables)) t.items = t.items.map((x) => Object.assign({}, x, { uid: 'gear-' + tid + '-' + x.id, table: tid }));
 
@@ -253,10 +340,21 @@
     'tod-com': { book: 'tod', page: 26, perks: 'standard', names: RANKS_PEOPLE },
     'dh-sas': { book: 'dh', page: 20, perks: 'dh', names: ['Private', 'Lance Corporal', 'Corporal', 'Sergeant', 'Staff Sergeant', 'Warrant Officer'] },
     'dh-axis': { book: 'dh', page: 20, perks: 'dh', names: ['Soldat', 'Gefreiter', 'Obergefreiter', 'Unteroffizier', 'Feldwebel', 'Oberfeldwebel'] },
+    'evo-alliance': { book: 'evo', page: 24, perks: 'evo', names: RANKS_ARMY },
+    'evo-aliens': { book: 'evo', page: 24, perks: 'evo', names: ['Grunt', 'Hive Warden', 'Hive Leader', 'Hive Elder', 'Alpha', 'Supreme'] },
   };
   const RANK_XP = [50, 100, 150, 200, 250, 300];
   // Which rank unlocks the Specialisation promotion perk, per rank perk table.
-  const promoAt = { standard: 100, dh: 150 };
+  const promoAt = { standard: 100, dh: 150, evo: 100 };
+
+  // Evolution Big Guys (Evolution p. 14). hits is the "Hits on" number; the Mount has none, it uses its Rider's.
+  const BG = (id, name, icon, ma, hearts, hits, mdp, x) => Object.assign({ id: 'bg-' + id, name, icon, ma, hearts, hits, mdp }, x || {});
+  const bigGuyTables = { evo: { book: 'evo', page: 14, items: [
+    BG('fast-accurate', 'Fast & Accurate', 'bg-fast-accurate', 7, 6, 4, 3),
+    BG('mount', 'Beast or Bike (Mount)', 'bg-mount', 8, 6, null, null, { mount: true }),
+    BG('robust-strategic', 'Robust & Strategic', 'bg-robust-strategic', 4, 8, 5, 5),
+    BG('strong-slow', 'Strong & Slow', 'bg-strong-slow', 4, 8, 6, 6)] } };
+  for (const [tid, t] of Object.entries(bigGuyTables)) t.items = t.items.map((x) => Object.assign({}, x, { id: tid + '-' + x.id, table: tid }));
 
   // Desert Heroes vehicles (cards DH p. 49-51). Weapons list the generic weapon each card carries.
   const VWPN = (slot, name, range, dice, dmg, ap) => ({ slot, name, range, dice, dmg, ap });
@@ -322,6 +420,11 @@
       specs: ['core', 'dh'], weapons: ['core'], gear: ['core', 'dh'] },
     // Not a faction: the vehicle cards, vehicle-only weapons and vehicle gear from Desert Heroes. Usable in any era (DH p. 4).
     { id: 'dh-vehicles', label: 'Desert Heroes: Vehicles', book: 'dh', vehicles: true, gearPoints: 0, team: 0, expertise: [], specs: [], weapons: ['dh-vehicle'], gear: ['dh-vehicle'] },
+    // Evolution - Sci-Fi Supplement. Alliance and Aliens share every table; only the rank names differ.
+    { id: 'evo-alliance', label: 'Evolution (Sci-Fi): Alliance', cardLabel: 'Evolution (Sci-Fi)', book: 'evo', gearPoints: 10, team: 4, platoon: 10, expertisePage: 13, ranks: 'evo-alliance',
+      expertise: evoExpertise(), specs: 'evo', bigGuys: 'evo', weapons: ['evo-shooting', 'evo-experimental', 'evo-melee', 'evo-psychic', 'evo-mount'], gear: ['evo', 'evo-heavy', 'evo-drones'] },
+    { id: 'evo-aliens', label: 'Evolution (Sci-Fi): Aliens', cardLabel: 'Evolution (Sci-Fi)', book: 'evo', gearPoints: 10, team: 4, platoon: 10, expertisePage: 13, ranks: 'evo-aliens',
+      expertise: evoExpertise(), specs: 'evo', bigGuys: 'evo', weapons: ['evo-shooting', 'evo-experimental', 'evo-melee', 'evo-psychic', 'evo-mount'], gear: ['evo', 'evo-heavy', 'evo-drones'] },
   ];
   // Where each Expertise is printed. Desert Heroes lets you take core Expertise too (core p. 9).
   for (const s of sets) for (const e of s.expertise) {
@@ -331,5 +434,5 @@
     e.promo = s.book !== 'core' && !/-core-/.test(e.id);
   }
 
-  window.RW = { books, soldierTypes, mechanics, specs, specTables, weaponTables, gearTables, rankTables, RANK_XP, promoAt, sets, vehicles };
+  window.RW = { books, soldierTypes, mechanics, specs, specTables, weaponTables, gearTables, rankTables, bigGuyTables, RANK_XP, promoAt, sets, vehicles };
 })();

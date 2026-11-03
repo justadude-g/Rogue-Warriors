@@ -135,7 +135,7 @@
       const out = h('output', {}, n);
       const step = (d) => (e) => { e.stopPropagation(); S.copies[c.key] = Math.max(0, Math.min(20, copiesOf(c) + d)); out.textContent = S.copies[c.key]; save(); renderDeckCount(); };
       const sub = c.kind === 'team' ? `${c.setLabel} · ${c.mechLabel} · ${c.ref}`
-        : c.kind === 'operator' ? `${c.warriorName ? c.warriorName + ' · ' : ''}${c.perkName ? c.perkName + ' · ' : ''}${c.ref}`
+        : c.kind === 'operator' ? `${c.bigGuy ? 'Big Guy · ' : ''}${c.warriorName ? c.warriorName + ' · ' : ''}${c.perkName ? c.perkName + ' · ' : ''}${c.ref}`
         : c.kind === 'vehicle' ? `${c.vehicleName ? c.vehicleName + ' · ' : ''}${c.pv} PV · Capacity ${c.stats.capacity} · ${c.ref}`
         : c.kind === 'weather' ? `2D6 roll ${c.roll} · ${c.ref}`
         : c.kind === 'weatherback' ? `Back for the shuffled ${c.envName} deck · ${c.ref}`
@@ -247,7 +247,7 @@
     ed.append(h('h3', {}, card.baseTitle), h('p', { class: 'hint' }, `Rules: ${card.ref}. Leave a box empty to use the standard wording.`));
     ed.append(text('name', 'Card name', false, card.baseTitle));
     if (card.kind === 'operator') ed.append(text('warriorName', 'Warrior name (printed on the NAME line)', false, 'Leave empty to write it by hand'));
-    if (card.kind === 'operator') {
+    if (card.kind === 'operator' && !card.bigGuy) {
       const sel = h('select', { onchange: (e) => { cu.soldierType = e.target.value === 'warrior' ? '' : e.target.value; refresh(); } },
         Object.entries(R.soldierTypes).map(([k, v]) => opt(k, v.label, (cu.soldierType || card.soldierType) === k)));
       ed.append(field('Soldier type', sel));
@@ -259,7 +259,7 @@
       ed.append(nameBox, list, h('p', { class: 'hint' }, 'Suggestions are the D10 vehicle prompts from Desert Heroes p. 10. Type anything you like.'));
     }
     if (card.kind !== 'campaign' && card.kind !== 'weatherback') ed.append(text('perk', card.kind === 'team' ? 'Team perk wording' : card.kind === 'vehicle' ? 'Vehicle notes (one numbered line per row)' : card.kind === 'weather' ? 'Effect wording' : 'Perk wording', true, 'Standard wording'));
-    if (card.promo != null) ed.append(text('promo', 'Promotion wording', true, 'Standard wording'));
+    if (card.promo != null) ed.append(text('promo', card.bigGuy ? 'Extra rules wording' : 'Promotion wording', true, 'Standard wording'));
     if (card.kind === 'weapon') ed.append(text('drawback', 'Drawback wording', true, 'Standard wording'));
     ed.append(h('div', { class: 'stack inline' },
       h('button', { class: 'ghost', onclick: () => { delete S.custom[card.key]; refresh(true); renderEditor(); } }, 'Reset this card'),
@@ -294,9 +294,27 @@
   // =====================================================================
   // MISSION TEAM (one-off)
   // =====================================================================
+  // Soldier types a slot can take: Warrior, Enlisted, Recruit, plus the set's Big Guys ('big:<id>').
+  const bigItems = (set) => [].concat(set.bigGuys || []).flatMap((tid) => R.bigGuyTables[tid].items);
+  const soldierKinds = (set) => Object.entries(R.soldierTypes).map(([k, v]) => [k, v.label]).concat(bigItems(set).map((b) => ['big:' + b.id, 'Big Guy: ' + b.name]));
+  function soldierStats(set, key) {
+    if (key && key.indexOf('big:') === 0) {
+      const b = bigItems(set).find((x) => x.id === key.slice(4));
+      if (b) return { label: 'Big Guy: ' + b.name, ma: b.ma, hearts: b.hearts, hits: b.hits, mdp: b.mdp, big: b };
+    }
+    return R.soldierTypes[key] || R.soldierTypes.warrior;
+  }
+  const hitsText = (n) => (n == null ? '–' : n + '+');
+  // Extra weapons a slot may take: Mount weapons only for the Mount, Psychic Powers have their own list, a Mount takes no Melee weapon.
+  const weaponChoices = (L, st) => L.weapons.filter((w) => {
+    if (w.source.psychic) return false;
+    if (st.big && st.big.mount) return w.source.mountOnly || (w.source.type2 !== 'Melee Weapon');
+    return !w.source.mountOnly;
+  });
+
   function teamDefaults(setId) {
     const s = C.set(setId);
-    return { id: uid(), name: 'New team', setId, expId: s.expertise[0].id, extraGear: 0, slots: Array.from({ length: s.team }, () => ({ name: '', op: '', soldierType: s.soldierType || 'warrior', weapon: '', gear: [] })) };
+    return { id: uid(), name: 'New team', setId, expId: s.expertise[0].id, extraGear: 0, slots: Array.from({ length: s.team }, () => ({ name: '', op: '', soldierType: s.soldierType || 'warrior', weapon: '', powers: [], gear: [] })) };
   }
 
   function computeTeam(t) {
@@ -310,17 +328,20 @@
       const op = L.operators.find((o) => o.source.id === sl.op);
       const w = L.weapons.find((x) => x.source.uid === sl.weapon);
       const gear = sl.gear.map((g) => L.gear.find((x) => x.source.uid === g)).filter(Boolean);
-      const st = R.soldierTypes[sl.soldierType || 'warrior'];
+      const st = soldierStats(L.set, sl.soldierType);
+      const powers = (sl.powers || []).map((g) => L.weapons.find((x) => x.source.uid === g)).filter(Boolean);
       const mods = [exp.mods || {}, op ? (R.specs[op.spec].mods || {}) : {}, w ? w.mods : {}].concat(gear.map((g) => g.mods));
       const sum = (k) => mods.reduce((n, m) => n + (m[k] || 0), 0);
-      const stats = { ma: st.ma + sum('ma'), hits: st.hits, mdp: st.mdp + sum('mdp'), hearts: st.hearts + sum('hearts') };
+      const stats = { ma: st.ma + sum('ma'), hits: st.hits, mdp: st.mdp == null ? null : st.mdp + sum('mdp'), hearts: st.hearts + sum('hearts') };
       gear.forEach((g) => { used += g.pts; });
       const who = sl.name || (op ? op.baseTitle : 'Warrior ' + (i + 1));
       if (!op) warnings.push(`${who}: choose a Specialisation.`);
       if (op) { if (seen[op.spec]) warnings.push(`Two ${op.baseTitle}s. The rules recommend one of each Specialisation (Core p. 9).`); seen[op.spec] = true; }
       if (op && op.spec === 'scout' && w && w.source.noScout) warnings.push(`${who}: a Scout cannot take the ${w.baseTitle}.`);
+      if (powers.length && (!op || op.spec !== 'psychic')) warnings.push(`${who}: only a Psychic can use Psychic Powers.`);
+      if (powers.length > 2 && op && op.spec === 'psychic') warnings.push(`${who}: a Psychic starts with 2 Psychic Powers; a 3rd comes with the Promotion Perk (${C.ref('evo', 15)}).`);
       if (w && w.source.droneOnly && (!op || op.spec !== 'drone-operator')) warnings.push(`${who}: only a Drone Operator can take the ${w.baseTitle}.`);
-      return { slot: sl, op, w, gear, stats, name: sl.name, spec: op ? op.baseTitle : '-', weapon: w ? w.title : '', gearNames: gear.map((g) => g.title) };
+      return { slot: sl, op, w, powers, gear, stats, st, name: sl.name, spec: op ? op.baseTitle : '-', weapon: [w ? w.title : '', ...powers.map((p) => p.title)].filter(Boolean).join(', '), gearNames: gear.map((g) => g.title) };
     });
     if (used > budget) warnings.push(`Gear costs ${used} points; the budget is ${budget}.`);
     if (L.set.teamNote) warnings.push(L.set.teamNote);
@@ -370,21 +391,23 @@
       const nm = h('input', { type: 'text', value: sl.name, placeholder: 'Name or callsign' });
       nm.addEventListener('change', () => { sl.name = nm.value; redraw(); });
       const opSel = h('select', { onchange: (e) => { sl.op = e.target.value; redraw(); } }, opt('', 'Choose...', !sl.op), L.operators.map((o) => opt(o.source.id, o.baseTitle, o.source.id === sl.op)));
-      const typeSel = h('select', { onchange: (e) => { sl.soldierType = e.target.value; redraw(); } }, Object.entries(R.soldierTypes).map(([k, v]) => opt(k, v.label, k === sl.soldierType)));
+      const typeSel = h('select', { onchange: (e) => { sl.soldierType = e.target.value; if (sl.weapon && !weaponChoices(L, soldierStats(L.set, sl.soldierType)).some((w) => w.source.uid === sl.weapon)) sl.weapon = ''; redraw(); } }, soldierKinds(L.set).map(([k, label]) => opt(k, label, k === (sl.soldierType || 'warrior'))));
       const wSel = h('select', { onchange: (e) => { sl.weapon = e.target.value; redraw(); } }, opt('', 'Pistol only', !sl.weapon),
-        L.weapons.map((w) => opt(w.source.uid, `${w.title} (${w.source.sidearm ? 'second pistol' : (w.typeLabel && w.typeLabel !== w.title ? w.typeLabel : w.range)})`, w.source.uid === sl.weapon)));
+        weaponChoices(L, r.st).map((w) => opt(w.source.uid, `${w.title} (${w.source.sidearm ? 'second pistol' : (w.typeLabel && w.typeLabel !== w.title ? w.typeLabel : w.range)})`, w.source.uid === sl.weapon)));
       const gSel = h('select', { onchange: (e) => { if (e.target.value) { sl.gear.push(e.target.value); redraw(); } } }, opt('', 'Add gear...', true), L.gear.map((g) => opt(g.source.uid, `${g.title} (${g.pts} pts)`)));
-      const chips = h('div', { class: 'chips' }, r.gear.map((g, gi) => h('span', { class: 'chip' }, `${g.title} · ${g.pts}`, h('button', { 'aria-label': 'Remove ' + g.title, onclick: () => { sl.gear.splice(gi, 1); redraw(); } }, '×'))));
+      const psychicList = L.weapons.filter((w) => w.source.psychic);
+      const pSel = psychicList.length ? h('select', { onchange: (e) => { if (e.target.value) { sl.powers = (sl.powers || []).concat(e.target.value); redraw(); } } }, opt('', 'Add a Psychic Power...', true), psychicList.map((w) => opt(w.source.uid, w.title))) : null;
+      const chips = h('div', { class: 'chips' }, r.powers.map((p, pi) => h('span', { class: 'chip' }, `${p.title} · power`, h('button', { 'aria-label': 'Remove ' + p.title, onclick: () => { sl.powers.splice(pi, 1); redraw(); } }, '×'))), r.gear.map((g, gi) => h('span', { class: 'chip' }, `${g.title} · ${g.pts}`, h('button', { 'aria-label': 'Remove ' + g.title, onclick: () => { sl.gear.splice(gi, 1); redraw(); } }, '×'))));
       const s = r.stats;
       slots.append(h('div', { class: 'slot' },
         h('img', { class: 'spec', src: r.op ? r.op.icon : 'assets/icons/specialisations/non-specialist.svg', alt: '' }),
         h('div', {},
-          h('div', { class: 'grid' }, field('Warrior ' + (i + 1), nm), field('Specialisation', opSel), field('Soldier type', typeSel), field('Extra weapon', wSel), field('Gear', gSel)),
+          h('div', { class: 'grid' }, field('Warrior ' + (i + 1), nm), field('Specialisation', opSel), field('Soldier type', typeSel), field('Extra weapon', wSel), pSel ? field('Psychic Powers', pSel) : null, field('Gear', gSel)),
           chips,
-          h('div', { class: 'stats' }, [['Move', s.ma + '"'], ['Hits on', s.hits + '+'], ['MDP', s.mdp], ['Hearts', s.hearts]].map(([a, b]) => h('span', { class: 'stat' }, a, h('b', {}, b))),
+          h('div', { class: 'stats' }, [['Move', s.ma + '"'], ['Hits on', hitsText(s.hits)], ['MDP', s.mdp == null ? '–' : s.mdp], ['Hearts', s.hearts]].map(([a, b]) => h('span', { class: 'stat' }, a, h('b', {}, b))),
             h('button', { class: 'ghost danger', onclick: () => { t.slots.splice(i, 1); redraw(); } }, 'Remove')))));
     });
-    box.append(slots, h('div', { class: 'stack inline' }, h('button', { onclick: () => { t.slots.push({ name: '', op: '', soldierType: L.set.soldierType || 'warrior', weapon: '', gear: [] }); redraw(); } }, 'Add Warrior')));
+    box.append(slots, h('div', { class: 'stack inline' }, h('button', { onclick: () => { t.slots.push({ name: '', op: '', soldierType: L.set.soldierType || 'warrior', weapon: '', powers: [], gear: [] }); redraw(); } }, L.set.bigGuys ? 'Add Warrior or Big Guy' : 'Add Warrior')));
     // vehicles
     t.vehicles = t.vehicles || [];
     const vcards = C.vehicles(), vgear = C.vehicleGear();
@@ -411,7 +434,7 @@
 
     const pull = () => {
       const by = { Team: [res.exp.title], Operators: [], Weapons: [], Gear: [] };
-      res.rows.forEach((r) => { if (r.op) by.Operators.push(r.op.title); if (r.w) by.Weapons.push(r.w.title); r.gear.forEach((g) => by.Gear.push(g.title)); });
+      res.rows.forEach((r) => { if (r.op) by.Operators.push(r.op.title); if (r.w) by.Weapons.push(r.w.title); r.powers.forEach((p) => by.Weapons.push(p.title)); if (r.st.big) by.Operators.push(r.st.big.name + ' (Big Guy)'); r.gear.forEach((g) => by.Gear.push(g.title)); });
       if (res.vehicles.length) { by.Vehicles = res.vehicles.map((v) => v.card.baseTitle); res.vehicles.forEach((v) => v.gear.forEach((g) => by.Gear.push(g.title + ' (vehicle)'))); }
       return Object.entries(by).filter(([, v]) => v.length);
     };
@@ -423,9 +446,11 @@
       h('button', { onclick: () => {
         const items = [{ card: res.exp, copies: 1 }];
         res.rows.forEach((r) => {
-          if (r.op) items.push({ card: Object.assign({}, r.op, { key: r.op.key + '|' + r.slot.name, warriorName: r.slot.name, soldierType: r.slot.soldierType, soldierLabel: R.soldierTypes[r.slot.soldierType].label,
+          if (r.op) items.push({ card: Object.assign({}, r.op, { key: r.op.key + '|' + r.slot.name, warriorName: r.slot.name, soldierType: r.slot.soldierType, soldierLabel: r.st.label,
             stats: Object.assign({}, r.stats) }), copies: 1 });
+          if (r.st.big) { const bc = L.bigGuys.find((b) => b.source.id === r.st.big.id); if (bc) items.push({ card: bc, copies: 1 }); }
           if (r.w) items.push({ card: r.w, copies: 1 });
+          r.powers.forEach((p) => items.push({ card: p, copies: 1 }));
           r.gear.forEach((g) => items.push({ card: g, copies: 1 }));
         });
         res.vehicles.forEach((v) => {
@@ -464,7 +489,7 @@
     const L = C.forSet(p.setId), set = L.set;
     const op = L.operators.find((o) => o.source.id === m.op) || L.operators[0];
     const exp = L.expertise.find((e) => e.source.id === p.expId) || L.expertise[0];
-    const st = R.soldierTypes[m.soldierType || 'warrior'];
+    const st = soldierStats(set, m.soldierType);
     const em = exp.mods || {}, sm = R.specs[op.spec].mods || {};
     const ri = rankInfo(set, m.xp || 0), rt = ri.rt;
     const perks = C.rankPerks(rt.perks);
@@ -473,7 +498,7 @@
       kind: 'campaign', key: 'camp:' + p.id + ':' + m.id, name: m.name, platoonLabel: `${p.name} · ${set.label}`,
       icon: op.icon, image: m.image || cu.image || null, imageFit: m.image ? m.imageFit : cu.imageFit,
       rankName: ri.name, soldierLabel: st.label,
-      stats: { ma: st.ma + (em.ma || 0) + (sm.ma || 0) + (parseInt(m.maAdj, 10) || 0), hits: st.hits, mdp: st.mdp + (sm.mdp || 0), hearts: st.hearts },
+      stats: { ma: st.ma + (em.ma || 0) + (sm.ma || 0) + (parseInt(m.maAdj, 10) || 0), hits: st.hits, mdp: st.mdp == null ? null : st.mdp + (sm.mdp || 0), hearts: st.hearts },
       specName: op.title, perkName: op.perkName, perk: op.perk, promo: op.promo, promoUnlocked: (m.xp || 0) >= R.promoAt[rt.perks],
       ranks: rt.names.map((n, i) => ({ xp: R.RANK_XP[i], name: n, perk: perks ? perks[i] : (i === 0 ? `Rank perks: ${C.ref(rt.book, rt.page)}` : '') })),
       xp: m.xp || 0, badges: m.badges, injuries: m.injuries,
@@ -515,7 +540,7 @@
         h('td', {}, thumb, pick),
         h('td', {}, inp('name', 'text', { placeholder: 'Name' })),
         h('td', {}, h('select', { onchange: (e) => { m.op = e.target.value; redraw(); } }, L.operators.map((o) => opt(o.source.id, o.baseTitle, o.source.id === m.op)))),
-        h('td', {}, h('select', { onchange: (e) => { m.soldierType = e.target.value; redraw(); } }, Object.entries(R.soldierTypes).map(([k, v]) => opt(k, v.label, k === m.soldierType)))),
+        h('td', {}, h('select', { onchange: (e) => { m.soldierType = e.target.value; redraw(); } }, soldierKinds(set).map(([k, label]) => opt(k, label, k === (m.soldierType || 'warrior'))))),
         h('td', {}, inp('xp', 'number', { min: 0, max: 999, step: 10 }), h('div', { class: 'xpbtns' }, [10, 20, 30, 50].map((n) => h('button', { onclick: () => { m.xp = (m.xp || 0) + n; redraw(); } }, '+' + n)))),
         h('td', { class: 'rank' }, ri.name),
         h('td', {}, inp('maAdj', 'number', { min: -5, max: 5 })),
@@ -529,7 +554,7 @@
     const progress = h('div', { class: 'progress', hidden: true }, h('div'));
     box.append(h('div', { class: 'table-wrap' }, table),
       h('div', { class: 'stack inline' },
-        h('button', { onclick: () => { const used = new Set(p.members.map((m) => m.op)); const free = L.operators.find((o) => !used.has(o.source.id)) || L.operators[0]; p.members.push({ id: uid(), name: '', op: free.source.id, soldierType: set.soldierType || 'warrior', xp: 0, maAdj: 0, badges: '', injuries: '', image: '', imageFit: { zoom: 1, x: 0, y: 0 }, print: true }); redraw(); } }, 'Add Warrior'),
+        h('button', { onclick: () => { const used = new Set(p.members.map((m) => m.op)); const free = L.operators.find((o) => !used.has(o.source.id)) || L.operators[0]; p.members.push({ id: uid(), name: '', op: free.source.id, soldierType: set.soldierType || 'warrior', xp: 0, maAdj: 0, badges: '', injuries: '', image: '', imageFit: { zoom: 1, x: 0, y: 0 }, print: true }); redraw(); } }, set.bigGuys ? 'Add Warrior or Big Guy' : 'Add Warrior'),
         h('button', { class: 'primary', onclick: () => {
           const items = p.members.filter((m) => m.print !== false).map((m) => ({ card: campaignCard(p, m), copies: 1 }));
           printItems(items, p.name.replace(/[^a-z0-9]+/gi, '-') + '-campaign', progress);
@@ -549,7 +574,7 @@
   // RULES INDEX: keyword -> book and printed page. No rules wording.
   // =====================================================================
   let rulesIndex = null;
-  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'weather'];
+  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'evo', 'weather'];
   const normKey = (s) => String(s).toLowerCase().replace(/[’']/g, "'").replace(/&/g, ' and ').replace(/[^a-z0-9+' -]+/g, ' ').replace(/\s+/g, ' ').trim();
 
   function buildRulesIndex() {
@@ -573,6 +598,7 @@
       add(R.specs[it.spec].name, 'Specialisations', t.book, t.page, ['specialist']);
       if (it.perkName) add(it.perkName, 'Perks', t.book, t.page, [R.specs[it.spec].name, 'perk']);
     }
+    for (const t of Object.values(R.bigGuyTables || {})) for (const b of t.items) add('Big Guy: ' + b.name, 'Special rules', t.book, t.page, ['big guy', b.name]);
     for (const t of Object.values(R.weaponTables)) for (const w of t.items) add(w.name, 'Weapons', t.book, t.page, ['weapon']);
     for (const t of Object.values(R.gearTables)) for (const g of t.items) add(g.name, 'Gear', t.book, t.page, ['gear']);
     for (const v of R.vehicles || []) add(v.title, 'Vehicles', 'dh', v.page, ['vehicle', 'card']);

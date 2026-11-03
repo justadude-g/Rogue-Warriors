@@ -5100,6 +5100,2321 @@
           "license": "CC BY 3.0"
         }
       ]
+    },
+    {
+      "id": "exp-evo-space-raiders",
+      "category": "expertise",
+      "label": "Space Raiders",
+      "file": "expertise/exp-evo-space-raiders.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Space Raiders",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/rocket-flight.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-kill-team",
+      "category": "expertise",
+      "label": "Kill Team",
+      "file": "expertise/exp-evo-kill-team.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Kill Team",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/bolter-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-force-users",
+      "category": "expertise",
+      "label": "Force Users",
+      "file": "expertise/exp-evo-force-users.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Force Users",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/energy-sword.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-psychics",
+      "category": "expertise",
+      "label": "Psychics",
+      "file": "expertise/exp-evo-psychics.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Psychics",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/psychic-waves.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-warpers",
+      "category": "expertise",
+      "label": "Warpers",
+      "file": "expertise/exp-evo-warpers.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Warpers",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/vortex.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-bio-suits",
+      "category": "expertise",
+      "label": "Bio-Suits",
+      "file": "expertise/exp-evo-bio-suits.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Bio-Suits",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/space-suit.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-inter-dimensionals",
+      "category": "expertise",
+      "label": "Inter-Dimensionals",
+      "file": "expertise/exp-evo-inter-dimensionals.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Inter-Dimensionals",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/portal.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-away-team",
+      "category": "expertise",
+      "label": "Away Team",
+      "file": "expertise/exp-evo-away-team.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Away Team",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/spaceship.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-desert-dwellers",
+      "category": "expertise",
+      "label": "Desert Dwellers",
+      "file": "expertise/exp-evo-desert-dwellers.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Desert Dwellers",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/cactus.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-jungle-hunters",
+      "category": "expertise",
+      "label": "Jungle Hunters",
+      "file": "expertise/exp-evo-jungle-hunters.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Jungle Hunters",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/hunter-eyes.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-flux-warriors",
+      "category": "expertise",
+      "label": "Flux Warriors",
+      "file": "expertise/exp-evo-flux-warriors.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Flux Warriors",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/teleport.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-xeno-morphs",
+      "category": "expertise",
+      "label": "Xeno-Morphs",
+      "file": "expertise/exp-evo-xeno-morphs.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Xeno-Morphs",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/alien-bug.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-brutes",
+      "category": "expertise",
+      "label": "Brutes",
+      "file": "expertise/exp-evo-brutes.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Brutes",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/mighty-force.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-assimilation",
+      "category": "expertise",
+      "label": "Assimilation",
+      "file": "expertise/exp-evo-assimilation.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Assimilation",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/cyborg-face.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-simulants",
+      "category": "expertise",
+      "label": "Simulants",
+      "file": "expertise/exp-evo-simulants.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Simulants",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/android-mask.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-evo-assault-jumpers",
+      "category": "expertise",
+      "label": "Assault Jumpers",
+      "file": "expertise/exp-evo-assault-jumpers.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Assault Jumpers",
+          "book": "Evolution (Sci-Fi)",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/jetpack.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "commando",
+      "category": "specialisation",
+      "label": "Commando",
+      "file": "specialisations/commando.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Commando",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/brass-knuckles.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "defender",
+      "category": "specialisation",
+      "label": "Defender",
+      "file": "specialisations/defender.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Defender",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/shield-reflect.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "tech-comms",
+      "category": "specialisation",
+      "label": "Tech & Comms",
+      "file": "specialisations/tech-comms.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Tech & Comms",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/circuitry.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "fire-team-veteran",
+      "category": "specialisation",
+      "label": "Fire Team Veteran",
+      "file": "specialisations/fire-team-veteran.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Fire Team Veteran",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/rifle.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "psychic",
+      "category": "specialisation",
+      "label": "Psychic",
+      "file": "specialisations/psychic.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Psychic",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/psychic-waves.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "hunter",
+      "category": "specialisation",
+      "label": "Hunter",
+      "file": "specialisations/hunter.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Hunter",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/wolf-howl.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bio-mechanic",
+      "category": "specialisation",
+      "label": "Bio-Mechanic",
+      "file": "specialisations/bio-mechanic.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Bio-Mechanic",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/robot-grab.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "translator",
+      "category": "specialisation",
+      "label": "Translator",
+      "file": "specialisations/translator.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Translator",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/talk.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "android",
+      "category": "specialisation",
+      "label": "Android",
+      "file": "specialisations/android.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Android",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/robot-helmet.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "alien-beast",
+      "category": "specialisation",
+      "label": "Alien Beast",
+      "file": "specialisations/alien-beast.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Alien Beast",
+          "book": "Evolution (Sci-Fi)",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/alien-stare.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bg-fast-accurate",
+      "category": "specialisation",
+      "label": "Big Guy: Fast & Accurate",
+      "file": "specialisations/bg-fast-accurate.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Fast & Accurate",
+          "book": "Evolution (Sci-Fi)",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/winged-arrow.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bg-mount",
+      "category": "specialisation",
+      "label": "Big Guy: Beast or Bike (Mount)",
+      "file": "specialisations/bg-mount.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Beast or Bike",
+          "book": "Evolution (Sci-Fi)",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/horse-head.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bg-robust-strategic",
+      "category": "specialisation",
+      "label": "Big Guy: Robust & Strategic",
+      "file": "specialisations/bg-robust-strategic.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Robust & Strategic",
+          "book": "Evolution (Sci-Fi)",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/chess-rook.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bg-strong-slow",
+      "category": "specialisation",
+      "label": "Big Guy: Strong & Slow",
+      "file": "specialisations/bg-strong-slow.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Strong & Slow",
+          "book": "Evolution (Sci-Fi)",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/gorilla.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "blast-pistol",
+      "category": "weapon",
+      "label": "Blast Pistol",
+      "file": "weapons/blast-pistol.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Blast Pistol",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/bolter-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "plasma-pistol",
+      "category": "weapon",
+      "label": "Plasma Pistol",
+      "file": "weapons/plasma-pistol.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Plasma Pistol",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/ray-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "nova-blaster",
+      "category": "weapon",
+      "label": "Nova Blaster",
+      "file": "weapons/nova-blaster.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Nova Blaster",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/laser-blast.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "vortex-blaster",
+      "category": "weapon",
+      "label": "Vortex Blaster",
+      "file": "weapons/vortex-blaster.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Vortex Blaster",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/laserburn.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "photon-blaster",
+      "category": "weapon",
+      "label": "Photon Blaster",
+      "file": "weapons/photon-blaster.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Photon Blaster",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/laser-sparks.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "ion-blaster",
+      "category": "weapon",
+      "label": "Ion Blaster",
+      "file": "weapons/ion-blaster.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Ion Blaster",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/blaster.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "ion-repeater",
+      "category": "weapon",
+      "label": "Ion Repeater",
+      "file": "weapons/ion-repeater.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Ion Repeater",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/autogun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "ion-longshot",
+      "category": "weapon",
+      "label": "Ion Longshot",
+      "file": "weapons/ion-longshot.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Ion Longshot",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/laser-precision.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "heavy-ion-blaster",
+      "category": "weapon",
+      "label": "Heavy Ion Blaster",
+      "file": "weapons/heavy-ion-blaster.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Heavy Ion Blaster",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/minigun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "eclipse-longshot",
+      "category": "weapon",
+      "label": "Eclipse Longshot",
+      "file": "weapons/eclipse-longshot.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Eclipse Longshot",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/eclipse.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "nova-longshot",
+      "category": "weapon",
+      "label": "Nova Longshot",
+      "file": "weapons/nova-longshot.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Nova Longshot",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/focused-lightning.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "starfire-grenade",
+      "category": "weapon",
+      "label": "Starfire Grenade",
+      "file": "weapons/starfire-grenade.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Starfire Grenade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        },
+        {
+          "name": "Starfire Grenade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/fire-bomb.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "plasma-high-beam",
+      "category": "weapon",
+      "label": "Plasma High Beam",
+      "file": "weapons/plasma-high-beam.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Plasma High Beam",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/sinusoidal-beam.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "plasma-launcher",
+      "category": "weapon",
+      "label": "Plasma Launcher",
+      "file": "weapons/plasma-launcher.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Plasma Launcher",
+          "book": "Evolution (Sci-Fi)",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/missile-launcher.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cool-whip",
+      "category": "weapon",
+      "label": "Cool Whip",
+      "file": "weapons/cool-whip.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Cool Whip",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/electric-whip.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "stun-phaser",
+      "category": "weapon",
+      "label": "Stun Phaser",
+      "file": "weapons/stun-phaser.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Stun Phaser",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/zat-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "anti-gravity-pistol",
+      "category": "weapon",
+      "label": "Anti-gravity Pistol",
+      "file": "weapons/anti-gravity-pistol.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Anti-gravity Pistol",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/punch-blast.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "nano-swarm-disruptor",
+      "category": "weapon",
+      "label": "Nano-Swarm Disruptor",
+      "file": "weapons/nano-swarm-disruptor.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Nano-Swarm Disruptor",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/nano-bot.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "neuro-toxin-blaster",
+      "category": "weapon",
+      "label": "Neuro-Toxin Blaster",
+      "file": "weapons/neuro-toxin-blaster.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Neuro-Toxin Blaster",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/chemical-arrow.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "radiation-blaster",
+      "category": "weapon",
+      "label": "Radiation Blaster",
+      "file": "weapons/radiation-blaster.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Radiation Blaster",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/radiations.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "homing-arrow",
+      "category": "weapon",
+      "label": "Homing Arrow",
+      "file": "weapons/homing-arrow.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Homing Arrow",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/energy-arrow.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "electro-pulse-disruptor",
+      "category": "weapon",
+      "label": "Electro-Pulse Disruptor",
+      "file": "weapons/electro-pulse-disruptor.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Electro-Pulse Disruptor",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/lightning-arc.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "temporal-disruptor",
+      "category": "weapon",
+      "label": "Temporal Disruptor",
+      "file": "weapons/temporal-disruptor.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Temporal Disruptor",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/hourglass.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "phase-disruptor",
+      "category": "weapon",
+      "label": "Phase Disruptor",
+      "file": "weapons/phase-disruptor.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Phase Disruptor",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/lightning-dissipation.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "magno-disruptor",
+      "category": "weapon",
+      "label": "Magno Disruptor",
+      "file": "weapons/magno-disruptor.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Magno Disruptor",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/magnet-blast.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "black-hole-generator",
+      "category": "weapon",
+      "label": "Black Hole Generator",
+      "file": "weapons/black-hole-generator.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Black Hole Generator",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/black-hole-bolas.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "quantum-flux-launcher",
+      "category": "weapon",
+      "label": "Quantum Flux Launcher",
+      "file": "weapons/quantum-flux-launcher.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Quantum Flux Launcher",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/portal.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "singularity-launcher",
+      "category": "weapon",
+      "label": "Singularity Launcher",
+      "file": "weapons/singularity-launcher.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Singularity Launcher",
+          "book": "Evolution (Sci-Fi)",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/star-gate.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "chain-blade",
+      "category": "weapon",
+      "label": "Chain Blade",
+      "file": "weapons/chain-blade.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Chain Blade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/chainsaw.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "neutron-axe",
+      "category": "weapon",
+      "label": "Neutron Axe",
+      "file": "weapons/neutron-axe.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Neutron Axe",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/battle-axe.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "plasma-blade",
+      "category": "weapon",
+      "label": "Plasma Blade",
+      "file": "weapons/plasma-blade.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Plasma Blade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/energy-sword.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bio-claw",
+      "category": "weapon",
+      "label": "Bio-Claw",
+      "file": "weapons/bio-claw.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Bio-Claw",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/claws.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "graviton-hammer",
+      "category": "weapon",
+      "label": "Graviton Hammer",
+      "file": "weapons/graviton-hammer.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Graviton Hammer",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/warhammer.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "power-gauntlet",
+      "category": "weapon",
+      "label": "Power Gauntlet",
+      "file": "weapons/power-gauntlet.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Power Gauntlet",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/mailed-fist.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "venom-blade",
+      "category": "weapon",
+      "label": "Venom Blade",
+      "file": "weapons/venom-blade.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Venom Blade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/dripping-knife.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "psychic-attack",
+      "category": "weapon",
+      "label": "Psychic Power: Attack",
+      "file": "weapons/psychic-attack.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Attack",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/brain-leak.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "psychic-move",
+      "category": "weapon",
+      "label": "Psychic Power: Move",
+      "file": "weapons/psychic-move.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Move",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/hand-of-god.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "psychic-heal",
+      "category": "weapon",
+      "label": "Psychic Power: Heal",
+      "file": "weapons/psychic-heal.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Heal",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/health-increase.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "psychic-focus",
+      "category": "weapon",
+      "label": "Psychic Power: Focus",
+      "file": "weapons/psychic-focus.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Focus",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/third-eye.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "psychic-empower",
+      "category": "weapon",
+      "label": "Psychic Power: Empower",
+      "file": "weapons/psychic-empower.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Empower",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/muscle-up.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "psychic-protect",
+      "category": "weapon",
+      "label": "Psychic Power: Protect",
+      "file": "weapons/psychic-protect.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Protect",
+          "book": "Evolution (Sci-Fi)",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/energy-shield.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mount-claws-teeth",
+      "category": "weapon",
+      "label": "Mount Weapon: Claws & Teeth",
+      "file": "weapons/mount-claws-teeth.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Claws & Teeth",
+          "book": "Evolution (Sci-Fi)",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/claw-slashes.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mount-ramming-charge",
+      "category": "weapon",
+      "label": "Mount Weapon: Ramming Charge",
+      "file": "weapons/mount-ramming-charge.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Ramming Charge",
+          "book": "Evolution (Sci-Fi)",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/rhinoceros-horn.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mount-venom-teeth",
+      "category": "weapon",
+      "label": "Mount Weapon: Venom Teeth",
+      "file": "weapons/mount-venom-teeth.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Venom Teeth",
+          "book": "Evolution (Sci-Fi)",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/snake-bite.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mount-armour",
+      "category": "weapon",
+      "label": "Mount Weapon: Mount Armour",
+      "file": "weapons/mount-armour.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Mount Armour",
+          "book": "Evolution (Sci-Fi)",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/turtle-shell.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "micro-boosters",
+      "category": "gear",
+      "label": "Micro Boosters",
+      "file": "gear/micro-boosters.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Micro Boosters",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/winged-leg.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "temporal-dial",
+      "category": "gear",
+      "label": "Temporal Dial",
+      "file": "gear/temporal-dial.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Temporal Dial",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/clockwork.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "tactical-visor",
+      "category": "gear",
+      "label": "Tactical Visor",
+      "file": "gear/tactical-visor.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Tactical Visor",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/cyber-eye.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "melee-upgrade",
+      "category": "gear",
+      "label": "Melee Upgrade",
+      "file": "gear/melee-upgrade.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Melee Upgrade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/sword-slice.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "scanner",
+      "category": "gear",
+      "label": "Scanner",
+      "file": "gear/scanner.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Scanner",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/radar-sweep.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "pulse-grenade",
+      "category": "gear",
+      "label": "Pulse Grenade",
+      "file": "gear/pulse-grenade.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Pulse Grenade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/expanded-rays.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "solar-grenade",
+      "category": "gear",
+      "label": "Solar Grenade",
+      "file": "gear/solar-grenade.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Solar Grenade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/sunbeams.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "holo-scopes",
+      "category": "gear",
+      "label": "Holo-Scopes",
+      "file": "gear/holo-scopes.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Holo-Scopes",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/telescope.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "nova-scopes",
+      "category": "gear",
+      "label": "Nova Scopes",
+      "file": "gear/nova-scopes.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Nova Scopes",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/star-pupil.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "repulsor-shield",
+      "category": "gear",
+      "label": "Repulsor Shield",
+      "file": "gear/repulsor-shield.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Repulsor Shield",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/energy-shield.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "refractor-cloak",
+      "category": "gear",
+      "label": "Refractor Cloak",
+      "file": "gear/refractor-cloak.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Refractor Cloak",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/wing-cloak.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "adrenaline-stim",
+      "category": "gear",
+      "label": "Adrenaline Stim",
+      "file": "gear/adrenaline-stim.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Adrenaline Stim",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/syringe.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "energy-capacitor",
+      "category": "gear",
+      "label": "Energy Capacitor",
+      "file": "gear/energy-capacitor.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Energy Capacitor",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/battery-pack.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cloaking-device",
+      "category": "gear",
+      "label": "Cloaking Device",
+      "file": "gear/cloaking-device.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Cloaking Device",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/invisible.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "deflector-shield",
+      "category": "gear",
+      "label": "Deflector Shield",
+      "file": "gear/deflector-shield.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Deflector Shield",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/shield-reflect.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "force-shield",
+      "category": "gear",
+      "label": "Force Shield",
+      "file": "gear/force-shield.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Force Shield",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/shield-echoes.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "deflector-array",
+      "category": "gear",
+      "label": "Deflector Array",
+      "file": "gear/deflector-array.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Deflector Array",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/shield-bounces.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "gravity-generator",
+      "category": "gear",
+      "label": "Gravity Generator",
+      "file": "gear/gravity-generator.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Gravity Generator",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/magnet.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "rager-stim",
+      "category": "gear",
+      "label": "Rager Stim Shot",
+      "file": "gear/rager-stim.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Rager Stim Shot",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/enrage.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "electro-stim",
+      "category": "gear",
+      "label": "Electro Stim Shot",
+      "file": "gear/electro-stim.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Electro Stim Shot",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/lightning-helix.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mag-extender",
+      "category": "gear",
+      "label": "Mag Extender",
+      "file": "gear/mag-extender.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Mag Extender",
+          "book": "Evolution (Sci-Fi)",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/ammo-box.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "jump-pack",
+      "category": "gear",
+      "label": "Jump Pack",
+      "file": "gear/jump-pack.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Jump Pack",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/jetpack.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "booster-pack",
+      "category": "gear",
+      "label": "Booster Pack",
+      "file": "gear/booster-pack.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Booster Pack",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/rocket-thruster.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "psychic-booster",
+      "category": "gear",
+      "label": "Psychic Range Booster",
+      "file": "gear/psychic-booster.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Psychic Range Booster",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/radial-balance.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "teleporter",
+      "category": "gear",
+      "label": "Teleporter",
+      "file": "gear/teleporter.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Teleporter",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/teleport.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "experimental-weapon",
+      "category": "gear",
+      "label": "Experimental Weapon",
+      "file": "gear/experimental-weapon.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Experimental Weapon",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/laser-warning.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bio-upgrade",
+      "category": "gear",
+      "label": "Bio Upgrade",
+      "file": "gear/bio-upgrade.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Bio Upgrade",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/dna1.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "force-field-generator",
+      "category": "gear",
+      "label": "Force Field Generator",
+      "file": "gear/force-field-generator.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Force Field Generator",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/bubble-field.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mech-hop-pit",
+      "category": "gear",
+      "label": "HOP-PIT Mech",
+      "file": "gear/mech-hop-pit.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "HOP-PIT Mech",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/spring.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mech-ro-dent",
+      "category": "gear",
+      "label": "RO-DENT Bomb Mech",
+      "file": "gear/mech-ro-dent.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "RO-DENT Bomb Mech",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/rat.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mech-k9-medic",
+      "category": "gear",
+      "label": "K9 Mech - Medic",
+      "file": "gear/mech-k9-medic.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "K9 Mech - Medic",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/wolf-head.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mech-k9-attack",
+      "category": "gear",
+      "label": "K9 Mech - Attack",
+      "file": "gear/mech-k9-attack.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "K9 Mech - Attack",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/wolf-head.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mech-k9-mine",
+      "category": "gear",
+      "label": "K9 Mech - Mine Detection",
+      "file": "gear/mech-k9-mine.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "K9 Mech - Mine Detection",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/wolf-head.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mech-hawk-eye",
+      "category": "gear",
+      "label": "Hawk Eye Mech",
+      "file": "gear/mech-hawk-eye.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Hawk Eye Mech",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/eagle-head.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mech-slither",
+      "category": "gear",
+      "label": "Slither Mech",
+      "file": "gear/mech-slither.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Slither Mech",
+          "book": "Evolution (Sci-Fi)",
+          "page": "21"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/snake.html",
+          "license": "CC BY 3.0"
+        }
+      ]
     }
   ]
 }

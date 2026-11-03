@@ -115,6 +115,13 @@ srv.listen(0, async () => {
     await p.fill('#ri-search', 'booby');
     const riB = await p.evaluate(() => [...document.querySelectorAll('#ri-list li')].map((l) => l.textContent).join(' '));
     if (!/ToD\s*p\. 12/.test(riB)) throw new Error('rules index: booby traps not found: ' + riB);
+    await p.fill('#ri-search', 'mech drones');
+    const riE = await p.evaluate(() => [...document.querySelectorAll('#ri-list li')].map((l) => l.textContent).join(' '));
+    if (!/Evolution\s*p\. 21/.test(riE)) throw new Error('rules index: Evolution mech drones not found: ' + riE);
+    // Evolution deck and builders (data only)
+    const evo = await p.evaluate(() => { const d = RWCatalog.deck(['evo-alliance', 'evo-aliens']); const L = RWCatalog.forSet('evo-aliens');
+      return { team: d.team.length, op: d.operator.length, big: d.operator.filter((c) => c.bigGuy).length, w: d.weapon.length, g: d.gear.length, bigs: L.bigGuys.length }; });
+    if (evo.team !== 16 || evo.op !== 20 || evo.big !== 4 || evo.w !== 48 || evo.g !== 45 || evo.bigs !== 4) throw new Error('Evolution deck wrong: ' + JSON.stringify(evo));
     await p.fill('#ri-search', 'tactician');
     await p.screenshot({ path: path.join(out, 'app-index.png') });
     await p.fill('#ri-search', '');
