@@ -227,7 +227,6 @@
     const slots = n + 1, gap = Math.min(5.0, 41 / slots);
     for (let i = 0; i < slots; i++) heart(X, 19 + i * gap, hy, Math.min(4.4, gap * 0.95), i < n ? '#ffffff' : null, i < n ? RED : '#999', i >= n);
     X.text(c.soldierLabel.toUpperCase(), 4, 85.3, FOOT, F.label, T.mid, 'left', '600');
-    X.text(c.ref, 59, 85.3, FOOT, F.label, T.mid, 'right');
   }
 
   async function drawTeam(X, c) {
@@ -247,7 +246,6 @@
     X.rr(4, 79.6, 25, 5.4, 1); X.fill(T.dark);
     X.text(`GEAR ${c.gearPoints} PTS`, 16.5, 83.4, 2.7, F.label, '#ffffff', 'center', '600');
     X.text(`TEAM OF ${c.teamSize}`, 31, 83.4, LBL, F.label, T.mid, 'left', '600');
-    X.text(c.ref, 59, 83.4, FOOT, F.label, T.mid, 'right');
   }
 
   // Weapon and gear cards are standard size and built to be tucked under the card above:
@@ -290,7 +288,6 @@
     box(X, 4, 67.0, 55, 15.8, T, '#ffffff');
     paragraphs(X, textBlocks(c, T, { drawback: true }), 5.6, 67.8, 51.8, 14.6, BODY_MAX, BODY_MIN - 0.1, T.ink);
     X.text('WEAPON', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
-    X.text(c.ref, W - 4, 85.2, FOOT, F.label, T.mid, 'right');
   }
 
   async function drawGear(X, c) {
@@ -306,7 +303,6 @@
     chipsRow(X, modChips(c.mods).map((m) => [m, RED]), 53.5, 59);
     box(X, 4, 58, 55, 24.8, T, '#ffffff');
     paragraphs(X, [{ runs: [{ t: c.perk }] }], 5.6, 58.8, 51.8, 23.4, BODY_MAX, BODY_MIN - 0.1, T.ink);
-    X.text(c.ref, W - 4, 85.2, FOOT, F.label, T.mid, 'right');
   }
 
   // Campaign Warrior card: one per Platoon member, landscape.
