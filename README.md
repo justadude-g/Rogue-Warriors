@@ -1,4 +1,4 @@
-# Rogue Warriors card builder
+# Rogue Warriors Quartermaster
 
 A free, static web app for designing and printing cards for **Rogue Warriors**, the miniature-agnostic modern warfare skirmish game by Lee Fox-Smith and Nicholas Fox-Smith (Tabletop Skirmish Games). No installs, no accounts, no build step. Serve the folder locally or host it on GitHub Pages.
 
@@ -30,10 +30,10 @@ This repository holds the full rules wording in `js/data/private/rules-text.js`.
 `tools/publish-public.js` copies everything else to a clone of the public repository and removes the private script tag. In the public build, cards print the perk names, stats and a page reference (for example "See TB p. 10"), and players who own the books can type their own wording into any card.
 
 ```sh
-git clone https://github.com/<user>/Rogue-Warriors-Cards ../Rogue-Warriors-Cards   # once
+git clone https://github.com/justadude-g/Rogue-Warriors-Quartermaster ../Rogue-Warriors-Quartermaster   # once
 npm run stamp                                    # version the CSS and JS links
 git commit -am "..." && git push                 # private repo
-node tools/publish-public.js ../Rogue-Warriors-Cards --push
+node tools/publish-public.js ../Rogue-Warriors-Quartermaster --push
 ```
 
 The script refuses to run against this repository, and it stops if any rules wording would reach the public copy.

@@ -1,4 +1,4 @@
-/* Rogue Warriors Card Builder: deck, mission team and campaign views. */
+/* Rogue Warriors Quartermaster: deck, mission team and campaign views. */
 (function () {
   const R = window.RW, C = window.RWCatalog, $ = (s, el) => (el || document).querySelector(s);
   const uid = () => Math.random().toString(36).slice(2, 10);
@@ -489,7 +489,7 @@
       const f = e.target.files[0]; if (!f) return;
       try {
         const data = JSON.parse(await f.text());
-        if (data.app !== 'rogue-warriors-cards' || !data.state) throw new Error('That file is not a Rogue Warriors Card Builder backup.');
+        if (data.app !== 'rogue-warriors-cards' || !data.state) throw new Error('That file is not a Rogue Warriors Quartermaster backup.');
         if (!confirm('Replace everything in this browser with the backup?')) return;
         S = Object.assign(JSON.parse(JSON.stringify(DEFAULT)), data.state); save();
         $('#backup-note').textContent = 'Backup restored.'; toast('Backup restored.');

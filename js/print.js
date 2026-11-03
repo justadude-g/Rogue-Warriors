@@ -62,7 +62,7 @@
       }
     }
     if (!pdf) throw new Error('Nothing to print: set at least one copy.');
-    pdf.setProperties({ title: opts.title || 'Rogue Warriors cards', creator: 'Rogue Warriors Card Builder' });
+    pdf.setProperties({ title: opts.title || 'Rogue Warriors cards', creator: 'Rogue Warriors Quartermaster' });
     return pdf;
   }
 

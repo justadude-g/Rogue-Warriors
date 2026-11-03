@@ -16,7 +16,7 @@ const PRIVATE = 'js/data/private/';
 const git = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
 const die = (msg) => { console.error('publish-public: ' + msg); process.exit(1); };
 
-if (!process.argv[2]) die('give the folder of the public repo clone, e.g. node tools/publish-public.js ../Rogue-Warriors-Cards');
+if (!process.argv[2]) die('give the folder of the public repo clone, e.g. node tools/publish-public.js ../Rogue-Warriors-Quartermaster');
 if (!fs.existsSync(path.join(DEST, '.git'))) die(DEST + ' is not a git clone');
 if (fs.realpathSync(DEST) === fs.realpathSync(SRC)) die('the target is this repository, not the public one');
 const srcRemote = git(SRC, 'remote', 'get-url', 'origin'), destRemote = git(DEST, 'remote', 'get-url', 'origin');

@@ -1,14 +1,14 @@
 {
-  "name": "rogue-warriors-cards",
+  "name": "rogue-warriors-quartermaster",
   "version": "1.0.0",
   "private": true,
-  "description": "Card builder for Rogue Warriors. Static site, no build step.",
+  "description": "Rogue Warriors Quartermaster: card builder for Rogue Warriors. Static site, no build step.",
   "scripts": {
     "start": "python3 -m http.server 8771",
     "stamp": "node tools/stamp.js",
     "test": "node test/smoke.js /tmp",
     "samples": "node test/render-samples.js /tmp",
-    "publish-public": "node tools/publish-public.js ../Rogue-Warriors-Cards --push"
+    "publish-public": "node tools/publish-public.js ../Rogue-Warriors-Quartermaster --push"
   },
   "license": "ISC",
   "devDependencies": {
