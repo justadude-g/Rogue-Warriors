@@ -248,7 +248,7 @@ ICONS = [
     ('cracked-glass', 'weather', 'Hull Breach', 'lorc/cracked-glass', 'ice', 'Hull Breach@WX:29'),
 
     # ---------------- SPECIALISATIONS ----------------
-    ('tactician', 'specialisation', 'Tactician', 'skoll/chess-knight', 'navy', 'Tactician@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
+    ('tactician', 'specialisation', 'Tactician', [('skoll/chess-knight', 'navy', (0, -33, 1, False))], 'navy', 'Tactician@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
     ('medic', 'specialisation', 'Medic', 'sbed/medical-pack', 'red', 'Medic@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
     ('sniper', 'specialisation', 'Sniper', 'delapouite/human-target', 'olive', 'Sniper@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
     ('hand-to-hand', 'specialisation', 'Hand-to-Hand', 'lorc/fist', 'khaki', 'Hand-to-Hand@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
