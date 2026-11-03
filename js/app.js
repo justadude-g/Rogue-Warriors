@@ -137,8 +137,8 @@
       const sub = c.kind === 'team' ? `${c.setLabel} · ${c.mechLabel} · ${c.ref}`
         : c.kind === 'operator' ? `${c.bigGuy ? 'Big Guy · ' : ''}${c.warriorName ? c.warriorName + ' · ' : ''}${c.perkName ? c.perkName + ' · ' : ''}${c.ref}`
         : c.kind === 'vehicle' ? `${c.vehicleName ? c.vehicleName + ' · ' : ''}${c.pv} PV · Capacity ${c.stats.capacity} · ${c.ref}`
-        : c.kind === 'weather' ? `2D6 roll ${c.roll} · ${c.ref}`
-        : c.kind === 'weatherback' ? `Back for the shuffled ${c.envName} deck · ${c.ref}`
+        : c.kind === 'weather' ? `2D6 roll ${c.roll}`
+        : c.kind === 'weatherback' ? `Back for the shuffled ${c.envName} deck`
         : c.kind === 'weapon' ? `${c.typeLabel} · ${c.range} · ${c.ref}`
         : `${c.pts} pts · ${c.ref}`;
       const cu0 = S.custom[c.key] || {};
@@ -244,7 +244,7 @@
       h('p', { class: 'hint' }, cu.image ? 'Drag the picture on the card to move it. Scroll or use Zoom to resize.' : picHint)));
 
     // ---- text and options ----
-    ed.append(h('h3', {}, card.baseTitle), h('p', { class: 'hint' }, `Rules: ${card.ref}. Leave a box empty to use the standard wording.`));
+    ed.append(h('h3', {}, card.baseTitle), h('p', { class: 'hint' }, card.kind === 'weather' || card.kind === 'weatherback' ? 'Leave a box empty to use the standard wording.' : `Rules: ${card.ref}. Leave a box empty to use the standard wording.`));
     ed.append(text('name', 'Card name', false, card.baseTitle));
     if (card.kind === 'operator') ed.append(text('warriorName', 'Warrior name (printed on the NAME line)', false, 'Leave empty to write it by hand'));
     if (card.kind === 'operator' && !card.bigGuy) {

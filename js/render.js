@@ -385,7 +385,6 @@
     const lines = String(c.perk || '').split('\n').filter(Boolean).map((t, i) => ({ gapBefore: i ? 0.3 : 0, runs: [{ t }] }));
     paragraphs(X, lines, 5.6, 61.8, 51.8, 19.6, 4.0, 2.3, T.ink);
     X.text('WEATHER TABLES', 4, 85.0, FOOT, F.label, T.mid, 'left', '600');
-    X.text(c.ref.replace('Weather ', ''), W - 4, 85.0, FOOT, F.label, T.mid, 'right', '600');
   }
 
   // Card back, one design per environment: dark panel in the environment colour with its badge, so the face-down deck is recognisable.
