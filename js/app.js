@@ -497,19 +497,63 @@
     kids.flat().forEach((kid) => { if (kid != null) el.append(kid.nodeType ? kid : document.createTextNode(String(kid))); });
     return el;
   }
-  // Deployment map on the 36 by 36 inch Battlefield. Grid lines every 12 inches, as printed in the Mission.
+  // Deployment map on the 36 by 36 inch Battlefield. Major grid lines every 12 inches, as printed in the Mission, with a faint 6 inch grid between.
+  // Colours come from CSS variables (see "Mission maps" in styles.css) so the map follows light and dark mode.
+  let mapSeq = 0;
   function missionMap(map) {
-    const svg = sv('svg', { viewBox: '-1 -1 38 38', role: 'img', class: 'os-map', 'aria-label': 'Deployment map, code ' + map.code });
-    svg.append(sv('rect', { x: 0, y: 0, width: 36, height: 36, class: 'os-board' }));
-    for (const g of [12, 24]) svg.append(sv('line', { x1: g, y1: 0, x2: g, y2: 36, class: 'os-grid' }), sv('line', { x1: 0, y1: g, x2: 36, y2: g, class: 'os-grid' }));
+    const id = 'osm' + (++mapSeq), R = (n) => Math.round(n * 100) / 100;
+    const svg = sv('svg', { viewBox: '-4 -4.2 44 47', role: 'img', class: 'os-map', 'aria-label': 'Deployment map, code ' + map.code });
+    const hatch = (z) => sv('pattern', { id: `${id}-h${z}`, width: 1.3, height: 1.3, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, sv('line', { x1: 0, y1: 0, x2: 0, y2: 1.3, class: 'os-hatch os-hatch-' + z }));
+    svg.append(sv('defs', {},
+      sv('clipPath', { id: id + '-c' }, sv('rect', { x: 0, y: 0, width: 36, height: 36, rx: 1.6 })),
+      sv('filter', { id: id + '-s', x: '-20%', y: '-20%', width: '140%', height: '150%' }, sv('feDropShadow', { dx: 0, dy: .28, stdDeviation: .28, 'flood-color': '#000', 'flood-opacity': .3 })),
+      hatch('a'), hatch('b')));
+    svg.append(sv('rect', { x: 0, y: 0, width: 36, height: 36, rx: 1.6, class: 'os-board' }));
+    const g = sv('g', { 'clip-path': `url(#${id}-c)` });
+    for (let v = 6; v < 36; v += 6) { const major = v % 12 === 0; g.append(sv('line', { x1: v, y1: 0, x2: v, y2: 36, class: major ? 'os-major' : 'os-grid' }), sv('line', { x1: 0, y1: v, x2: 36, y2: v, class: major ? 'os-major' : 'os-grid' })); }
     for (const sh of map.shapes) {
-      if (sh.k === 'bag' || sh.k === 'safe' || sh.k === 'hostage') svg.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: sh.k === 'safe' ? 2.4 : sh.k === 'hostage' ? 1.1 : 1.6, class: 'os-k-' + sh.k }));
-      else if (sh.k === 'building') {
-        svg.append(sv('rect', { x: sh.cx - sh.w / 2, y: sh.cy - sh.h / 2, width: sh.w, height: sh.h, class: 'os-k-building', transform: `rotate(${sh.rot} ${sh.cx} ${sh.cy})` }));
-        if (sh.ring) svg.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: sh.ring, class: 'os-ring' }));
-      } else svg.append(sv('rect', { x: sh.x, y: sh.y, width: sh.w, height: sh.h, class: 'os-k-' + sh.k }));
+      const k = sh.k;
+      if (k === 'zone-a' || k === 'zone-b') {
+        const z = k.slice(-1), at = { x: sh.x, y: sh.y, width: sh.w, height: sh.h, rx: .6 };
+        g.append(sv('rect', Object.assign({ class: 'os-z os-z-' + z }, at)), sv('rect', Object.assign({ fill: `url(#${id}-h${z})` }, at)), sv('rect', Object.assign({ class: 'os-zl os-zl-' + z }, at)));
+      } else if (k === 'exit-a' || k === 'exit-b') {
+        g.append(sv('rect', { x: sh.x, y: sh.y, width: sh.w, height: sh.h, rx: .5, class: 'os-k-' + k }));
+        const deg = sh.y <= .5 ? 0 : sh.y + sh.h >= 35.5 ? 180 : sh.x <= .5 ? 270 : sh.x + sh.w >= 35.5 ? 90 : null;
+        if (deg !== null) {
+          const horiz = sh.w >= sh.h, n = Math.max(1, Math.floor((horiz ? sh.w : sh.h) / 3));
+          for (let i = 0; i < n; i++) {
+            const cx = horiz ? sh.x + sh.w * (i + .5) / n : sh.x + sh.w / 2, cy = horiz ? sh.y + sh.h / 2 : sh.y + sh.h * (i + .5) / n;
+            g.append(sv('path', { d: `M${R(cx - .8)} ${R(cy + .45)} L${R(cx)} ${R(cy - .45)} L${R(cx + .8)} ${R(cy + .45)}`, class: 'os-chev', transform: `rotate(${deg} ${R(cx)} ${R(cy)})` }));
+          }
+        }
+      } else if (k === 'battery') {
+        g.append(sv('rect', { x: sh.x, y: sh.y, width: sh.w, height: sh.h, rx: .5, class: 'os-k-battery', filter: `url(#${id}-s)` }));
+        for (let i = 0; i < 3; i++) g.append(sv('circle', { cx: R(sh.x + sh.w * (i + .5) / 3), cy: R(sh.y + sh.h / 2), r: .6, class: 'os-gun' }));
+      } else if (k === 'building') {
+        const bw = sh.w, bh = sh.h, long = bw >= bh;
+        g.append(sv('g', { transform: `rotate(${sh.rot} ${sh.cx} ${sh.cy})` },
+          sv('rect', { x: R(sh.cx - bw / 2), y: R(sh.cy - bh / 2), width: bw, height: bh, rx: .5, class: 'os-k-building', filter: `url(#${id}-s)` }),
+          sv('rect', { x: R(sh.cx - bw / 2 + .8), y: R(sh.cy - bh / 2 + .8), width: R(bw - 1.6), height: R(bh - 1.6), rx: .3, class: 'os-roof' }),
+          long ? sv('line', { x1: R(sh.cx - bw / 2 + .8), y1: sh.cy, x2: R(sh.cx + bw / 2 - .8), y2: sh.cy, class: 'os-roof' }) : sv('line', { x1: sh.cx, y1: R(sh.cy - bh / 2 + .8), x2: sh.cx, y2: R(sh.cy + bh / 2 - .8), class: 'os-roof' })));
+        if (sh.ring) g.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: sh.ring, class: 'os-ring' }));
+      } else if (k === 'outline') g.append(sv('rect', { x: sh.x, y: sh.y, width: sh.w, height: sh.h, rx: .4, class: 'os-k-outline' }));
+      else if (k === 'door') g.append(sv('rect', { x: sh.x, y: sh.y, width: sh.w, height: sh.h, rx: .35, class: 'os-k-door' }));
+      else if (k === 'safe') {
+        g.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: 2.4, class: 'os-k-safe', filter: `url(#${id}-s)` }), sv('circle', { cx: sh.cx, cy: sh.cy, r: 1.55, class: 'os-dial' }), sv('circle', { cx: sh.cx, cy: sh.cy, r: .3, class: 'os-dial-dot' }));
+        for (const [dx, dy] of [[0, 1], [1, 0]]) g.append(sv('line', { x1: R(sh.cx - dx * 1.1), y1: R(sh.cy - dy * 1.1), x2: R(sh.cx + dx * 1.1), y2: R(sh.cy + dy * 1.1), class: 'os-dial' }));
+      } else if (k === 'hostage') {
+        g.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: 1.15, class: 'os-k-hostage', filter: `url(#${id}-s)` }), sv('circle', { cx: sh.cx, cy: R(sh.cy - .38), r: .27, class: 'os-person' }),
+          sv('path', { d: `M${R(sh.cx - .6)} ${R(sh.cy + .72)} Q${R(sh.cx - .6)} ${R(sh.cy + .08)} ${sh.cx} ${R(sh.cy + .08)} Q${R(sh.cx + .6)} ${R(sh.cy + .08)} ${R(sh.cx + .6)} ${R(sh.cy + .72)} Z`, class: 'os-person' }));
+      } else if (k === 'bag') {
+        const { cx, cy } = sh;
+        g.append(sv('circle', { cx, cy, r: 1.6, class: 'os-k-bag', filter: `url(#${id}-s)` }),
+          sv('path', { d: `M${R(cx - .7)} ${R(cy + .95)} Q${R(cx - 1.05)} ${R(cy - .1)} ${R(cx - .35)} ${R(cy - .3)} L${R(cx - .5)} ${R(cy - .95)} L${R(cx + .5)} ${R(cy - .95)} L${R(cx + .35)} ${R(cy - .3)} Q${R(cx + 1.05)} ${R(cy - .1)} ${R(cx + .7)} ${R(cy + .95)} Z`, class: 'os-sack' }));
+      } else g.append(sv('rect', { x: sh.x, y: sh.y, width: sh.w, height: sh.h, class: 'os-k-' + k }));
     }
-    svg.append(sv('rect', { x: 0, y: 0, width: 36, height: 36, class: 'os-frame' }));
+    svg.append(g, sv('rect', { x: 0, y: 0, width: 36, height: 36, rx: 1.6, class: 'os-frame' }));
+    for (const v of [0, 12, 24, 36]) svg.append(sv('text', { x: v, y: -1.5, 'text-anchor': 'middle', class: 'os-tick' }, v + '"'), sv('text', { x: -1.5, y: v + .5, 'text-anchor': 'end', class: 'os-tick' }, v + '"'));
+    svg.append(sv('line', { x1: 0, y1: 39.2, x2: 12, y2: 39.2, class: 'os-scale' }), sv('line', { x1: 0, y1: 38.5, x2: 0, y2: 39.9, class: 'os-scale' }), sv('line', { x1: 12, y1: 38.5, x2: 12, y2: 39.9, class: 'os-scale' }),
+      sv('text', { x: 13.4, y: 39.75, class: 'os-tick os-tick-l' }, '12" grid squares'));
     return svg;
   }
 
@@ -568,7 +612,7 @@
           h('h2', {}, 'Deployment code: ' + X.map.code), missionMap(X.map),
           h('ul', { class: 'os-legend' }, X.map.legend.map(([k, label]) => h('li', {}, h('i', { class: 'os-sw os-k-' + k }), label))),
           X.map.note ? h('p', { class: 'hint' }, X.map.note) : null,
-          h('p', { class: 'hint' }, m.fan ? 'A 36 by 36 inch Battlefield, with grid lines every 12 inches. Scale the zones down if you play on a smaller table.' : 'Redrawn from the printed diagram on a 36 by 36 inch Battlefield, with grid lines every 12 inches. Check distances against the PDF if you play on a smaller table.'))));
+          h('p', { class: 'hint' }, m.fan ? 'A 36 by 36 inch Battlefield, with a grid line every 12 inches and a fainter one every 6. Scale the zones down if you play on a smaller table.' : 'Redrawn from the printed diagram on a 36 by 36 inch Battlefield, with a grid line every 12 inches and a fainter one every 6. Check distances against the PDF if you play on a smaller table.'))));
     } else {
       box.append(h('p', { class: 'os-pub' }, 'The briefing, special rules and deployment map are in the free Mission PDF on the ', h('a', { href: m.url, target: '_blank', rel: 'noopener' }, 'official page'), '. This page builds the teams and prints their cards.'));
     }
