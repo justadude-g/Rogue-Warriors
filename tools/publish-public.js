@@ -54,7 +54,8 @@ const walk = (dir) => {
     if (fs.statSync(p).isDirectory()) walk(p);
     else if (/\.(js|html|json|md)$/.test(f)) {
       const t = fs.readFileSync(p, 'utf8');
-      if (/RW_TEXT\s*=\s*Object\.assign|Any Team Warrior can Re-roll 1 Dice|Auto 1D3 damage if hit|RW_QUICKREF\s*=\s*\{|Every Warrior activates each round|Lower-skilled Enlisted and Recruit soldiers appear|place 12 Xeno-morph Tokens|Weapon Malfunction\. Spend a Shoot Action/.test(t)) leaks.push(path.relative(DEST, p));
+      // oneshots.js holds the free One Shot Missions in full (the publisher gives them away), so the book-wording phrases are allowed there.
+      if (f === 'oneshots.js' ? /RW_TEXT\s*=\s*Object\.assign|RW_QUICKREF\s*=\s*\{/.test(t) : /RW_TEXT\s*=\s*Object\.assign|Any Team Warrior can Re-roll 1 Dice|Auto 1D3 damage if hit|RW_QUICKREF\s*=\s*\{|Every Warrior activates each round|Lower-skilled Enlisted and Recruit soldiers appear|place 12 Xeno-morph Tokens|Weapon Malfunction\. Spend a Shoot Action/.test(t)) leaks.push(path.relative(DEST, p));
     }
   }
 };

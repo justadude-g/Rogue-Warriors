@@ -189,10 +189,20 @@
   const vehicles = () => R.vehicles.map(vehicle);
   const vehicleGear = () => R.gearTables['dh-vehicle'].items.map((g) => gear(g, 'dh-vehicle'));
 
+  // A gear card that only exists inside a One Shot Mission (for example the free Explosive). Costs 0 points.
+  function missionGear(id) {
+    const m = (window.RW_ONESHOT_CARDS || {})[id];
+    if (!m) return null;
+    return {
+      kind: 'gear', key: 'os:' + id, title: m.title, baseTitle: m.title, pts: 0, icon: ICON + 'gear/' + m.icon + '.svg', image: null, imageFit: undefined,
+      mods: {}, perk: m.perk, ref: m.ref, table: 'os', source: { id, uid: 'os-' + id, name: m.title }, fromLabel: m.from,
+    };
+  }
+
   function rankPerks(kind) { return pack['ranks:' + kind] || null; }
 
   window.RWCatalog = {
-    deck, forSet, set, ref, rankPerks, vehicles, vehicleGear,
+    deck, forSet, set, ref, rankPerks, vehicles, vehicleGear, missionGear,
     setPack(p) { pack = p || {}; }, hasPack() { return Object.keys(pack).length > 0; }, packSize() { return Object.keys(pack).length; },
     setCustom(c) { custom = c || {}; }, getCustom() { return custom; },
   };

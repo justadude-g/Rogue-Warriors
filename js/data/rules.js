@@ -20,6 +20,7 @@
     dh: { name: 'Desert Heroes', short: 'DH' },
     evo: { name: 'Evolution (Sci-Fi)', short: 'Evolution' },
     uw: { name: 'Ungentlemanly Warriors', short: 'UW' },
+    faq: { name: 'Rogue Warriors FAQ and Errata', short: 'FAQ' },
   };
 
   const soldierTypes = {

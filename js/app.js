@@ -58,6 +58,8 @@
     document.querySelectorAll('.view').forEach((s) => { s.hidden = s.id !== 'view-' + v; });
     if (v === 'deck') renderDeck();
     if (v === 'mission') renderTeams();
+    if (v === 'oneshot') renderOneShots();
+    if (v === 'about') renderFaq();
     if (v === 'campaign') renderPlatoons();
     if (v === 'index') renderIndex();
     if (v === 'quickref') renderQuickref();
@@ -358,7 +360,44 @@
       return { vh, card, gear, stats, name: vh.name || '', label };
     });
     const vpv = vehicles.reduce((n, v) => n + v.card.pv, 0);
-    return { L, exp, budget, used, rows, warnings, vehicles, vpv };
+    return { team: t, L, exp, budget, used, rows, warnings, vehicles, vpv };
+  }
+
+  // Cards a team needs on the table: its Expertise, then per Warrior the Specialisation (with name and final stats), Big Guy, weapons, gear;
+  // then vehicles. One Shot Missions add per-slot title and wording changes and Mission-only gear.
+  function teamCardItems(res) {
+    const L = res.L, items = [{ card: res.exp, copies: 1 }];
+    res.rows.forEach((r) => {
+      const sl = r.slot;
+      if (r.op) items.push({ card: Object.assign({}, r.op, { key: r.op.key + '|' + sl.name, warriorName: sl.name, soldierType: sl.soldierType, soldierLabel: r.st.label,
+        stats: Object.assign({}, r.stats) }), copies: 1 });
+      if (r.st.big) { const bc = L.bigGuys.find((b) => b.source.id === r.st.big.id); if (bc) items.push({ card: bc, copies: 1 }); }
+      if (r.w) items.push({ card: sl.weaponTitle ? Object.assign({}, r.w, { key: r.w.key + '|' + sl.weaponTitle, title: sl.weaponTitle }) : r.w, copies: 1 });
+      r.powers.forEach((p) => items.push({ card: p, copies: 1 }));
+      r.gear.forEach((g) => { const txt = sl.gearText && sl.gearText[g.source.uid]; items.push({ card: txt ? Object.assign({}, g, { key: g.key + '|mission', perk: txt }) : g, copies: 1 }); });
+    });
+    res.vehicles.forEach((v) => {
+      items.push({ card: Object.assign({}, v.card, { key: v.card.key + '|' + v.name, vehicleName: v.name || v.card.vehicleName, stats: Object.assign({}, v.stats) }), copies: 1 });
+      v.gear.forEach((g) => items.push({ card: g, copies: 1 }));
+    });
+    (res.team.cards || []).forEach((id) => { const mc = C.missionGear(id); if (mc) items.push({ card: mc, copies: res.rows.length }); });
+    return items;
+  }
+
+  function teamPull(res) {
+    const by = { Team: [res.exp.title], Operators: [], Weapons: [], Gear: [] };
+    res.rows.forEach((r) => { if (r.op) by.Operators.push(r.op.title); if (r.w) by.Weapons.push(r.slot.weaponTitle || r.w.title); r.powers.forEach((p) => by.Weapons.push(p.title)); if (r.st.big) by.Operators.push(r.st.big.name + ' (Big Guy)'); r.gear.forEach((g) => by.Gear.push(g.title)); });
+    if (res.vehicles.length) { by.Vehicles = res.vehicles.map((v) => v.card.baseTitle); res.vehicles.forEach((v) => v.gear.forEach((g) => by.Gear.push(g.title + ' (vehicle)'))); }
+    (res.team.cards || []).forEach((id) => { const mc = C.missionGear(id); if (mc) by.Gear.push(`${mc.title} x ${res.rows.length} (Mission)`); });
+    return Object.entries(by).filter(([, v]) => v.length);
+  }
+
+  function printTeamSheet(t, res) {
+    const L = res.L;
+    window.RWPrint.teamSheet({ name: t.name, setLabel: L.set.label, expertise: res.exp.title, gearUsed: res.used, gearBudget: res.budget,
+      rows: res.rows.map((r) => ({ name: r.name, spec: r.spec, weapon: [r.slot.weaponTitle || (r.w && r.w.title) || '', ...r.powers.map((p) => p.title)].filter(Boolean).join(', '), gear: r.gearNames, stats: r.stats })),
+      vehicles: res.vehicles.map((v) => ({ name: v.label, cls: v.card.baseTitle, pv: v.card.pv, stats: v.stats, gear: v.gear.map((g) => g.title), weapons: v.card.weapons.filter(Boolean).map((w) => w.name) })), vpv: res.vpv, warnings: res.warnings, pull: teamPull(res) },
+    { paper: S.paper, filename: t.name.replace(/[^a-z0-9]+/gi, '-') });
   }
 
   function renderTeams() {
@@ -432,36 +471,131 @@
 
     box.append(res.warnings.length ? h('div', { class: 'warn' }, h('strong', {}, 'Check'), h('ul', {}, res.warnings.map((w) => h('li', {}, w)))) : h('div', { class: 'ok' }, 'Team is legal.'));
 
-    const pull = () => {
-      const by = { Team: [res.exp.title], Operators: [], Weapons: [], Gear: [] };
-      res.rows.forEach((r) => { if (r.op) by.Operators.push(r.op.title); if (r.w) by.Weapons.push(r.w.title); r.powers.forEach((p) => by.Weapons.push(p.title)); if (r.st.big) by.Operators.push(r.st.big.name + ' (Big Guy)'); r.gear.forEach((g) => by.Gear.push(g.title)); });
-      if (res.vehicles.length) { by.Vehicles = res.vehicles.map((v) => v.card.baseTitle); res.vehicles.forEach((v) => v.gear.forEach((g) => by.Gear.push(g.title + ' (vehicle)'))); }
-      return Object.entries(by).filter(([, v]) => v.length);
-    };
     const progress = h('div', { class: 'progress', hidden: true }, h('div'));
     box.append(h('div', { class: 'stack inline' },
-      h('button', { class: 'primary', onclick: () => window.RWPrint.teamSheet({ name: t.name, setLabel: L.set.label, expertise: res.exp.title, gearUsed: res.used, gearBudget: res.budget,
-        rows: res.rows.map((r) => ({ name: r.name, spec: r.spec, weapon: r.weapon, gear: r.gearNames, stats: r.stats })),
-        vehicles: res.vehicles.map((v) => ({ name: v.label, cls: v.card.baseTitle, pv: v.card.pv, stats: v.stats, gear: v.gear.map((g) => g.title), weapons: v.card.weapons.filter(Boolean).map((w) => w.name) })), vpv: res.vpv, warnings: res.warnings, pull: pull() }, { paper: S.paper, filename: t.name.replace(/[^a-z0-9]+/gi, '-') }) }, 'Print team sheet'),
-      h('button', { onclick: () => {
-        const items = [{ card: res.exp, copies: 1 }];
-        res.rows.forEach((r) => {
-          if (r.op) items.push({ card: Object.assign({}, r.op, { key: r.op.key + '|' + r.slot.name, warriorName: r.slot.name, soldierType: r.slot.soldierType, soldierLabel: r.st.label,
-            stats: Object.assign({}, r.stats) }), copies: 1 });
-          if (r.st.big) { const bc = L.bigGuys.find((b) => b.source.id === r.st.big.id); if (bc) items.push({ card: bc, copies: 1 }); }
-          if (r.w) items.push({ card: r.w, copies: 1 });
-          r.powers.forEach((p) => items.push({ card: p, copies: 1 }));
-          r.gear.forEach((g) => items.push({ card: g, copies: 1 }));
-        });
-        res.vehicles.forEach((v) => {
-          items.push({ card: Object.assign({}, v.card, { key: v.card.key + '|' + v.name, vehicleName: v.name || v.card.vehicleName, stats: Object.assign({}, v.stats) }), copies: 1 });
-          v.gear.forEach((g) => items.push({ card: g, copies: 1 }));
-        });
-        printItems(items, t.name.replace(/[^a-z0-9]+/gi, '-') + '-cards', progress);
-      } }, 'Print this team\'s cards'),
+      h('button', { class: 'primary', onclick: () => printTeamSheet(t, res) }, 'Print team sheet'),
+      h('button', { onclick: () => printItems(teamCardItems(res), t.name.replace(/[^a-z0-9]+/gi, '-') + '-cards', progress) }, 'Print this team\'s cards'),
       h('button', { class: 'ghost', onclick: () => { const c = JSON.parse(JSON.stringify(t)); c.id = uid(); c.name += ' (copy)'; S.teams.push(c); S.ui.team = c.id; save(); renderTeams(); } }, 'Duplicate'),
       h('button', { class: 'ghost danger', onclick: () => { if (confirm(`Delete ${t.name}?`)) { S.teams = S.teams.filter((x) => x !== t); S.ui.team = null; save(); renderTeams(); } } }, 'Delete')), progress,
       h('p', { class: 'hint' }, 'Printed team cards carry each Warrior\'s name and final stats. Use them when you would rather print per Mission than keep a deck.'));
+  }
+
+  // =====================================================================
+  // ONE SHOT MISSIONS (free Missions with premade teams; full text is public)
+  // =====================================================================
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  function sv(tag, attrs, ...kids) {
+    const el = document.createElementNS(SVGNS, tag);
+    for (const [k, v] of Object.entries(attrs || {})) if (v != null) el.setAttribute(k, v);
+    kids.flat().forEach((kid) => { if (kid != null) el.append(kid.nodeType ? kid : document.createTextNode(String(kid))); });
+    return el;
+  }
+  // Deployment map on the 36 by 36 inch Battlefield. Grid lines every 12 inches, as printed in the Mission.
+  function missionMap(map) {
+    const svg = sv('svg', { viewBox: '-1 -1 38 38', role: 'img', class: 'os-map', 'aria-label': 'Deployment map, code ' + map.code });
+    svg.append(sv('rect', { x: 0, y: 0, width: 36, height: 36, class: 'os-board' }));
+    for (const g of [12, 24]) svg.append(sv('line', { x1: g, y1: 0, x2: g, y2: 36, class: 'os-grid' }), sv('line', { x1: 0, y1: g, x2: 36, y2: g, class: 'os-grid' }));
+    for (const sh of map.shapes) {
+      if (sh.k === 'bag' || sh.k === 'safe') svg.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: sh.k === 'safe' ? 2.4 : 1.6, class: 'os-k-' + sh.k }));
+      else if (sh.k === 'building') {
+        svg.append(sv('rect', { x: sh.cx - sh.w / 2, y: sh.cy - sh.h / 2, width: sh.w, height: sh.h, class: 'os-k-building', transform: `rotate(${sh.rot} ${sh.cx} ${sh.cy})` }));
+        if (sh.ring) svg.append(sv('circle', { cx: sh.cx, cy: sh.cy, r: sh.ring, class: 'os-ring' }));
+      } else svg.append(sv('rect', { x: sh.x, y: sh.y, width: sh.w, height: sh.h, class: 'os-k-' + sh.k }));
+    }
+    svg.append(sv('rect', { x: 0, y: 0, width: 36, height: 36, class: 'os-frame' }));
+    return svg;
+  }
+
+  // Check the Mission sheet's printed stats against what the cards will show. A mismatch is listed under the team.
+  function sheetDiffs(res) {
+    const out = [];
+    res.rows.forEach((r) => {
+      const p = r.slot.sheet && r.slot.sheet.stats; if (!p) return;
+      const c = r.stats, bits = [];
+      if (p.ma !== c.ma) bits.push(`Move ${p.ma}" printed, ${c.ma}" on the card`);
+      if (p.hearts !== c.hearts) bits.push(`Hearts ${p.hearts} printed, ${c.hearts} on the card`);
+      if (p.mdp !== c.mdp) bits.push(`MDP ${p.mdp} printed, ${c.mdp} on the card`);
+      if (p.hits !== c.hits) bits.push(`Hits on ${p.hits}+ printed, ${c.hits}+ on the card`);
+      if (bits.length) out.push(`${r.slot.name}: ${bits.join('; ')}.`);
+    });
+    return out;
+  }
+
+  function renderOneShots() {
+    const list = window.RW_ONESHOTS || [];
+    const side = $('#os-list'); side.textContent = '';
+    if (!list.some((m) => m.id === S.ui.oneshot)) S.ui.oneshot = list[0] && list[0].id;
+    for (const m of list) side.append(h('li', { class: S.ui.oneshot === m.id ? 'sel' : '', onclick: () => { S.ui.oneshot = m.id; save(); renderOneShots(); } }, m.title, h('small', {}, m.code + ', ' + m.date)));
+    const box = $('#os-root'); box.textContent = '';
+    const m = list.find((x) => x.id === S.ui.oneshot);
+    if (!m) return;
+    const progress = h('div', { class: 'progress', hidden: true }, h('div'));
+    const results = m.teams.map((t) => computeTeam(Object.assign({ vehicles: [] }, t)));
+    box.append(h('div', { class: 'os-head' }, h('div', {}, h('h2', {}, m.code + ' · One Shot Mission'), h('h3', { class: 'os-title' }, m.title), h('p', { class: 'os-tag' }, m.tagline)),
+      h('div', { class: 'stack inline' }, h('button', { class: 'primary', onclick: () => {
+        const items = []; results.forEach((res) => teamCardItems(res).forEach((it) => items.push(it)));
+        printItems(items, m.id + '-all-cards', progress);
+      } }, 'Print all cards for both teams'))), progress);
+
+    box.append(h('div', { class: 'os-cols' },
+      h('div', {},
+        h('h2', {}, 'Briefing'), m.briefing.map((p) => h('p', {}, p)),
+        h('h2', {}, 'Details'), h('dl', { class: 'os-details' }, m.details.flatMap(([k, v]) => [h('dt', {}, k), h('dd', {}, v)])),
+        h('h2', {}, 'Winning condition: ' + m.winning.name), h('ul', {}, m.winning.lines.map((x) => h('li', {}, x))),
+        h('h2', {}, 'Special instructions'), h('ul', {}, m.special.map((x) => h('li', {}, x))),
+        h('p', { class: 'os-sides' }, m.sides)),
+      h('div', {},
+        h('h2', {}, 'Deployment code: ' + m.map.code), missionMap(m.map),
+        h('ul', { class: 'os-legend' }, m.map.legend.map(([k, label]) => h('li', {}, h('i', { class: 'os-sw os-k-' + k }), label))),
+        m.map.note ? h('p', { class: 'hint' }, m.map.note) : null,
+        h('p', { class: 'hint' }, 'Redrawn from the printed diagram on a 36 by 36 inch Battlefield, with grid lines every 12 inches. Check distances against the PDF if you play on a smaller table.'))));
+
+    m.teams.forEach((t, ti) => {
+      const res = results[ti], L = res.L;
+      const tprog = h('div', { class: 'progress', hidden: true }, h('div'));
+      const diffs = sheetDiffs(res);
+      const rows = res.rows.map((r) => {
+        const sh = r.slot.sheet, s = r.stats;
+        return h('tr', {}, h('td', {}, h('b', {}, r.name), h('div', { class: 'os-sub' }, r.spec)),
+          h('td', {}, sh.spec), h('td', {}, sh.weapon), h('td', {}, sh.gear),
+          h('td', { class: 'num' }, s.ma + '"'), h('td', { class: 'num' }, s.hearts), h('td', { class: 'num' }, s.hits + '+'), h('td', { class: 'num' }, s.mdp));
+      });
+      box.append(h('div', { class: 'os-team' },
+        h('h2', {}, t.side),
+        h('h3', { class: 'os-title' }, t.name),
+        h('p', {}, h('b', {}, 'Team Expertise: '), t.expertise),
+        h('div', { class: 'table-wrap' }, h('table', { class: 'os-table' },
+          h('thead', {}, h('tr', {}, ['Warrior', 'Specialisation', 'Weapons', 'Gear', 'Move', 'Hearts', 'Hits on', 'MDP'].map((x) => h('th', {}, x)))), h('tbody', {}, rows))),
+        h('p', { class: 'hint' }, 'Move, Hearts, Hits on and MDP are the final numbers that print on the cards. The text columns are as printed in the Mission.'),
+        diffs.length ? h('div', { class: 'warn' }, h('strong', {}, 'Mission sheet and cards differ'), h('ul', {}, diffs.map((d) => h('li', {}, d)))) : null,
+        t.extraGear ? h('p', { class: 'hint' }, `This team's gear costs ${res.used} points, over the Core budget of ${L.set.gearPoints}. The team builder is set to ${t.extraGear} extra gear points so it stays legal.`) : null,
+        h('div', { class: 'stack inline' },
+          h('button', { class: 'primary', onclick: () => printItems(teamCardItems(res), t.id + '-cards', tprog) }, `Print cards (${teamCardItems(res).reduce((n, it) => n + it.copies, 0)})`),
+          h('button', { onclick: () => printTeamSheet(Object.assign({}, t, { name: t.name }), res) }, 'Print team sheet'),
+          h('button', { class: 'ghost', onclick: () => {
+            const c = JSON.parse(JSON.stringify(t)); c.id = uid(); c.name = t.name + ' (' + m.code + ')'; c.vehicles = [];
+            c.slots.forEach((x) => { delete x.sheet; }); delete c.side; delete c.expertise;
+            S.teams.push(c); S.ui.team = c.id; save(); showView('mission'); toast('Copied to Mission team. You can edit it there.');
+          } }, 'Open in Mission team')),
+        tprog));
+    });
+    box.append(h('p', { class: 'hint os-credit' }, `${m.title} is a free One Shot Mission by Lee Fox-Smith and Nicholas Fox-Smith, Tabletop Skirmish Games, ${m.date}. More free content at `, h('a', { href: 'https://www.tabletopskirmishgames.com', target: '_blank', rel: 'noopener' }, 'tabletopskirmishgames.com'), '.'));
+  }
+
+  // =====================================================================
+  // FAQ AND ERRATA (About page)
+  // =====================================================================
+  function renderFaq() {
+    const root = $('#faq-root'); if (!root || !window.RW_FAQ) return;
+    const F = window.RW_FAQ;
+    root.textContent = '';
+    const T = window.RW_TEXT || {}, withText = F.items.some((it) => T['faq:' + it.id]);
+    root.append(h('p', {}, `${F.title}, ${F.date}, ${F.pages} pages, free from the publisher. ` + (withText ? 'The rulings are listed here.' : 'This site lists the topics and the PDF page for each. Read the ruling in the PDF; the Rules Index finds them by keyword.')));
+    for (const kind of ['FAQ', 'Errata', 'Solo note']) {
+      const items = F.items.filter((it) => it.kind === kind);
+      root.append(h('h3', { class: 'faq-kind' }, kind === 'FAQ' ? 'FAQ' : kind === 'Errata' ? 'Errata' : 'Solo commentary notes'),
+        h('ul', { class: 'faq-list' }, items.map((it) => h('li', {}, h('strong', {}, it.topic), ` (FAQ p. ${it.page})`, T['faq:' + it.id] ? h('div', { class: 'faq-rule' }, T['faq:' + it.id]) : null))));
+    }
   }
 
   // =====================================================================
@@ -574,7 +708,7 @@
   // RULES INDEX: keyword -> book and printed page. No rules wording.
   // =====================================================================
   let rulesIndex = null;
-  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'evo', 'uw', 'weather'];
+  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'evo', 'uw', 'weather', 'faq'];
   const normKey = (s) => String(s).toLowerCase().replace(/[’']/g, "'").replace(/&/g, ' and ').replace(/[^a-z0-9+' -]+/g, ' ').replace(/\s+/g, ' ').trim();
 
   function buildRulesIndex() {

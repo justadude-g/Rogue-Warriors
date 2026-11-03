@@ -126,6 +126,16 @@ srv.listen(0, async () => {
     const uw = await p.evaluate(() => { const d = RWCatalog.deck(['uw-gang']); const L = RWCatalog.forSet('uw-gang');
       return { team: d.team.length, op: d.operator.length, w: d.weapon.length, g: d.gear.length, gearOnly: L.weapons.filter((w) => w.source.gearOnly).length }; });
     if (uw.team !== 6 || uw.op !== 10 || uw.w !== 16 || uw.g !== 23 || uw.gearOnly !== 2) throw new Error('Ungentlemanly Warriors deck wrong: ' + JSON.stringify(uw));
+    // One Shot Missions: two Missions, two teams each, cards print; FAQ list on the About page
+    await p.click('.tabs button[data-view="oneshot"]');
+    await p.waitForSelector('#os-root .os-table');
+    const os = await p.evaluate(() => ({ missions: document.querySelectorAll('#os-list li').length, tables: document.querySelectorAll('#os-root .os-table').length, rows: document.querySelectorAll('#os-root .os-table tbody tr').length, map: !!document.querySelector('#os-root svg.os-map') }));
+    if (os.missions !== 2 || os.tables !== 2 || os.rows !== 8 || !os.map) throw new Error('One Shot view wrong: ' + JSON.stringify(os));
+    await save(() => p.click('#os-root button:has-text("Print cards")'), 'oneshot-team-cards.pdf');
+    await p.click('.tabs button[data-view="about"]');
+    const faqN = await p.evaluate(() => document.querySelectorAll('#faq-root .faq-list li').length);
+    if (faqN !== 10) throw new Error('FAQ list should have 10 items, got ' + faqN);
+    await p.click('.tabs button[data-view="index"]');
     await p.fill('#ri-search', 'silent');
     const riS = await p.evaluate(() => [...document.querySelectorAll('#ri-list li')].map((l) => l.textContent).join(' '));
     if (!/UW\s*p\. 12, 19/.test(riS) || !/does not count as/.test(riS)) throw new Error('rules index: Silent entry wrong: ' + riS);

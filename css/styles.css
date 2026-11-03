@@ -202,3 +202,39 @@ table.platoon td:last-child button { padding: 5px 9px; }
 .qr-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin-bottom: 14px; }
 .qr-bar h2 { margin: 0 0 2px; }
 .qr-bar .hint { margin: 0; max-width: 62ch; }
+
+/* One shot missions */
+.os-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px; }
+.os-title { font: 34px/1.05 'League Gothic', sans-serif; text-transform: uppercase; margin: 2px 0; letter-spacing: .02em; }
+.os-tag { margin: 2px 0 6px; color: var(--mute); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+.os-cols { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 4px 28px; align-items: start; }
+.os-details { display: grid; grid-template-columns: max-content 1fr; gap: 3px 14px; margin: 0; }
+.os-details dt { font: 600 14.5px Oswald, sans-serif; text-transform: uppercase; letter-spacing: .05em; color: var(--mute); padding-top: 3px; }
+.os-details dd { margin: 0; font-weight: 700; }
+.os-sides { font-weight: 700; margin-top: 12px; }
+.os-map { width: 100%; max-width: 440px; height: auto; display: block; }
+.os-board { fill: #ffffff; }
+.os-grid { stroke: #8a8f80; stroke-width: .12; stroke-dasharray: .6 .5; }
+.os-frame { fill: none; stroke: #15180f; stroke-width: .35; }
+.os-ring { fill: none; stroke: #15180f; stroke-width: .12; stroke-dasharray: .3 .3; }
+.os-k-zone-a { fill: #a4cd8c; } .os-k-zone-b { fill: #f5a3ae; } .os-k-battery { fill: #0077b8; } .os-k-building { fill: #fdae00; }
+.os-k-exit-a { fill: #087000; } .os-k-exit-b { fill: #ee220c; } .os-k-bag { fill: #00a1ff; } .os-k-safe { fill: #fdae00; }
+.os-legend { list-style: none; margin: 10px 0 4px; padding: 0; display: grid; gap: 5px; }
+.os-legend li { display: flex; align-items: center; gap: 10px; }
+.os-sw { display: inline-block; width: 22px; height: 22px; border: 1px solid rgba(0, 0, 0, .35); flex: none; }
+.os-sw.os-k-bag, .os-sw.os-k-safe { border-radius: 50%; }
+.os-sw.os-k-building { transform: rotate(45deg) scale(.8); }
+.os-team { margin-top: 22px; padding-top: 4px; border-top: 1px solid var(--line); }
+.os-table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.os-table th { text-align: left; font: 600 13.5px Oswald, sans-serif; text-transform: uppercase; letter-spacing: .05em; color: var(--mute); padding: 5px 8px; border-bottom: 2px solid var(--line); }
+.os-table td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.os-table td.num { text-align: center; font: 18px Anton, sans-serif; white-space: nowrap; }
+.os-sub { color: var(--mute); font-size: 14.5px; }
+.os-credit { margin-top: 18px; }
+.faq-kind { font: 600 14.5px Oswald, sans-serif; letter-spacing: .05em; text-transform: uppercase; margin: 12px 0 4px; }
+.faq-list { margin: 0; padding-left: 20px; }
+.faq-list li { margin: 4px 0; }
+.faq-rule { color: var(--mute); margin-top: 2px; }
+@media (max-width: 860px) { .os-cols { grid-template-columns: minmax(0, 1fr); } }
+.os-sw.os-k-zone-a { background: #a4cd8c; } .os-sw.os-k-zone-b { background: #f5a3ae; } .os-sw.os-k-battery { background: #0077b8; } .os-sw.os-k-building { background: #fdae00; }
+.os-sw.os-k-exit-a { background: #087000; } .os-sw.os-k-exit-b { background: #ee220c; } .os-sw.os-k-bag { background: #00a1ff; } .os-sw.os-k-safe { background: #fdae00; }
