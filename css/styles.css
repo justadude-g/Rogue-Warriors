@@ -169,3 +169,11 @@ table.platoon td:last-child button { padding: 5px 9px; }
   .slot { grid-template-columns: 48px minmax(0, 1fr); }
   .slot img.spec { width: 48px; height: 48px; }
 }
+
+.colour-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 8px 0; padding: 8px 10px; background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; }
+.colour-row > span { font: 600 14.5px Oswald, sans-serif; text-transform: uppercase; letter-spacing: .05em; }
+.colour-row small { color: var(--mute); font-size: 15px; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; font: 600 14.5px Oswald, sans-serif; text-transform: uppercase; letter-spacing: .03em; padding: 5px 16px; }
+.seg button:first-child { border-radius: 6px 0 0 6px; } .seg button:last-child { border-radius: 0 6px 6px 0; border-left: 0; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }

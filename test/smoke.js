@@ -43,10 +43,10 @@ srv.listen(0, async () => {
     await p.waitForTimeout(600);
     await p.screenshot({ path: path.join(out, 'app-deck.png') });
     // operator cards in black
-    await p.selectOption('#op-colour', 'black');
+    await p.click('#op-colour button[data-colour="black"]');
     await p.waitForTimeout(700);
     await (await p.$('#preview-pane .preview canvas')).screenshot({ path: path.join(out, 'operator-black.png') });
-    await p.selectOption('#op-colour', 'blue');
+    await p.click('#op-colour button[data-colour="blue"]');
     await p.waitForTimeout(400);
     // vehicles: tick Desert Heroes Vehicles, check the tab, name a vehicle
     await p.click('#set-list label:has-text("Vehicles") >> nth=0');

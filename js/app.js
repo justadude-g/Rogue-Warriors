@@ -99,7 +99,8 @@
 
   function renderDeck() {
     window.RWRender.setOperatorColour(S.opColour);
-    $('#op-colour').value = S.opColour === 'black' ? 'black' : 'blue';
+    $('#op-colour-row').hidden = S.ui.kind !== 'operator';
+    document.querySelectorAll('#op-colour button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.colour === (S.opColour === 'black' ? 'black' : 'blue'))));
     rebuildDeck();
     renderSetList();
     $('#paper').value = S.paper; $('#crop').checked = S.crop;
@@ -271,7 +272,7 @@
     document.querySelectorAll('#deck-tabs button').forEach((b) => b.addEventListener('click', () => { S.ui.kind = b.dataset.kind; save(); renderDeck(); }));
     $('#deck-search').addEventListener('input', renderCardList);
     $('#paper').addEventListener('change', (e) => { S.paper = e.target.value; save(); });
-    $('#op-colour').addEventListener('change', (e) => { S.opColour = e.target.value; window.RWRender.setOperatorColour(S.opColour); save(); renderDeck(); });
+    document.querySelectorAll('#op-colour button').forEach((b) => b.addEventListener('click', () => { S.opColour = b.dataset.colour; window.RWRender.setOperatorColour(S.opColour); save(); renderDeck(); }));
     $('#crop').addEventListener('change', (e) => { S.crop = e.target.checked; save(); });
     $('#copies-default').addEventListener('click', () => { for (const k of Object.keys(deck)) for (const c of deck[k]) delete S.copies[c.key]; save(); renderDeck(); toast('Suggested copies restored.'); });
     $('#copies-zero').addEventListener('click', () => { for (const k of Object.keys(deck)) for (const c of deck[k]) S.copies[c.key] = 0; save(); renderDeck(); });

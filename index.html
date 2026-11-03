@@ -6,8 +6,8 @@
 <title>Rogue Warriors Quartermaster</title>
 <meta name="description" content="Design and print modular cards for Rogue Warriors: team, operator, weapon and gear cards for one-off Missions, plus campaign Warrior cards.">
 <link rel="icon" href="assets/icons/expertise/exp-shooting.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/fonts.css?v=202611031540">
-<link rel="stylesheet" href="css/styles.css?v=202611031540">
+<link rel="stylesheet" href="css/fonts.css?v=202611031543">
+<link rel="stylesheet" href="css/styles.css?v=202611031543">
 <script>try { const t = localStorage.getItem('rw-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
@@ -32,7 +32,6 @@
       <div id="set-list" class="set-list"></div>
       <h2>Print</h2>
       <label class="row">Paper <select id="paper"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
-      <label class="row">Operator cards <select id="op-colour"><option value="blue">Blue</option><option value="black">Black</option></select></label>
       <label class="row check"><input type="checkbox" id="crop" checked> Crop marks</label>
       <div class="stack">
         <button id="copies-default">Suggested copies</button>
@@ -52,6 +51,7 @@
         <button data-kind="weather">Weather <span></span></button>
       </div>
       <div class="filter"><input id="deck-search" type="search" placeholder="Filter by name"></div>
+      <div class="colour-row" id="op-colour-row" hidden><span>Operator card colour</span><div class="seg" id="op-colour"><button data-colour="blue">Blue</button><button data-colour="black">Black</button></div><small>Also used on campaign Warrior cards.</small></div>
       <p class="hint kind-hint" id="kind-hint" hidden></p>
       <ul class="card-list" id="card-list"></ul>
     </div>
@@ -118,13 +118,13 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/jspdf.umd.min.js?v=202611031540"></script>
-<script src="js/data/rules.js?v=202611031540"></script>
-<script src="js/data/weather.js?v=202611031540"></script>
-<script src="js/catalog.js?v=202611031540"></script>
-<script src="js/render.js?v=202611031540"></script>
-<script src="js/print.js?v=202611031540"></script>
-<script src="js/store.js?v=202611031540"></script>
-<script src="js/app.js?v=202611031540"></script>
+<script src="js/vendor/jspdf.umd.min.js?v=202611031543"></script>
+<script src="js/data/rules.js?v=202611031543"></script>
+<script src="js/data/weather.js?v=202611031543"></script>
+<script src="js/catalog.js?v=202611031543"></script>
+<script src="js/render.js?v=202611031543"></script>
+<script src="js/print.js?v=202611031543"></script>
+<script src="js/store.js?v=202611031543"></script>
+<script src="js/app.js?v=202611031543"></script>
 </body>
 </html>
