@@ -1,0 +1,23 @@
+name: Wrong stat or card text
+description: A stat, name, page reference or icon on a card looks wrong.
+labels: [card-data]
+body:
+  - type: input
+    id: card
+    attributes:
+      label: Card name
+      description: Include the book or faction, for example "Tiger Blood: Spec Ops, Medic".
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong, and what should it say?
+      description: Give the book and page. Please do not paste rules text from the books; a page number is enough.
+    validations:
+      required: true
+  - type: textarea
+    id: shot
+    attributes:
+      label: Screenshot
+      description: Drag an image here if it helps.

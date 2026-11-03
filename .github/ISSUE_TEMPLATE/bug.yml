@@ -1,0 +1,21 @@
+name: Bug or layout glitch
+description: Something broke, looks off, or will not print properly.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what you got.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      description: For example "Safari on iPad" or "Chrome on Windows".
+  - type: textarea
+    id: shot
+    attributes:
+      label: Screenshot
+      description: Drag an image here. If a card looks wrong, include the card name.
