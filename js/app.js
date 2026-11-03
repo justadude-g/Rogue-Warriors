@@ -59,7 +59,7 @@
     if (v === 'deck') renderDeck();
     if (v === 'mission') renderTeams();
     if (v === 'campaign') renderPlatoons();
-    if (v === 'about') renderAbout();
+    if (v === 'backup') renderBackup();
   }
 
   // =====================================================================
@@ -533,9 +533,9 @@
   }
 
   // =====================================================================
-  // BACKUP & ABOUT
+  // BACKUP
   // =====================================================================
-  function renderAbout() {
+  function renderBackup() {
     $('#text-status').textContent = C.hasPack()
       ? `Full rules text is loaded (${C.packSize()} entries). This is the private build: do not publish this copy.`
       : 'This is the public build: cards print the perk names, stats and a page reference. If you own the books, type your own wording for any card in the card editor; it stays in your browser.';

@@ -32,7 +32,7 @@ main { padding: 16px; }
 #view-deck { display: grid; grid-template-columns: minmax(190px, 230px) minmax(280px, 1fr) 340px minmax(280px, 330px); grid-template-areas: "side list preview editor"; gap: 16px; align-items: start; }
 #view-deck > .side { grid-area: side; } #view-deck > .content { grid-area: list; } #view-deck > .preview-pane { grid-area: preview; } #view-deck > .editor { grid-area: editor; }
 #view-mission, #view-campaign { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 16px; align-items: start; }
-#view-about { display: block; max-width: 760px; }
+#view-about, #view-backup { display: block; max-width: 760px; }
 .view[hidden] { display: none !important; }
 .side, .content, .editor { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
 .side { position: sticky; top: 76px; }

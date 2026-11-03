@@ -99,7 +99,7 @@ srv.listen(0, async () => {
     await p.screenshot({ path: path.join(out, 'app-campaign.png'), fullPage: true });
     await save(() => p.click('button:has-text("Print campaign cards")'), 'campaign.pdf');
     // backup
-    await p.click('.tabs button[data-view="about"]');
+    await p.click('.tabs button[data-view="backup"]');
     await save(() => p.click('#export'), 'backup.json');
     await p.waitForTimeout(600);
     await p.reload(); await p.waitForTimeout(800);

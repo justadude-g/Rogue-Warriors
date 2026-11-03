@@ -6,8 +6,8 @@
 <title>Rogue Warriors Quartermaster</title>
 <meta name="description" content="Design and print modular cards for Rogue Warriors: team, operator, weapon and gear cards for one-off Missions, plus campaign Warrior cards.">
 <link rel="icon" href="assets/icons/expertise/exp-shooting.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/fonts.css?v=202611031531">
-<link rel="stylesheet" href="css/styles.css?v=202611031531">
+<link rel="stylesheet" href="css/fonts.css?v=202611031536">
+<link rel="stylesheet" href="css/styles.css?v=202611031536">
 <script>try { const t = localStorage.getItem('rw-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
@@ -17,7 +17,8 @@
     <button role="tab" data-view="deck" aria-selected="true">Card deck</button>
     <button role="tab" data-view="mission">Mission team</button>
     <button role="tab" data-view="campaign">Campaign</button>
-    <button role="tab" data-view="about">Backup &amp; about</button>
+    <button role="tab" data-view="backup">Backup</button>
+    <button role="tab" data-view="about">About</button>
   </nav>
   <button class="theme" id="theme" title="Switch between light and dark">Light / dark</button>
 </header>
@@ -81,36 +82,44 @@
     <div class="content wide" id="platoon-editor"></div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="view" id="view-about" hidden>
+  <!-- BACKUP -->
+  <section class="view" id="view-backup" hidden>
     <div class="content prose">
       <h2>Backup</h2>
       <p>Everything you make (copies, card names and wording, pictures, teams and platoons) is saved in this browser. Export a backup file to move it to another computer or keep it safe.</p>
       <div class="stack inline"><button id="export">Export backup</button><label class="button ghost">Import backup<input type="file" id="import" accept=".json,application/json" hidden></label></div>
       <p class="hint" id="backup-note"></p>
+      <h2>Rules text</h2>
+      <p id="text-status"></p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" id="view-about" hidden>
+    <div class="content prose">
+      <h2>About</h2>
+      <p><strong>Rogue Warriors</strong> is a modern warfare skirmish game by Lee Fox-Smith and Nicholas Fox-Smith, published by Tabletop Skirmish Games. Card data is used with permission. Get the books at <a href="https://www.tabletopskirmishgames.com" target="_blank" rel="noopener">tabletopskirmishgames.com</a>.</p>
+      <p>Icons are adapted from <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Some weapon silhouettes were drawn for this project. The Weather Tables are a free supplement by Lee Fox-Smith and Nicholas Fox-Smith. Fonts: League Gothic, Anton, Oswald and PT Sans Narrow (SIL Open Font License).</p>
       <h2>Tracking health with a die</h2>
       <p>The Hearts box on each operator and vehicle card is sized for a 12 mm die. Read the starting number printed in the box, then set a die on top of it to show the Warrior's current Hearts. Turn the die down each time they lose a Heart.</p>
       <p>A D6 only counts to 6. Extra Heart, Tactical Body Armour and similar gear can take a Warrior to 7 or 8 Hearts, so use a 12 mm D10 for those Warriors (read the 0 as 10). Vehicles never go above 6.</p>
       <h2>Weather cards</h2>
       <p>Tick an environment under Weather Tables, open the Weather tab and print. Each environment has its own colour, name and badge, so the decks stay apart. Shuffle one environment's cards face down and draw one at the start of the game. The suggested copies follow the 2D6 odds closely: 14 cards per environment, with five copies of "As Good As It Gets". Exact odds need 36 cards, so raise the counts if you want that. Card backs are off by default.</p>
-      <h2>Rules text</h2>
-      <p id="text-status"></p>
-      <h2>About</h2>
-      <p><strong>Rogue Warriors</strong> is a modern warfare skirmish game by Lee Fox-Smith and Nicholas Fox-Smith, published by Tabletop Skirmish Games. Card data is used with permission. Get the books at <a href="https://www.tabletopskirmishgames.com" target="_blank" rel="noopener">tabletopskirmishgames.com</a>.</p>
-      <p>Icons are adapted from <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Some weapon silhouettes were drawn for this project. The Weather Tables are a free supplement by Lee Fox-Smith and Nicholas Fox-Smith. Fonts: League Gothic, Anton, Oswald and PT Sans Narrow (SIL Open Font License).</p>
+      <h2>Sleeves</h2>
+      <p>Gamegenic Prime Color Sleeves in the standard size (66 x 91 mm) fit these cards (63 x 88 mm). They protect the cards at the table and wipe clean. The packs are colour-coded, so you can give each card type its own colour, for example yellow for teams, blue for operators, red for weapons, green for gear and orange for vehicles. For weather decks, use one colour per environment. Print on 200 gsm paper or heavier, or slip a spare card behind each print so it stays stiff. Gamegenic sells them at <a href="https://www.gamegenic.com" target="_blank" rel="noopener">gamegenic.com</a> and in game stores.</p>
     </div>
   </section>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/jspdf.umd.min.js?v=202611031531"></script>
-<script src="js/data/rules.js?v=202611031531"></script>
-<script src="js/data/weather.js?v=202611031531"></script>
-<script src="js/catalog.js?v=202611031531"></script>
-<script src="js/render.js?v=202611031531"></script>
-<script src="js/print.js?v=202611031531"></script>
-<script src="js/store.js?v=202611031531"></script>
-<script src="js/app.js?v=202611031531"></script>
+<script src="js/vendor/jspdf.umd.min.js?v=202611031536"></script>
+<script src="js/data/rules.js?v=202611031536"></script>
+<script src="js/data/weather.js?v=202611031536"></script>
+<script src="js/catalog.js?v=202611031536"></script>
+<script src="js/render.js?v=202611031536"></script>
+<script src="js/print.js?v=202611031536"></script>
+<script src="js/store.js?v=202611031536"></script>
+<script src="js/app.js?v=202611031536"></script>
 </body>
 </html>
