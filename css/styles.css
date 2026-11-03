@@ -10,7 +10,7 @@
 :root[data-theme="dark"] { --bg: #15180f; --panel: #1f2419; --panel2: #262c1f; --ink: #e8ebe1; --mute: #a3a996; --line: #3a4230; --accent: #8aa04a; --accent-ink: #11140c; color-scheme: dark; }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--bg); color: var(--ink); font: 17.5px/1.4 'PT Sans Narrow', 'Arial Narrow', system-ui, sans-serif; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16.5px/1.45 'Atkinson Hyperlegible', 'PT Sans', system-ui, sans-serif; }
 button, input, select, textarea { font: inherit; color: inherit; }
 h2 { font: 600 14.5px/1.2 Oswald, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin: 18px 0 8px; }
 .hint { color: var(--mute); font-size: 15.5px; margin: 6px 0; }
@@ -83,7 +83,7 @@ label.field > span { display: block; margin-bottom: 4px; font: 600 13px Oswald, 
 .card-list li.sel { border-color: var(--accent); background: var(--panel2); }
 .card-list img { width: 48px; height: 48px; }
 .card-list .t { font-weight: 700; font-size: 18.5px; }
-.card-list .s { color: var(--mute); font-size: 15px; }
+.card-list .s { color: var(--mute); font-size: 14px; }
 .card-list .edited { color: var(--gold); font-size: 13.5px; margin-left: 6px; }
 .stepper { display: flex; align-items: center; gap: 4px; }
 .stepper button { width: 28px; height: 28px; padding: 0; }
@@ -254,8 +254,7 @@ table.platoon td:last-child button { padding: 5px 9px; }
   .about-nav a { border: 1px solid var(--line); }
 }
 
-/* About page: a wide, open face reads better in long text than the narrow card font */
-#about-body, .about-nav a { font-family: 'Atkinson Hyperlegible', 'PT Sans', system-ui, sans-serif; }
+/* About page: slightly larger text for long reading (the whole app uses Atkinson Hyperlegible; the cards keep their own fonts) */
 #about-body { font-size: 17px; line-height: 1.6; }
 #about-body li { margin: 4px 0; }
 #about-body p, #about-body li { hyphens: none; }
