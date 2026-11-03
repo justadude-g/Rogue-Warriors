@@ -89,4 +89,4 @@ npm test
 
 Rogue Warriors (c) Lee Fox-Smith and Nicholas Fox-Smith, Tabletop Skirmish Games. Used with permission.
 
-Icons are adapted from [game-icons.net](https://game-icons.net) by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Nine weapon silhouettes were drawn for this project. See `assets/icons/CREDITS.md`.
+Icons are adapted from [game-icons.net](https://game-icons.net) by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Ten silhouettes (nine weapons and a howitzer) were drawn for this project. See `assets/icons/CREDITS.md`.

@@ -992,9 +992,7 @@
       ],
       "credit": [
         {
-          "author": "Lorc",
-          "source": "https://game-icons.net/1x1/lorc/cannon.html",
-          "license": "CC BY 3.0"
+          "author": "Custom (drawn for this project)"
         }
       ]
     },
@@ -2553,7 +2551,7 @@
       "category": "vehicle",
       "label": "Ranged Ordnance",
       "file": "vehicles/ranged-ordnance.svg",
-      "colour": "gunmetal",
+      "colour": "olive",
       "appliesTo": [
         {
           "name": "Ranged Ordnance",
@@ -2563,9 +2561,7 @@
       ],
       "credit": [
         {
-          "author": "Lorc",
-          "source": "https://game-icons.net/1x1/lorc/cannon.html",
-          "license": "CC BY 3.0"
+          "author": "Custom (drawn for this project)"
         }
       ]
     },

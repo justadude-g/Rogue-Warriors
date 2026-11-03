@@ -46,6 +46,8 @@ def ref(spec):
     return out
 
 
+FLAT = {'howitzer'}
+
 # id, category, label, source ("author/icon" or "custom:<key>"), colour, applies-to, variantOf
 ICONS = [
     # ---------------- WEAPONS ----------------
@@ -96,7 +98,7 @@ ICONS = [
     ('light-mortar', 'weapon', 'Light Mortar', 'delapouite/mortar', 'olive', 'Light Mortar@DH:8'),
     ('auto-cannon', 'weapon', 'Light Auto Cannon', 'delapouite/walking-turret', 'gunmetal', 'Light Auto Cannon@DH:8'),
     ('at-missile', 'weapon', 'Anti-Tank Missile', 'delapouite/missile-launcher', 'red', 'Anti-Tank Missile@DH:8'),
-    ('artillery-gun', 'weapon', 'Artillery Gun', 'lorc/cannon', 'gunmetal', 'Artillery Gun@DH:8'),
+    ('artillery-gun', 'weapon', 'Artillery Gun', 'custom:howitzer', 'gunmetal', 'Artillery Gun@DH:8'),
 
     # ---------------- GEAR ----------------
     ('rope', 'gear', 'Rope', 'delapouite/rope-coil', 'khaki', 'Rope@CORE:10,TB:13,US:12,TOD:23;Grappling Hook@IBZ:14'),
@@ -178,7 +180,7 @@ ICONS = [
     ('apc', 'vehicle', 'Armoured Personnel Carrier', 'delapouite/truck', 'olive', 'Armoured Personnel Carrier@DH:50'),
     ('light-helicopter', 'vehicle', 'Light Helicopter', 'delapouite/helicopter', 'gunmetal', 'Light Helicopter@DH:50'),
     ('light-tank', 'vehicle', 'Light Tank', 'lorc/battle-tank', 'olive', 'Light Tank@DH:51'),
-    ('ranged-ordnance', 'vehicle', 'Ranged Ordnance', 'lorc/cannon', 'gunmetal', 'Ranged Ordnance@DH:51'),
+    ('ranged-ordnance', 'vehicle', 'Ranged Ordnance', 'custom:howitzer', 'olive', 'Ranged Ordnance@DH:51'),
 
     # ---------------- SPECIALISATIONS ----------------
     ('tactician', 'specialisation', 'Tactician', 'skoll/chess-knight', 'navy', 'Tactician@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
@@ -294,6 +296,8 @@ def icon_svg(entry):
                      f'<stop offset="0" stop-color="{ol}"/><stop offset="1" stop-color="{od}"/></linearGradient>')
             k = sc * 1.12
             tf = f'translate({cx} {cy}) rotate(-45) scale({k:.3f}) translate(-320 0)'
+            if lsrc[7:] in FLAT:  # side-view silhouettes are drawn upright, not on the diagonal
+                tf = f'translate({cx} {cy}) scale({k * 0.84:.3f}) translate(-320 24)'
             sw = 14
             shapes = ''.join(f'<path d="{d}"/>' for d in body)
             dets = ''.join(f'<path d="{d}"/>' for d in detail)
@@ -353,7 +357,7 @@ def main():
         '# Icon credits\n\nIcons adapted from [game-icons.net](https://game-icons.net), licensed under '
         '[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). They were recoloured and placed on card-type badges.\n\n'
         'Authors: ' + ', '.join(authors) + '.\n\n'
-        'Nine weapon silhouettes (shotgun, assault rifle M16 pattern, DMR, LMG, sniper rifle, grenade launcher, LAW, RPG, suppressor) '
+        'Ten silhouettes (shotgun, assault rifle M16 pattern, DMR, LMG, sniper rifle, grenade launcher, LAW, RPG, suppressor, howitzer) '
         'were drawn for this project.\n\nSource per icon: see `icons.json`.\n')
     print(len(manifest['icons']), 'icons ->', OUT)
 
