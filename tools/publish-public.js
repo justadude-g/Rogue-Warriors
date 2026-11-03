@@ -49,12 +49,12 @@ for (const rel of ['index.html', 'test/harness.html']) {
 const leaks = [];
 const walk = (dir) => {
   for (const f of fs.readdirSync(dir)) {
-    if (f === '.git' || f === 'publish-public.js') continue;
+    if (f === '.git' || f === 'publish-public.js' || f === 'build-quickref.js') continue;
     const p = path.join(dir, f);
     if (fs.statSync(p).isDirectory()) walk(p);
     else if (/\.(js|html|json|md)$/.test(f)) {
       const t = fs.readFileSync(p, 'utf8');
-      if (/RW_TEXT\s*=\s*Object\.assign|Any Team Warrior can Re-roll 1 Dice|Auto 1D3 damage if hit/.test(t)) leaks.push(path.relative(DEST, p));
+      if (/RW_TEXT\s*=\s*Object\.assign|Any Team Warrior can Re-roll 1 Dice|Auto 1D3 damage if hit|RW_QUICKREF\s*=\s*\{|Every Warrior activates each round|Lower-skilled Enlisted and Recruit soldiers appear/.test(t)) leaks.push(path.relative(DEST, p));
     }
   }
 };

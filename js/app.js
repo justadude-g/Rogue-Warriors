@@ -60,7 +60,15 @@
     if (v === 'mission') renderTeams();
     if (v === 'campaign') renderPlatoons();
     if (v === 'index') renderIndex();
+    if (v === 'quickref') renderQuickref();
     if (v === 'backup') renderBackup();
+  }
+
+  // Quick reference sheets: the private build ships their markup in window.RW_QUICKREF (js/data/private/quickref.js).
+  function renderQuickref() {
+    const root = $('#qr-root');
+    if (!root || root.dataset.ready || !window.RW_QUICKREF) return;
+    root.innerHTML = window.RW_QUICKREF.html; root.dataset.ready = '1';
   }
 
   // =====================================================================

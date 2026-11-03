@@ -13,6 +13,7 @@ Every card is a standard poker card (63 x 88 mm), so the whole deck uses one sle
 - **Vehicle card:** one per Desert Heroes vehicle type (One-Man ATV, Jeep, APC, Light Helicopter, Light Tank, Ranged Ordnance) with stats, a Hearts box for a 12 mm die, capacity, crew, the numbered vehicle notes and the Primary and Secondary weapon. The vehicle-only weapons and vehicle gear are ordinary weapon and gear cards. Tick "Desert Heroes: Vehicles" in the deck to print them.
 - **Card source:** every card prints where it comes from in the bottom right corner (team cards, under the title): "Core", a book such as "Urban Strike", or book and faction such as "Tiger Blood: Toros Tigers". Cards from a table that two factions of one book share carry the book only. This makes printed cards easy to sort when the same card appears in several books.
 - **Weather cards:** one per result of each Weather Tables environment (Arctic, Jungle, Desert, Urban, Coastal, Mountain, Underground, Space), with an icon, the 2D6 roll and the effect. Every environment has its own colour, name and badge, so the decks stay apart. Print the copies, shuffle one environment face down and draw a card. The default is 14 cards per environment, which follows the 2D6 odds closely (five copies of "As Good As It Gets"); exact odds need 36 cards, so raise the counts if you want that. An optional card back per environment is off by default. The Weather Tables are free, so this wording is part of the public build.
+- **Quick reference (private build only):** a Quick reference tab with two colour pages from the Core Rulebook, how to play and Team building (Expertise, Specialisations, Weapons, Gear), and a link to the same sheets as a two page A4 PDF. It contains rules wording, so it is left out of the public build. The wording is in `js/data/private/quickref-source.html`; after editing it run `NODE_PATH=... node tools/build-quickref.js` to rebuild the tab and the PDF (needs Playwright).
 - **Rules index:** a searchable list of about 575 keywords from all eight rulebooks (the core book, Raiders and Defenders, Tooth and Blade, Unit Supply, Ice Base Zero, Tides of Dawn, Desert Heroes and the Weather Tables). Each keyword shows its category, the book and the printed page number, so you can look the rule up in your own copy. It holds no rules wording, only pointers, so the whole index is part of the public build. Specialisations, weapons, gear, vehicles and weather results are listed from the card data.
 - **Weapon and gear cards:** built to tuck under the card above. Everything needed in play sits in the bottom half: name, points, stat changes and rules text. The top half holds the picture and is hidden in a stack.
 
@@ -68,6 +69,9 @@ css/                          fonts.css (self-hosted fonts), styles.css
 js/data/rules.js              books, factions, Expertise, Specialisations, weapons, gear, ranks, page references
 js/data/weather.js            Weather Tables (free, so public)
 js/data/rules-index.js        Rules index: keyword, category, book and page only (public)
+css/quickref.css              styling for the quick reference sheets (app and A4 PDF)
+tools/build-quickref.js       builds the quick reference tab data and the A4 PDF
+js/data/private/quickref-source.html, quickref.js, Rogue-Warriors-Quick-Reference-A4.pdf   quick reference (private repo only)
 js/data/private/rules-text.js rules wording (private repo only)
 js/catalog.js                 turns the data into card records
 js/render.js                  canvas card renderer, all positions in millimetres
