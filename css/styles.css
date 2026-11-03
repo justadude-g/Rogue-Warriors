@@ -190,6 +190,7 @@ table.platoon td:last-child button { padding: 5px 9px; }
 .ri-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 9px 2px; border-top: 1px solid var(--line); }
 .ri-term { font-weight: 700; font-size: 18px; }
 .ri-term small { display: block; font-weight: 400; font-size: 14px; color: var(--mute); }
+.ri-note { grid-column: 1 / -1; margin: 2px 0 0; font-size: 15px; color: var(--mute); }
 .ri-where { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
 .where { background: var(--panel2); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; white-space: nowrap; font-size: 16px; }
 .where b { font: 600 14px Oswald, sans-serif; letter-spacing: .04em; margin-right: 2px; }

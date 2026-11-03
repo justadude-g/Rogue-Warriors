@@ -19,6 +19,7 @@
     tod: { name: 'Tour of Duty', short: 'ToD' },
     dh: { name: 'Desert Heroes', short: 'DH' },
     evo: { name: 'Evolution (Sci-Fi)', short: 'Evolution' },
+    uw: { name: 'Ungentlemanly Warriors', short: 'UW' },
   };
 
   const soldierTypes = {
@@ -48,6 +49,8 @@
   const evoSlug = (n) => n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   for (const [n, perk, mods] of EVO_EXPERTISE) mechanics['evo-' + evoSlug(n)] = { label: perk, icon: 'expertise/exp-evo-' + evoSlug(n) + '.svg', mods };
   const evoExpertise = () => EVO_EXPERTISE.map(([n]) => E('evo-' + evoSlug(n), n, 'evo-' + evoSlug(n)));
+  // Ungentlemanly Warriors: The Gang reuses five of the six slots; Sabotage gives gear points instead of an Armour re-roll.
+  mechanics['uw-sabotage'] = { label: '+2 Gear Points', icon: 'expertise/exp-uw-sabotage.svg', mods: { gear: 2 } };
   const SIX = ['movement', 'shooting', 'initiative', 'activation', 'deployment', 'armour'];
   const six = (prefix, names) => names.map((n, i) => E(prefix + '-' + n.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), n, SIX[i]));
 
@@ -75,6 +78,8 @@
     psychic: { name: 'Psychic', icon: 'psychic' }, hunter: { name: 'Hunter', icon: 'hunter' },
     'bio-mechanic': { name: 'Bio-Mechanic', icon: 'bio-mechanic' }, translator: { name: 'Translator', icon: 'translator' },
     android: { name: 'Android', icon: 'android' }, 'alien-beast': { name: 'Alien Beast', icon: 'alien-beast', mods: { ma: 1 } },
+    // Ungentlemanly Warriors
+    assassin: { name: 'Assassin', icon: 'assassin' }, spy: { name: 'Spy', icon: 'spy' }, marksman: { name: 'Marksman', icon: 'designated-marksman' },
   };
 
   const CORE10 = [S('tactician', 'Prior Preparation'), S('medic', 'Man Down'), S('sniper', 'One Shot, One Kill'),
@@ -101,6 +106,9 @@
       S('fire-team-veteran', 'Stay Frosty'), S('scout', 'I See You'), S('fire-support', 'Get Some'), S('psychic', 'I See Things'),
       S('hunter', "It's A Trap"), S('bio-mechanic', 'Hang On'), S('translator', 'False Commands'), S('android', 'Adaptive Learning'),
       S('alien-beast', 'A Good Bug')] },
+    uw: { book: 'uw', page: 16, promo: true, items: [S('tactician', 'Prior Preparation'), S('medic', 'Man Down'), S('sniper', 'One Shot, One Kill'),
+      S('hand-to-hand', 'Shanghai Style'), S('saboteur', 'Cheats & Stinkers'), S('assassin', 'Stealth Killer'), S('spy', 'False Orders'),
+      S('marksman', 'Down on the Range'), S('scout', 'Speed is Everything'), S('fire-support', 'Cover Me')] },
   };
   for (const [tid, t] of Object.entries(specTables)) t.items = t.items.map((s) => Object.assign({}, s, { id: 'spec-' + tid + '-' + s.spec, table: tid }));
 
@@ -237,6 +245,26 @@
   weaponTables['evo-mount'] = { book: 'evo', page: 14, mountOnly: true, items: [
     MTW('mount-claws-teeth', 'Claws & Teeth'), MTW('mount-ramming-charge', 'Ramming Charge'), MTW('mount-venom-teeth', 'Venom Teeth'), MTW('mount-armour', 'Mount Armour')] };
 
+  // Ungentlemanly Warriors (Solo Campaign), The Gang weapons table (UW p. 19). Every Warrior starts with a Browning High Power and a combat knife.
+  // gearOnly: "Can only be taken as Gear", so it is not offered as the extra weapon.
+  weaponTables.uw = { book: 'uw', page: 19, items: [
+    W('browning', 'Browning High Power', 'pistol', '6"', 2, 1, '-', { sidearm: true, type2: 'Pistol' }),
+    W('luger', 'Luger', 'pistol', '6"', 4, 1, '-', { type2: 'Pistol' }),
+    W('welrod', 'Welrod Suppressed Pistol', 'welrod', '6"', 5, 1, '-', { type2: 'Pistol', gearOnly: true }),
+    W('winchester', 'Winchester 1897', 'shotgun', '8"', 3, 1, '-1', { type2: 'Shotgun' }),
+    W('bow-arrow', 'Bow & Arrow', 'bow', '10"', 1, 1, '-', { type2: 'Bow' }),
+    W('sten', 'Sten Gun', 'smg', '12"', 5, 1, '-', { type2: 'Submachine Gun' }),
+    W('thomson', 'Thomson Sub Machine Gun', 'smg-compact', '15"', 4, 1, '-', { type2: 'Submachine Gun' }),
+    W('garand', 'M1 Garand', 'garand', '18"', 3, 1, '-', { type2: 'Rifle' }),
+    W('lee-enfield', 'Lee-Enfield Rifle', 'lee-enfield', '20"', 2, 1, '-', { type2: 'Rifle' }),
+    W('brenn', 'Brenn Gun (LMG)', 'lmg', '3-24"', 4, 1, '-', Object.assign({ type2: 'LMG' }, MA_DOWN)),
+    W('springfield', 'Springfield M1903A4 (Sniper Rifle)', 'sniper-rifle', '6-36"', 1, 1, '-1', { type2: 'Sniper Rifle' }),
+    W('smatchet', 'Smatchet (Broad Knife)', 'smatchet', 'Base', '-', '-', '-', Object.assign({ type2: 'Melee Weapon' }, MDP_UP)),
+    W('fs-knife', 'Fairbairn-Sykes Fighting Knife', 'fs-knife', 'Base', '-', '-', '-', { type2: 'Melee Weapon', gearOnly: true }),
+    W('commando-baton', 'Commando Baton', 'commando-baton', 'Base', '-', '-', '-', { type2: 'Melee Weapon' }),
+    W('frag-grenade', 'Frag Grenade', 'frag-grenade', '6"', 1, 1, '-2', { single: true, type2: 'Grenade' }),
+    W('bazooka', 'Bazooka', 'rocket-launcher-law', '18"', 1, 1, '-2', { single: true, type2: 'Rocket Launcher' })] };
+
   // Desert Heroes vehicle-only weapons (DH p. 8).
   const VW = (id, name, type, range, dice, ap) => W(id, name, type, range, dice, 1, ap, { type2: 'Vehicle Weapon', vehicleOnly: true });
   weaponTables['dh-vehicle'] = { book: 'dh', page: 8, items: [
@@ -324,6 +352,17 @@
     G('hop-pit', 'HOP-PIT Mech', 'mech-hop-pit', 3), G('ro-dent', 'RO-DENT Bomb Mech', 'mech-ro-dent', 4), G('k9-medic', 'K9 Mech - Medic', 'mech-k9-medic', 5),
     G('k9-attack', 'K9 Mech - Attack', 'mech-k9-attack', 5), G('k9-mine', 'K9 Mech - Mine Detection', 'mech-k9-mine', 5), G('hawk-eye', 'Hawk Eye Mech', 'mech-hawk-eye', 5),
     G('slither', 'Slither Mech', 'mech-slither', 7)] };
+  // Ungentlemanly Warriors: The Gang, 10 points of Gear per Mission (UW p. 20).
+  gearTables.uw = { book: 'uw', page: 20, items: [
+    G('rope', 'Rope', 'rope', 1), G('lucky', 'Lucky Charm', 'lucky-charm', 1),
+    G('fs-knife', 'Fairbairn-Sykes Fighting Knife', 'fs-knife', 2, { weaponIcon: true }), G('commando-baton', 'Commando Baton', 'commando-baton', 2, { weaponIcon: true }),
+    G('bayonet', 'Bayonet', 'bayonet', 2), G('smoke', 'Smoke Grenade', 'smoke-grenade', 2), G('frag', 'Frag Grenade', 'frag-grenade-gear', 3),
+    G('molotov', 'Molotov Cocktail', 'molotov', 3), G('distraction', 'Distraction', 'distraction', 3), G('med-kit', 'Med Kit', 'med-kit', 3),
+    G('optics', 'Telescopic Sights', 'optics', 3), G('dog-biscuits', 'Dog Biscuits', 'dog-biscuits', 4), G('limpet-mine', 'Limpet Mine', 'limpet-mine', 4),
+    G('plastic-explosive', 'Plastic Explosive', 'c4', 4), G('poison', 'Poison', 'poison', 4), G('welrod', 'Welrod Suppressed Pistol', 'welrod', 4, { weaponIcon: true }),
+    G('camo-paints', 'Camouflage Paints', 'camo-paints', 4), G('incendiary', 'Incendiary Device', 'incendiary', 5), G('photo', 'Photo of Sweetheart', 'last-stand', 5),
+    G('tea', 'Proper Cup of Tea', 'cup-of-tea', 5, HEART), G('booby-trap', 'Booby Trap', 'booby-trap', 5), G('stolen-uniform', 'Stolen Uniform', 'civilian-disguise', 5),
+    G('caltrops', 'Caltrops', 'caltrops', 5)] };
   for (const [tid, t] of Object.entries(weaponTables)) t.items = t.items.map((x) => Object.assign({}, x, { uid: 'wpn-' + tid + '-' + x.id, table: tid }));
   for (const [tid, t] of Object.entries(gearTables)) t.items = t.items.map((x) => Object.assign({}, x, { uid: 'gear-' + tid + '-' + x.id, table: tid }));
 
@@ -340,12 +379,13 @@
     'tod-com': { book: 'tod', page: 26, perks: 'standard', names: RANKS_PEOPLE },
     'dh-sas': { book: 'dh', page: 20, perks: 'dh', names: ['Private', 'Lance Corporal', 'Corporal', 'Sergeant', 'Staff Sergeant', 'Warrant Officer'] },
     'dh-axis': { book: 'dh', page: 20, perks: 'dh', names: ['Soldat', 'Gefreiter', 'Obergefreiter', 'Unteroffizier', 'Feldwebel', 'Oberfeldwebel'] },
+    'uw-gang': { book: 'uw', page: 22, perks: 'uw', names: ['Private', 'Lance Corporal', 'Corporal', 'Sergeant', 'Staff Sergeant', 'Warrant Officer'] },
     'evo-alliance': { book: 'evo', page: 24, perks: 'evo', names: RANKS_ARMY },
     'evo-aliens': { book: 'evo', page: 24, perks: 'evo', names: ['Grunt', 'Hive Warden', 'Hive Leader', 'Hive Elder', 'Alpha', 'Supreme'] },
   };
   const RANK_XP = [50, 100, 150, 200, 250, 300];
   // Which rank unlocks the Specialisation promotion perk, per rank perk table.
-  const promoAt = { standard: 100, dh: 150, evo: 100 };
+  const promoAt = { standard: 100, dh: 150, evo: 100, uw: 100 };
 
   // Evolution Big Guys (Evolution p. 14). hits is the "Hits on" number; the Mount has none, it uses its Rider's.
   const BG = (id, name, icon, ma, hearts, hits, mdp, x) => Object.assign({ id: 'bg-' + id, name, icon, ma, hearts, hits, mdp }, x || {});
@@ -425,6 +465,12 @@
       expertise: evoExpertise(), specs: 'evo', bigGuys: 'evo', weapons: ['evo-shooting', 'evo-experimental', 'evo-melee', 'evo-psychic', 'evo-mount'], gear: ['evo', 'evo-heavy', 'evo-drones'] },
     { id: 'evo-aliens', label: 'Evolution (Sci-Fi): Aliens', cardLabel: 'Evolution (Sci-Fi)', book: 'evo', gearPoints: 10, team: 4, platoon: 10, expertisePage: 13, ranks: 'evo-aliens',
       expertise: evoExpertise(), specs: 'evo', bigGuys: 'evo', weapons: ['evo-shooting', 'evo-experimental', 'evo-melee', 'evo-psychic', 'evo-mount'], gear: ['evo', 'evo-heavy', 'evo-drones'] },
+    // Ungentlemanly Warriors (Solo Campaign): The Gang. Players only field Warriors (UW p. 16).
+    { id: 'uw-gang', label: 'Ungentlemanly Warriors: The Gang', cardLabel: 'Ungentlemanly Warriors', book: 'uw', gearPoints: 10, team: 4, platoon: 10, expertisePage: 15, ranks: 'uw-gang',
+      teamNote: 'The Gang fields Warriors only (UW p. 16). Take one of each Specialisation.',
+      expertise: [E('uw-raiders', 'Raiders', 'movement'), E('uw-direct-action', 'Direct Action', 'shooting'), E('uw-propaganda', 'Propaganda', 'initiative'),
+        E('uw-espionage', 'Espionage', 'activation'), E('uw-stealth', 'Stealth', 'deployment'), E('uw-sabotage', 'Sabotage', 'uw-sabotage')],
+      specs: 'uw', weapons: ['uw'], gear: ['uw'] },
   ];
   // Where each Expertise is printed. Desert Heroes lets you take core Expertise too (core p. 9).
   for (const s of sets) for (const e of s.expertise) {

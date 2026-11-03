@@ -122,6 +122,13 @@ srv.listen(0, async () => {
     const evo = await p.evaluate(() => { const d = RWCatalog.deck(['evo-alliance', 'evo-aliens']); const L = RWCatalog.forSet('evo-aliens');
       return { team: d.team.length, op: d.operator.length, big: d.operator.filter((c) => c.bigGuy).length, w: d.weapon.length, g: d.gear.length, bigs: L.bigGuys.length }; });
     if (evo.team !== 16 || evo.op !== 20 || evo.big !== 4 || evo.w !== 48 || evo.g !== 45 || evo.bigs !== 4) throw new Error('Evolution deck wrong: ' + JSON.stringify(evo));
+    // Ungentlemanly Warriors: The Gang
+    const uw = await p.evaluate(() => { const d = RWCatalog.deck(['uw-gang']); const L = RWCatalog.forSet('uw-gang');
+      return { team: d.team.length, op: d.operator.length, w: d.weapon.length, g: d.gear.length, gearOnly: L.weapons.filter((w) => w.source.gearOnly).length }; });
+    if (uw.team !== 6 || uw.op !== 10 || uw.w !== 16 || uw.g !== 23 || uw.gearOnly !== 2) throw new Error('Ungentlemanly Warriors deck wrong: ' + JSON.stringify(uw));
+    await p.fill('#ri-search', 'silent');
+    const riS = await p.evaluate(() => [...document.querySelectorAll('#ri-list li')].map((l) => l.textContent).join(' '));
+    if (!/UW\s*p\. 12, 19/.test(riS) || !/does not count as/.test(riS)) throw new Error('rules index: Silent entry wrong: ' + riS);
     await p.fill('#ri-search', 'tactician');
     await p.screenshot({ path: path.join(out, 'app-index.png') });
     await p.fill('#ri-search', '');

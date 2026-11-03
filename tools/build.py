@@ -33,7 +33,7 @@ CAT = {
 }
 
 B = {'CORE': 'Core Rulebook', 'RD': 'Rapid Deployment', 'TB': 'Tiger Blood', 'US': 'Urban Strike',
-     'IBZ': 'Ice Base Zero', 'TOD': 'Tour of Duty', 'DH': 'Desert Heroes', 'WX': 'Weather Tables', 'EVO': 'Evolution (Sci-Fi)'}
+     'IBZ': 'Ice Base Zero', 'TOD': 'Tour of Duty', 'DH': 'Desert Heroes', 'WX': 'Weather Tables', 'EVO': 'Evolution (Sci-Fi)', 'UW': 'Ungentlemanly Warriors'}
 
 
 def ref(spec):
@@ -416,6 +416,24 @@ ICONS = [
     ('mech-k9-mine', 'gear', 'K9 Mech - Mine Detection', 'lorc/wolf-head', 'khaki', 'K9 Mech - Mine Detection@EVO:21'),
     ('mech-hawk-eye', 'gear', 'Hawk Eye Mech', 'delapouite/eagle-head', 'brass', 'Hawk Eye Mech@EVO:21'),
     ('mech-slither', 'gear', 'Slither Mech', 'lorc/snake', 'toxic', 'Slither Mech@EVO:21'),
+    # ---------------- UNGENTLEMANLY WARRIORS (SOLO CAMPAIGN): THE GANG ----------------
+    ('exp-uw-sabotage', 'expertise', 'Sabotage', 'delapouite/dynamite', 'red', 'Sabotage@UW:15'),
+    ('assassin', 'specialisation', 'Assassin', 'darkzaitzev/hooded-assassin', 'black', 'Assassin@UW:16'),
+    ('spy', 'specialisation', 'Spy', 'delapouite/spy', 'navy', 'Spy@UW:16'),
+    ('welrod', 'weapon', 'Welrod Suppressed Pistol', 'custom:welrod', 'gunmetal', 'Welrod Suppressed Pistol@UW:19,UW:20'),
+    ('garand', 'weapon', 'M1 Garand', 'skoll/winchester-rifle', 'olive', 'M1 Garand@UW:19'),
+    ('lee-enfield', 'weapon', 'Lee-Enfield Rifle', 'skoll/lee-enfield', 'wood', 'Lee-Enfield Rifle@UW:19'),
+    ('smatchet', 'weapon', 'Smatchet (Broad Knife)', 'skoll/trench-knife', 'steel', 'Smatchet@UW:19'),
+    ('fs-knife', 'weapon', 'Fairbairn-Sykes Fighting Knife', 'lorc/stiletto', 'steel', 'Fairbairn-Sykes Fighting Knife@UW:19,UW:20'),
+    ('commando-baton', 'weapon', 'Commando Baton', 'skoll/baton', 'black', 'Commando Baton@UW:19,UW:20'),
+    ('bayonet', 'gear', 'Bayonet', 'skoll/bayonet', 'steel', 'Bayonet@UW:20'),
+    ('distraction', 'gear', 'Distraction', 'delapouite/ringing-alarm', 'orange', 'Distraction@UW:20'),
+    ('dog-biscuits', 'gear', 'Dog Biscuits', 'delapouite/dog-bowl', 'brown', 'Dog Biscuits@UW:20'),
+    ('limpet-mine', 'gear', 'Limpet Mine', 'lorc/land-mine', 'gunmetal', 'Limpet Mine@UW:20'),
+    ('poison', 'gear', 'Poison', 'lorc/poison-bottle', 'toxic', 'Poison@UW:20'),
+    ('camo-paints', 'gear', 'Camouflage Paints', 'delapouite/paint-brush', 'olive', 'Camouflage Paints@UW:20'),
+    ('cup-of-tea', 'gear', 'Proper Cup of Tea', 'delapouite/teapot-leaves', 'brown', 'Proper Cup of Tea@UW:20'),
+    ('caltrops', 'gear', 'Caltrops', 'delapouite/caltrops', 'gunmetal', 'Caltrops@UW:20'),
 ]
 
 PATH_RE = re.compile(r'<path\b([^>]*?)/?>')

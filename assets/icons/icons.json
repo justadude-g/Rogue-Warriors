@@ -7415,6 +7415,376 @@
           "license": "CC BY 3.0"
         }
       ]
+    },
+    {
+      "id": "exp-uw-sabotage",
+      "category": "expertise",
+      "label": "Sabotage",
+      "file": "expertise/exp-uw-sabotage.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Sabotage",
+          "book": "Ungentlemanly Warriors",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/dynamite.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "assassin",
+      "category": "specialisation",
+      "label": "Assassin",
+      "file": "specialisations/assassin.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Assassin",
+          "book": "Ungentlemanly Warriors",
+          "page": "16"
+        }
+      ],
+      "credit": [
+        {
+          "author": "DarkZaitzev",
+          "source": "https://game-icons.net/1x1/darkzaitzev/hooded-assassin.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "spy",
+      "category": "specialisation",
+      "label": "Spy",
+      "file": "specialisations/spy.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Spy",
+          "book": "Ungentlemanly Warriors",
+          "page": "16"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/spy.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "welrod",
+      "category": "weapon",
+      "label": "Welrod Suppressed Pistol",
+      "file": "weapons/welrod.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Welrod Suppressed Pistol",
+          "book": "Ungentlemanly Warriors",
+          "page": "19"
+        },
+        {
+          "name": "Welrod Suppressed Pistol",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "garand",
+      "category": "weapon",
+      "label": "M1 Garand",
+      "file": "weapons/garand.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "M1 Garand",
+          "book": "Ungentlemanly Warriors",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/winchester-rifle.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "lee-enfield",
+      "category": "weapon",
+      "label": "Lee-Enfield Rifle",
+      "file": "weapons/lee-enfield.svg",
+      "colour": "wood",
+      "appliesTo": [
+        {
+          "name": "Lee-Enfield Rifle",
+          "book": "Ungentlemanly Warriors",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/lee-enfield.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "smatchet",
+      "category": "weapon",
+      "label": "Smatchet (Broad Knife)",
+      "file": "weapons/smatchet.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Smatchet",
+          "book": "Ungentlemanly Warriors",
+          "page": "19"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/trench-knife.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "fs-knife",
+      "category": "weapon",
+      "label": "Fairbairn-Sykes Fighting Knife",
+      "file": "weapons/fs-knife.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Fairbairn-Sykes Fighting Knife",
+          "book": "Ungentlemanly Warriors",
+          "page": "19"
+        },
+        {
+          "name": "Fairbairn-Sykes Fighting Knife",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/stiletto.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "commando-baton",
+      "category": "weapon",
+      "label": "Commando Baton",
+      "file": "weapons/commando-baton.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Commando Baton",
+          "book": "Ungentlemanly Warriors",
+          "page": "19"
+        },
+        {
+          "name": "Commando Baton",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/baton.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bayonet",
+      "category": "gear",
+      "label": "Bayonet",
+      "file": "gear/bayonet.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Bayonet",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/bayonet.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "distraction",
+      "category": "gear",
+      "label": "Distraction",
+      "file": "gear/distraction.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Distraction",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/ringing-alarm.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "dog-biscuits",
+      "category": "gear",
+      "label": "Dog Biscuits",
+      "file": "gear/dog-biscuits.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Dog Biscuits",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/dog-bowl.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "limpet-mine",
+      "category": "gear",
+      "label": "Limpet Mine",
+      "file": "gear/limpet-mine.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Limpet Mine",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/land-mine.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "poison",
+      "category": "gear",
+      "label": "Poison",
+      "file": "gear/poison.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Poison",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/poison-bottle.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "camo-paints",
+      "category": "gear",
+      "label": "Camouflage Paints",
+      "file": "gear/camo-paints.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Camouflage Paints",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/paint-brush.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cup-of-tea",
+      "category": "gear",
+      "label": "Proper Cup of Tea",
+      "file": "gear/cup-of-tea.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Proper Cup of Tea",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/teapot-leaves.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "caltrops",
+      "category": "gear",
+      "label": "Caltrops",
+      "file": "gear/caltrops.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Caltrops",
+          "book": "Ungentlemanly Warriors",
+          "page": "20"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/caltrops.html",
+          "license": "CC BY 3.0"
+        }
+      ]
     }
   ]
 }

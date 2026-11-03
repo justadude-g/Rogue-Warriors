@@ -307,7 +307,7 @@
   const hitsText = (n) => (n == null ? '–' : n + '+');
   // Extra weapons a slot may take: Mount weapons only for the Mount, Psychic Powers have their own list, a Mount takes no Melee weapon.
   const weaponChoices = (L, st) => L.weapons.filter((w) => {
-    if (w.source.psychic) return false;
+    if (w.source.psychic || w.source.gearOnly) return false;
     if (st.big && st.big.mount) return w.source.mountOnly || (w.source.type2 !== 'Melee Weapon');
     return !w.source.mountOnly;
   });
@@ -320,7 +320,7 @@
   function computeTeam(t) {
     const L = C.forSet(t.setId);
     const exp = L.expertise.find((e) => e.source.id === t.expId) || L.expertise[0];
-    const budget = L.set.gearPoints + (parseInt(t.extraGear, 10) || 0);
+    const budget = L.set.gearPoints + (parseInt(t.extraGear, 10) || 0) + ((exp.mods && exp.mods.gear) || 0);
     const warnings = [];
     let used = 0;
     const seen = {};
@@ -574,7 +574,7 @@
   // RULES INDEX: keyword -> book and printed page. No rules wording.
   // =====================================================================
   let rulesIndex = null;
-  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'evo', 'weather'];
+  const BOOK_ORDER = ['core', 'rd', 'tb', 'us', 'ibz', 'tod', 'dh', 'evo', 'uw', 'weather'];
   const normKey = (s) => String(s).toLowerCase().replace(/[’']/g, "'").replace(/&/g, ' and ').replace(/[^a-z0-9+' -]+/g, ' ').replace(/\s+/g, ' ').trim();
 
   function buildRulesIndex() {
@@ -591,6 +591,7 @@
     for (const r of R.indexTerms || []) {
       const aliases = r[3] ? r[3].split('|') : [];
       for (const l of r[2].split(',')) { const [b, p] = l.split(':'); add(r[0], r[1], b, parseInt(p, 10), aliases); }
+      if (r[4]) map.get(normKey(r[0])).note = r[4];
     }
     // from the tables the cards are built from
     for (const set of R.sets) for (const e of set.expertise || []) add(e.name, 'Expertise', e.book, e.page, ['team expertise']);
@@ -614,7 +615,7 @@
       }
       const cats = [...e.cats];
       const hay = normKey([e.term, ...e.alias, ...cats, ...[...byBook.keys()].map((b) => R.books[b].name + ' ' + R.books[b].short)].join(' '));
-      return { term: e.term, cats, byBook, hay, sort: normKey(e.term).replace(/^(the|a) /, '') };
+      return { term: e.term, note: e.note, cats, byBook, hay, sort: normKey(e.term).replace(/^(the|a) /, '') };
     });
     list.sort((a, b) => a.sort.localeCompare(b.sort));
     return list;
@@ -652,7 +653,7 @@
     const ul = $('#ri-list'); ul.textContent = '';
     for (const e of shown) {
       const where = [...e.byBook].map(([b, pages]) => h('span', { class: 'where', title: R.books[b].name }, h('b', {}, R.books[b].short), ` p. ${pages.join(', ')}`));
-      ul.append(h('li', {}, h('div', { class: 'ri-term' }, e.term, h('small', {}, e.cats.join(' · '))), h('div', { class: 'ri-where' }, where)));
+      ul.append(h('li', {}, h('div', { class: 'ri-term' }, e.term, h('small', {}, e.cats.join(' · '))), h('div', { class: 'ri-where' }, where), e.note ? h('p', { class: 'ri-note' }, e.note) : null));
     }
   }
 

@@ -6,9 +6,9 @@
 <title>Rogue Warriors Quartermaster</title>
 <meta name="description" content="Design and print modular cards for Rogue Warriors: team, operator, weapon and gear cards for one-off Missions, plus campaign Warrior cards.">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/fonts.css?v=202611031722">
-<link rel="stylesheet" href="css/quickref.css?v=202611031722">
-<link rel="stylesheet" href="css/styles.css?v=202611031722">
+<link rel="stylesheet" href="css/fonts.css?v=202611031752">
+<link rel="stylesheet" href="css/quickref.css?v=202611031752">
+<link rel="stylesheet" href="css/styles.css?v=202611031752">
 <script>try { const t = localStorage.getItem('rw-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
@@ -89,7 +89,7 @@
   <section class="view" id="view-index" hidden>
     <div class="content prose rules-index">
       <h2>Rules index</h2>
-      <p class="hint">Find a keyword, then read the rule in the book. The index lists the book and printed page number only.</p>
+      <p class="hint">Find a keyword, then read the rule in the book. The index lists the book and printed page number. The one exception is Silent, which carries a short note on how this site reads it.</p>
       <div class="ri-tools">
         <input id="ri-search" type="search" placeholder="Search a keyword, for example pinned, FUBAR, booby trap" autocomplete="off" aria-label="Search the rules index">
         <select id="ri-book" aria-label="Book"></select>
@@ -125,6 +125,18 @@
       <p>Tick an environment under Weather Tables, open the Weather tab and print. Each environment has its own colour, name and badge, so the decks stay apart. Shuffle one environment's cards face down and draw one at the start of the game. The suggested copies follow the 2D6 odds closely: 14 cards per environment, with five copies of "As Good As It Gets". Exact odds need 36 cards, so raise the counts if you want that. Card backs are off by default.</p>
       <h2>Sleeves</h2>
       <p>Gamegenic Prime Color Sleeves in the standard size (66 x 91 mm) fit these cards (63 x 88 mm). They protect the cards at the table and wipe clean. They come in yellow, orange, red, pink, purple, blue, green, lime, white, dark gray and black, so each card type can have its own colour: yellow for teams, blue for operators, red for weapons, green for gear and orange for vehicles. Weather cards are drawn from their own deck, so they can reuse those colours. Closest matches: Arctic white, Jungle green, Desert yellow, Urban dark gray, Coastal blue, Mountain purple, Underground orange and Space black. Print on 200 gsm paper or heavier, or slip a spare card behind each print so it stays stiff. Gamegenic sells them at <a href="https://www.gamegenic.com" target="_blank" rel="noopener">gamegenic.com</a> and in game stores.</p>
+      <h2>Where the books are unclear</h2>
+      <p>A few places in the books disagree with themselves or leave a gap. This is what the site does, so you can check it against your copy. Tell me if you read any of them differently.</p>
+      <ul>
+        <li><strong>Silent.</strong> No book defines it. The site reads it as: the shot does not count as "A Shot has been fired", so it does not raise the Alarm in the Solo rules (Ungentlemanly Warriors p. 12). The Welrod Suppressed Pistol and the Bow &amp; Arrow, which the book says do not raise the alarm (p. 19), are the only weapons confirmed this way. The Rules Index entry for Silent says the same.</li>
+        <li><strong>"Sea Weapons Table".</strong> The Fairbairn-Sykes Fighting Knife, Commando Baton and Welrod gear entries (Ungentlemanly Warriors p. 20) point to a "Sea" Weapons Table. The site reads it as "See Weapons Table" (p. 19).</li>
+        <li><strong>Marksman or CQB.</strong> The Specialisation table (p. 16) says Marksman and the Platoon Sheet example (p. 17) says CQB. The site uses Marksman.</li>
+        <li><strong>Hand-to-Hand perk name.</strong> It is Shanghai Style on p. 16 and Knife Fighter in the example on p. 17, with the same effect. The site uses Shanghai Style.</li>
+        <li><strong>Marksman promotion perk.</strong> It reads "Guns gain 1 to their attack characteristic" (p. 16). The site reads it as +1.</li>
+        <li><strong>Stealth Phase or Sentry Phase.</strong> The book uses both names for the first Solo phase (p. 10). The site uses Sentry Phase, including on the Spy and Bow &amp; Arrow cards.</li>
+        <li><strong>Gear-only weapons.</strong> The Welrod and the Fairbairn-Sykes Fighting Knife are marked "Can only be taken as Gear" (p. 19), so the Mission team builder does not offer them as the extra weapon. They still have weapon cards for their stats.</li>
+        <li><strong>Venom Blade.</strong> Evolution lists "+1 Move Allowance" under the Drawback column (p. 19). The site prints it as written and does not change the Warrior's Move.</li>
+      </ul>
       <h2>Feedback and bug reports</h2>
       <p>Found a wrong stat, a layout glitch, or have an idea for a feature? Open an issue on GitHub. Include the card name and a screenshot if something looks off on a card. Please do not paste rules text from the books; a page number is enough.</p>
       <div class="stack inline"><a class="button primary" href="https://github.com/justadude-g/Rogue-Warriors-Quartermaster/issues/new/choose" target="_blank" rel="noopener">Send feedback</a><a class="button" href="https://github.com/justadude-g/Rogue-Warriors-Quartermaster/issues" target="_blank" rel="noopener">See open issues</a></div>
@@ -135,14 +147,14 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/jspdf.umd.min.js?v=202611031722"></script>
-<script src="js/data/rules.js?v=202611031722"></script>
-<script src="js/data/weather.js?v=202611031722"></script>
-<script src="js/data/rules-index.js?v=202611031722"></script>
-<script src="js/catalog.js?v=202611031722"></script>
-<script src="js/render.js?v=202611031722"></script>
-<script src="js/print.js?v=202611031722"></script>
-<script src="js/store.js?v=202611031722"></script>
-<script src="js/app.js?v=202611031722"></script>
+<script src="js/vendor/jspdf.umd.min.js?v=202611031752"></script>
+<script src="js/data/rules.js?v=202611031752"></script>
+<script src="js/data/weather.js?v=202611031752"></script>
+<script src="js/data/rules-index.js?v=202611031752"></script>
+<script src="js/catalog.js?v=202611031752"></script>
+<script src="js/render.js?v=202611031752"></script>
+<script src="js/print.js?v=202611031752"></script>
+<script src="js/store.js?v=202611031752"></script>
+<script src="js/app.js?v=202611031752"></script>
 </body>
 </html>
