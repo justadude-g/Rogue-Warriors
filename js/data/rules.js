@@ -1,0 +1,294 @@
+/* Rogue Warriors card data: names, numbers, icons and page references only.
+   Rules wording lives in js/data/private/rules-text.js (private repo only); tools/publish-public.js leaves it out of the public build,
+   where cards show page references instead.
+   Rogue Warriors (c) Lee Fox-Smith & Nicholas Fox-Smith, Tabletop Skirmish Games. Used with permission. */
+(function () {
+  const W = (id, name, type, range, dice, dmg, ap, x) => Object.assign({ id, name, type, range, dice, dmg, ap }, x || {});
+  const G = (id, name, type, pts, x) => Object.assign({ id, name, type, pts }, x || {});
+  const S = (spec, perkName, x) => Object.assign({ spec, perkName }, x || {});
+  const E = (id, name, mech) => ({ id, name, mech });
+  const MA_DOWN = { mods: { ma: -1 }, noScout: true };
+  const MDP_UP = { mods: { mdp: 1 } };
+
+  const books = {
+    core: { name: 'Core Rulebook', short: 'Core' },
+    rd: { name: 'Rapid Deployment', short: 'RD' },
+    tb: { name: 'Tiger Blood', short: 'TB' },
+    us: { name: 'Urban Strike', short: 'US' },
+    ibz: { name: 'Ice Base Zero', short: 'IBZ' },
+    tod: { name: 'Tour of Duty', short: 'ToD' },
+    dh: { name: 'Desert Heroes', short: 'DH' },
+  };
+
+  const soldierTypes = {
+    warrior: { label: 'Warrior', ma: 5, hearts: 6, hits: 4, mdp: 5 },
+    enlisted: { label: 'Enlisted', ma: 5, hearts: 3, hits: 5, mdp: 4 },
+    recruit: { label: 'Recruit', ma: 5, hearts: 2, hits: 6, mdp: 3 },
+  };
+
+  // The six Expertise slots every book reuses, plus the two Desert Heroes additions.
+  const mechanics = {
+    movement: { label: '+1 MA', icon: 'expertise/exp-movement.svg', mods: { ma: 1 } },
+    shooting: { label: 'Shooting re-roll', icon: 'expertise/exp-shooting.svg' },
+    initiative: { label: 'Roll-off bonus', icon: 'expertise/exp-initiative.svg' },
+    activation: { label: 'Activation control', icon: 'expertise/exp-activation.svg' },
+    deployment: { label: 'Deployment zone', icon: 'expertise/exp-deployment.svg' },
+    armour: { label: 'Armour re-roll', icon: 'expertise/exp-armour.svg' },
+    insertion: { label: 'Insertion', icon: 'expertise/exp-insertion.svg' },
+    vehicle: { label: 'Vehicle first', icon: 'expertise/exp-vehicle.svg' },
+  };
+  const SIX = ['movement', 'shooting', 'initiative', 'activation', 'deployment', 'armour'];
+  const six = (prefix, names) => names.map((n, i) => E(prefix + '-' + n.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), n, SIX[i]));
+
+  // Specialisation icons and the stat changes they make.
+  const specs = {
+    tactician: { name: 'Tactician', icon: 'tactician' }, medic: { name: 'Medic', icon: 'medic' },
+    sniper: { name: 'Sniper', icon: 'sniper' }, 'hand-to-hand': { name: 'Hand-to-Hand', icon: 'hand-to-hand' },
+    demolitions: { name: 'Demolitions', icon: 'demolitions' }, eod: { name: 'EOD', icon: 'eod' },
+    comms: { name: 'Comms', icon: 'comms' }, cqb: { name: 'CQB', icon: 'cqb' },
+    scout: { name: 'Scout', icon: 'scout', mods: { ma: 1 } }, 'fire-support': { name: 'Fire Support', icon: 'fire-support' },
+    survivalist: { name: 'Survivalist', icon: 'survivalist' }, saboteur: { name: 'Saboteur', icon: 'saboteur' },
+    disguise: { name: 'Disguise', icon: 'disguise' }, propagandist: { name: 'Propagandist', icon: 'propagandist' },
+    'checkpoint-guard': { name: 'Checkpoint Guard', icon: 'checkpoint-guard' }, intimidator: { name: 'Intimidator', icon: 'intimidator' },
+    'drone-operator': { name: 'Drone Operator', icon: 'drone-operator' }, meteorologist: { name: 'Meteorologist', icon: 'meteorologist' },
+    trapper: { name: 'Trapper', icon: 'trapper' }, biologist: { name: 'Biologist', icon: 'biologist' },
+    'arctic-pilot': { name: 'Arctic Pilot', icon: 'arctic-pilot' }, 'intelligence-agent': { name: 'Intelligence Agent', icon: 'intelligence-agent' },
+    biohazard: { name: 'Biohazard', icon: 'biohazard' }, 'forward-observer': { name: 'Forward Observer', icon: 'forward-observer' },
+    'designated-marksman': { name: 'Designated Marksman', icon: 'designated-marksman' }, 'non-specialist': { name: 'Non-Specialist', icon: 'non-specialist' },
+    mechanic: { name: 'Mechanic', icon: 'mechanic' }, gunner: { name: 'Gunner', icon: 'gunner' },
+    navigator: { name: 'Navigator', icon: 'navigator' }, commander: { name: 'Commander', icon: 'commander' },
+    'security-detail': { name: 'Security Detail', icon: 'security-detail' },
+  };
+
+  const CORE10 = [S('tactician', 'Prior Preparation'), S('medic', 'Man Down'), S('sniper', 'One Shot, One Kill'),
+    S('hand-to-hand', 'Knife Fighter'), S('demolitions', 'Jack Breacher'), S('eod', 'Ballistic Shield'), S('comms', 'Drone Recon'),
+    S('cqb', 'Kill House'), S('scout', 'Lead The Way'), S('fire-support', 'Cover Me')];
+
+  const specTables = {
+    core: { book: 'core', page: 9, items: CORE10 },
+    tb: { book: 'tb', page: 10, promo: true, items: CORE10 },
+    us: { book: 'us', page: 10, promo: true, items: CORE10.concat([S('survivalist', ''), S('saboteur', ''), S('disguise', 'Hit & Run'),
+      S('propagandist', 'False Intel'), S('checkpoint-guard', 'Iron Curtain'), S('intimidator', 'Terror Tactics')]) },
+    ibz: { book: 'ibz', page: 11, promo: true, items: [S('tactician', 'Prior Preparation'), S('medic', 'Man Down'), S('sniper', 'One Shot, One Kill'),
+      S('hand-to-hand', 'Knife Fighter'), S('demolitions', 'Jack Breacher'), S('eod', 'Ballistic Shield'), S('drone-operator', 'Drone Recon'),
+      S('cqb', 'Kill House'), S('scout', 'Lead The Way'), S('fire-support', 'Cover Me'), S('meteorologist', 'Arctic Resilience'),
+      S('trapper', 'Field Mines'), S('biologist', 'Expert Anatomist'), S('arctic-pilot', 'Hard Landing'),
+      S('intelligence-agent', 'Ghost Protocol'), S('biohazard', 'Germ Warfare')] },
+    tod: { book: 'tod', page: 18, promo: true, items: [S('tactician', 'Prior Preparation'), S('medic', 'Man Down'), S('sniper', 'One Shot, One Kill'),
+      S('hand-to-hand', 'Tunnel Rat'), S('demolitions', 'Fire in the Hole'), S('eod', 'Flak Jacket'), S('forward-observer', 'Call Sign'),
+      S('designated-marksman', 'Good Shot'), S('scout', 'Lead The Way'), S('fire-support', 'Cover Me'), S('non-specialist', 'Rank & File', { noPromo: true })] },
+    dh: { book: 'dh', page: 16, promo: true, items: [S('mechanic', ''), S('gunner', ''), S('navigator', ''), S('forward-observer', ''),
+      S('commander', ''), S('security-detail', '')] },
+  };
+  for (const [tid, t] of Object.entries(specTables)) t.items = t.items.map((s) => Object.assign({}, s, { id: 'spec-' + tid + '-' + s.spec, table: tid }));
+
+  // Weapon tables. type = icon file in assets/icons/weapons. Ranges and stats as printed.
+  const weaponTables = {
+    core: { book: 'core', page: 10, items: [
+      W('pistol', 'Pistol / Revolver', 'pistol', '6"', 2, 1, '-', { sidearm: true }),
+      W('shotgun', 'Shotgun', 'shotgun', '8"', 3, 1, '-1'),
+      W('smg', 'Submachine Gun', 'smg', '12"', 5, 1, '-'),
+      W('assault-rifle', 'Assault Rifle', 'assault-rifle', '18"', 3, 1, '-'),
+      W('lmg', 'Light Machine Gun', 'lmg', '3-24"', 4, 1, '-', MA_DOWN),
+      W('sniper-rifle', 'Sniper Rifle', 'sniper-rifle', '6-36"', 1, 1, '-1'),
+      W('melee', 'Combat Melee Weapon', 'melee', 'Base', '-', '-', '-', MDP_UP),
+      W('frag-grenade', 'Frag Grenade', 'frag-grenade', '6"', 1, 1, '-2')] },
+    rd: { book: 'rd', page: 3, items: [W('hmg', 'Heavy Machine Gun', 'hmg', '9-36"', 3, 1, '-1', MA_DOWN)] },
+    'tb-specops': { book: 'tb', page: 13, items: [
+      W('pistol', 'Beretta 92SB', 'pistol', '6"', 2, 1, '-', { sidearm: true, type2: 'Pistol' }),
+      W('shotgun', 'Remington 870', 'shotgun', '8"', 3, 1, '-1', { type2: 'Shotgun' }),
+      W('smg', 'HK MP5SD3', 'smg', '12"', 5, 1, '-', { type2: 'Submachine Gun' }),
+      W('assault-rifle', 'XM177 Carbine', 'assault-rifle-ar', '18"', 3, 1, '-', { type2: 'Assault Rifle' }),
+      W('lmg', 'FN Minimi', 'lmg', '3-24"', 4, 1, '-', Object.assign({ type2: 'LMG' }, MA_DOWN)),
+      W('sniper-rifle', 'Barrett M82A1', 'sniper-rifle', '6-36"', 1, 1, '-1', { type2: 'Sniper Rifle' }),
+      W('melee', 'ATAK Combat Knife', 'melee', 'Base', '-', '-', '-', Object.assign({ type2: 'Combat Melee Weapon' }, MDP_UP)),
+      W('frag-grenade', 'Frag Grenade', 'frag-grenade', '6"', 1, 1, '-2')] },
+    'tb-tigers': { book: 'tb', page: 14, items: [
+      W('pistol', 'Makarov PM', 'pistol', '6"', 2, 1, '-', { sidearm: true, type2: 'Pistol' }),
+      W('shotgun', 'Mossberg 500', 'shotgun', '8"', 3, 1, '-1', { type2: 'Shotgun' }),
+      W('smg', 'Uzi', 'smg', '12"', 5, 1, '-', { type2: 'Submachine Gun' }),
+      W('assault-rifle', 'AK-47', 'assault-rifle', '18"', 3, 1, '-', { type2: 'Assault Rifle' }),
+      W('lmg', 'M60', 'lmg', '3-24"', 4, 1, '-', Object.assign({ type2: 'LMG' }, MA_DOWN)),
+      W('sniper-rifle', 'Dragunov SVD', 'sniper-rifle', '6-36"', 1, 1, '-1', { type2: 'Sniper Rifle' }),
+      W('melee', 'Jambiya Tactical Knife', 'melee', 'Base', '-', '-', '-', Object.assign({ type2: 'Combat Melee Weapon' }, MDP_UP)),
+      W('frag-grenade', 'Frag Grenade', 'frag-grenade', '6"', 1, 1, '-2')] },
+    us: { book: 'us', page: 11, items: [
+      W('pistol', 'Colt M1911 or Makarov PM', 'pistol', '6"', 2, 1, '-', { sidearm: true, type2: 'Pistol' }),
+      W('shotgun', 'Mossberg 500 or Remington 870', 'shotgun', '8"', 3, 1, '-1', { type2: 'Shotgun' }),
+      W('flamethrower', 'M2 Flame Thrower', 'flamethrower', '8"', 1, 1, '-'),
+      W('bow', 'Compound Bow & Grenade Arrow', 'bow', '6-12"', 1, 1, '-1'),
+      W('smg', 'Uzi', 'smg', '12"', 5, 1, '-', { type2: 'Submachine Gun' }),
+      W('smg-15', 'HK MP5', 'smg-compact', '15"', 4, 1, '-', { type2: 'Submachine Gun' }),
+      W('grenade-launcher', 'M79 Grenade Launcher', 'grenade-launcher', '6-24"', 1, 1, '-2'),
+      W('assault-rifle', 'AK47', 'assault-rifle', '18"', 3, 1, '-', { type2: 'Assault Rifle' }),
+      W('assault-rifle-2', 'M16 A1', 'assault-rifle-ar', '18"', 3, 1, '-', { type2: 'Assault Rifle' }),
+      W('dmr', 'M14 or SKS', 'dmr', '20"', 2, 1, '-', { type2: 'Designated Marksman Rifle' }),
+      W('lmg', 'RPD or M60', 'lmg', '3-24"', 4, 1, '-', Object.assign({ type2: 'LMG' }, MA_DOWN)),
+      W('sniper-rifle', 'M40 or SVD Dragunov', 'sniper-rifle', '6-36"', 1, 1, '-1', { type2: 'Sniper Rifle' }),
+      W('melee', 'Survival Knife or Bowie Knife', 'melee', 'Base', '-', '-', '-', Object.assign({ type2: 'Combat Melee Weapon' }, MDP_UP)),
+      W('frag-grenade', 'Frag Grenade', 'frag-grenade', '6"', 1, 1, '-2', { single: true }),
+      W('law', 'M72 LAW', 'rocket-launcher-law', '6-24"', 1, 1, '-2', { single: true }),
+      W('rpg', 'RPG-7', 'rocket-launcher-rpg', '3-24"', 1, 1, '-2', { single: true })] },
+    ibz: { book: 'ibz', page: 12, items: [
+      W('pistol', 'Glock 19 (Cold Weather Modified)', 'pistol', '6"', 2, 1, '-', { sidearm: true, type2: 'Pistol' }),
+      W('shotgun', 'Benelli M4', 'shotgun', '8"', 3, 1, '-1', { type2: 'Shotgun' }),
+      W('smg', 'B&T APC9 Pro', 'smg', '12"', 5, 1, '-', { type2: 'Submachine Gun' }),
+      W('smg-15', 'B&T MP9', 'smg-compact', '15"', 4, 1, '-', { type2: 'Submachine Gun' }),
+      W('grenade-launcher', 'HK M320 Grenade Launcher', 'grenade-launcher', '6-24"', 1, 1, '-2'),
+      W('assault-rifle', 'AK-12', 'assault-rifle', '18"', 3, 1, '-', { type2: 'Assault Rifle' }),
+      W('assault-rifle-2', 'HK416', 'assault-rifle-ar', '18"', 3, 1, '-', { type2: 'Assault Rifle' }),
+      W('dmr', 'FN SCAR-H', 'dmr', '20"', 2, 1, '-', { type2: 'Designated Marksman Rifle' }),
+      W('lmg', 'FN MK48 Mod 1', 'lmg', '3-24"', 4, 1, '-', Object.assign({ type2: 'LMG' }, MA_DOWN)),
+      W('sniper-rifle', 'Barrett MRAD', 'sniper-rifle', '6-36"', 1, 1, '-1', { type2: 'Sniper Rifle' }),
+      W('melee', 'Ulu Knife', 'melee', 'Base', '-', '-', '-', Object.assign({ type2: 'Combat Melee Weapon' }, MDP_UP)),
+      W('frag-grenade', 'Frag Grenade', 'frag-grenade', '6"', 1, 1, '-2', { single: true }),
+      W('carl-gustaf', 'Carl Gustaf M4', 'rocket-launcher-rpg', '3-24"', 1, 1, '-2', { single: true, type2: 'Recoilless Rifle' })] },
+    'ibz-drones': { book: 'ibz', page: 13, items: [
+      W('storm-piercer', 'Storm Piercer', 'drone-attack', '18"', 3, 1, '-', { droneOnly: true, type2: 'Flying Drone' }),
+      W('whiteout-recon', 'Whiteout Recon', 'drone-recon', '12"', '-', '-', '-', { droneOnly: true, type2: 'Flying Drone' }),
+      W('avalanche-bomber', 'Avalanche Bomber', 'drone-bomber', '12"', 2, 1, '-1', { droneOnly: true, type2: 'Flying Drone' }),
+      W('polar-sentinel', 'Polar Sentinel', 'drone-ground', '18"', 2, 1, '-', { droneOnly: true, type2: 'Ground Drone' })] },
+    'ibz-experimental': { book: 'ibz', page: 13, items: [
+      W('viral-dartgun', 'Viral Dartgun', 'viral-dartgun', '8"', 1, 1, '-', { type2: 'Experimental' }),
+      W('cryo-flamer', 'Cryo-Flamer', 'cryo-flamer', '8"', 1, '-', '-', { type2: 'Experimental' }),
+      W('plasma-cutter', 'Polar Plasma Cutter', 'plasma-cutter', '12"', 2, 1, '-1', { type2: 'Experimental' }),
+      W('ice-blaster', 'Ice Blaster', 'ice-blaster', '12"', 5, 1, '-', { type2: 'Experimental' }),
+      W('skyfang', 'Skyfang (Anti-Drone Prototype)', 'anti-drone', '18"', 2, '-', '-', { type2: 'Experimental' })] },
+    tod: { book: 'tod', page: 22, items: [
+      W('pistol', 'Colt M1911 or Tokarev TT-33', 'pistol', '6"', 2, 1, '-', { sidearm: true, type2: 'Pistol' }),
+      W('shotgun', 'Ithaca 37 or Remington 870', 'shotgun', '8"', 3, 1, '-1', { type2: 'Shotgun' }),
+      W('flamethrower', 'Flame Thrower', 'flamethrower', '8"', 1, 1, '-'),
+      W('bow', 'Bow & Grenade Arrow', 'bow', '6-12"', 1, 1, '-1'),
+      W('smg', 'Type 50', 'smg', '12"', 5, 1, '-', { type2: 'Submachine Gun' }),
+      W('smg-15', 'Carl Gustaf M/45', 'smg-compact', '15"', 4, 1, '-', { type2: 'Submachine Gun' }),
+      W('grenade-launcher', 'M79 Grenade Launcher', 'grenade-launcher', '6-24"', 1, 1, '-2'),
+      W('assault-rifle', 'AK47', 'assault-rifle', '18"', 3, 1, '-', { type2: 'Assault Rifle' }),
+      W('assault-rifle-2', 'M16', 'assault-rifle-ar', '18"', 3, 1, '-', { type2: 'Assault Rifle' }),
+      W('dmr', 'M14 or SKS', 'dmr', '20"', 2, 1, '-', { type2: 'Designated Marksman Rifle' }),
+      W('lmg', 'RPD or M60', 'lmg', '3-24"', 4, 1, '-', Object.assign({ type2: 'LMG' }, MA_DOWN)),
+      W('sniper-rifle', 'M40 or SVD Dragunov', 'sniper-rifle', '6-36"', 1, 1, '-1', { type2: 'Sniper Rifle' }),
+      W('melee', 'Survival Knife or Bayonet', 'melee', 'Base', '-', '-', '-', Object.assign({ type2: 'Combat Melee Weapon' }, MDP_UP)),
+      W('frag-grenade', 'Frag Grenade', 'frag-grenade', '6"', 1, 1, '-2', { single: true }),
+      W('law', 'M72 LAW', 'rocket-launcher-law', '6-24"', 1, 1, '-2', { single: true }),
+      W('rpg', 'RPG-2 or RPG-7', 'rocket-launcher-rpg', '3-24"', 1, 1, '-2', { single: true })] },
+  };
+
+  const HEART = { mods: { hearts: 1 } };
+  const gearTables = {
+    core: { book: 'core', page: 10, items: [
+      G('rope', 'Rope', 'rope', 1), G('nvg', 'Night Vision Goggles', 'nvg', 1), G('suppressor', 'Suppressor', 'suppressor', 2),
+      G('smoke', 'Smoke Grenade', 'smoke-grenade', 2), G('frag', 'Frag Grenade', 'frag-grenade-gear', 3), G('flash-bang', 'Flash Bang Grenade', 'flash-bang', 3),
+      G('optics', 'Advanced Optics', 'optics', 3), G('med-kit', 'Med Kit', 'med-kit', 3), G('body-armour', 'Tactical Body Armour', 'body-armour', 5, HEART),
+      G('drones-eye', "Drone's Eye View", 'drones-eye', 5), G('ghillie', 'Gillie Suit', 'ghillie-deploy', 5), G('rpg', 'RPG', 'rocket-launcher-rpg', 5, { weaponIcon: true })] },
+    rd: { book: 'rd', page: 4, items: [G('local-knowledge', 'Local Knowledge', 'local-knowledge', 5)] },
+    'tb-specops': { book: 'tb', page: 13, items: [
+      G('rope', 'Rope', 'rope', 1), G('nvg', 'Night Vision Goggles', 'nvg', 1), G('suppressor', 'Suppressor', 'suppressor', 2),
+      G('smoke', 'Smoke Grenade', 'smoke-grenade', 2), G('frag', 'Frag Grenade', 'frag-grenade-gear', 3), G('flash-bang', 'Flash Bang Grenade', 'flash-bang', 3),
+      G('optics', 'Advanced Optics', 'optics', 3), G('med-kit', 'Med Kit', 'med-kit', 3), G('body-armour', 'Tactical Body Armour', 'body-armour', 5, HEART),
+      G('confirmed-intel', 'Confirmed Intel', 'intel', 5), G('ghillie', 'Gillie Suit', 'ghillie-deploy', 5), G('rpg', 'RPG-7', 'rocket-launcher-rpg', 5, { weaponIcon: true })] },
+    'tb-tigers': { book: 'tb', page: 14, items: [
+      G('rope', 'Rope', 'rope', 1), G('nvg', 'Night Vision Goggles', 'nvg', 1), G('suppressor', 'Suppressor', 'suppressor', 2),
+      G('smoke', 'Smoke Grenade', 'smoke-grenade', 2), G('frag', 'Frag Grenade', 'frag-grenade-gear', 3), G('flash-bang', 'Flash Bang Grenade', 'flash-bang', 3),
+      G('optics', 'Advanced Optics', 'optics', 3), G('med-kit', 'Med Kit', 'med-kit', 3), G('body-armour', 'Tactical Body Armour', 'body-armour', 5, HEART),
+      G('local-knowledge', 'Local Knowledge', 'local-knowledge', 5), G('civilian-disguise', 'Civilian Disguise', 'civilian-disguise', 5),
+      G('rpg', 'RPG-7', 'rocket-launcher-rpg', 5, { weaponIcon: true })] },
+    us: { book: 'us', page: 12, items: [
+      G('rope', 'Rope', 'rope', 1), G('lucky', 'Lucky Charm', 'lucky-charm', 1), G('melee-tool', 'Baseball Bat', 'melee-tool', 2),
+      G('injury-book', 'Emergency War Surgery Book', 'injury-book', 2), G('boots', 'Hiking Boots', 'boots', 2), G('smoke', 'Smoke Grenade', 'smoke-grenade', 2),
+      G('flashlight', 'Flashlight', 'flashlight', 2), G('frag', 'Frag Grenade', 'frag-grenade-gear', 3), G('med-kit', 'Med Kit or Healing Herbs', 'med-kit', 3),
+      G('molotov', 'Molotov Cocktail', 'molotov', 3), G('optics', 'Telescopic Sights', 'optics', 3), G('gas-tank', 'Gas Tank', 'gas-tank', 4),
+      G('nvg', 'Night Vision Goggles', 'nvg', 4), G('claymore', 'Claymore', 'claymore', 4), G('c4', 'C4', 'c4', 4), G('cloak', 'Gillie Suit', 'cloak', 4),
+      G('remote-bomb', 'Skateboard Bomb', 'remote-bomb', 5), G('incendiary', 'Incendiary Device', 'incendiary', 5), G('last-stand', 'Family Photo', 'last-stand', 5),
+      G('extra-heart', 'Soda & Chocolate Stash', 'chocolate', 5, HEART), G('walkie', 'Walkie-talkies', 'walkie-talkie', 5),
+      G('ubgl', 'Under Barrel Grenade Launcher', 'ubgl', 5), G('ap-rounds', 'Armour Piercing Rounds', 'ap-rounds', 5), G('tactical-vest', 'Tactical Vest', 'tactical-vest', 5)] },
+    ibz: { book: 'ibz', page: 14, items: [
+      G('rope', 'Grappling Hook', 'rope', 1), G('lucky', 'Lucky Compass', 'lucky-compass', 1), G('melee-tool', 'Ice Axe', 'melee-tool', 2),
+      G('injury-book', 'Stim Pen', 'stim-pen', 2), G('boots', 'Krampons', 'boots', 2), G('smoke', 'Smoke Grenade', 'smoke-grenade', 2),
+      G('flashlight', 'Flashlight', 'flashlight', 2), G('frag', 'Frag Grenade', 'frag-grenade-gear', 3), G('med-kit', 'Med Kit', 'med-kit', 3),
+      G('molotov', 'Improvised Oxygen Tank', 'molotov', 3), G('optics', 'Telescopic Sights', 'optics', 3), G('antidote', 'Antidote', 'antidote', 4),
+      G('nvg', 'Night Vision Goggles', 'nvg', 4), G('bear-trap', 'Bear Trap', 'bear-trap', 4), G('c4', 'C4', 'c4', 4), G('cloak', 'Polar Bear Skin', 'polar-bear-skin', 4),
+      G('remote-bomb', 'Mini Drone Bomb', 'drone-bomb', 5), G('incendiary', 'Thermal Detonator', 'incendiary', 5), G('last-stand', 'Experimental Stim', 'last-stand', 5),
+      G('extra-heart', 'Survival Rations', 'rations', 5, HEART), G('walkie', 'Tethering Kit', 'walkie-talkie', 5),
+      G('ubgl', 'Under Barrel Grenade Launcher', 'ubgl', 5), G('ap-rounds', 'Armour Piercing Rounds', 'ap-rounds', 5), G('tactical-vest', 'Tactical Vest', 'tactical-vest', 5)] },
+    tod: { book: 'tod', page: 23, items: [
+      G('rope', 'Rope', 'rope', 1), G('lucky', 'Lucky Piece or Bảo vệ Phù', 'lucky-charm', 1), G('melee-tool', 'Entrenching Tool', 'entrenching-tool', 2),
+      G('injury-book', 'Insect Repellant', 'injury-book', 2), G('boots', 'Jungle Boots or Ho Chi Minh Sandals', 'boots', 2), G('smoke', 'Smoke Grenade', 'smoke-grenade', 2),
+      G('flashlight', 'TL-122 Flashlight', 'flashlight', 2), G('frag', 'Frag Grenade', 'frag-grenade-gear', 3), G('smoke-marker', 'Smoke Marker', 'smoke-marker', 3),
+      G('molotov', 'Molotov Cocktail', 'molotov', 3), G('med-kit', 'Med Kit or Healing Herbs', 'med-kit', 3), G('optics', 'Telescopic Sights', 'optics', 3),
+      G('nvg', 'Starlight Scopes', 'nvg', 4), G('claymore', 'Claymore', 'claymore', 4), G('c4', 'Plastic Explosive', 'c4', 4), G('radio-set', 'Radio Set', 'radio-set', 4),
+      G('cloak', 'Camouflage Poncho', 'cloak', 4), G('incendiary', 'Incendiary Device', 'incendiary', 5), G('last-stand', 'Pin Up', 'last-stand', 5),
+      G('extra-heart', 'C-Ration', 'rations', 5, HEART), G('booby-trap', 'Booby Trap', 'booby-trap', 5),
+      G('ubgl', 'M203 Under Barrel Grenade Launcher', 'ubgl', 5), G('ap-rounds', 'Armour Piercing Rounds', 'ap-rounds', 5), G('tunnel-maps', 'Tunnel Maps', 'local-knowledge', 5)] },
+    dh: { book: 'dh', page: 8, items: [G('ied', 'IED', 'ied', 1), G('at-mine', 'Anti-Tank Mine', 'at-mine', 1), G('sticky-bomb', 'Sticky Bomb', 'sticky-bomb', 2)] },
+  };
+  for (const [tid, t] of Object.entries(weaponTables)) t.items = t.items.map((x) => Object.assign({}, x, { uid: 'wpn-' + tid + '-' + x.id, table: tid }));
+  for (const [tid, t] of Object.entries(gearTables)) t.items = t.items.map((x) => Object.assign({}, x, { uid: 'gear-' + tid + '-' + x.id, table: tid }));
+
+  const RANKS_ARMY = ['Corporal', 'Sergeant', 'Staff Sergeant', 'Staff Sergeant First Class', 'Master Sergeant', 'Sergeant Major'];
+  const RANKS_PEOPLE = ['Comrade', 'Cell Leader', 'Political Officer', 'Party Vanguard', 'Commissar', "People's Warden"];
+  const rankTables = {
+    'tb-specops': { book: 'tb', page: 16, perks: 'standard', names: ['Petty Officer Third Class', 'Petty Officer Second Class', 'Petty Officer First Class', 'Chief Petty Officer', 'Senior Chief Petty Officer', 'Master Chief Petty Officer'] },
+    'tb-tigers': { book: 'tb', page: 16, perks: 'standard', names: RANKS_ARMY },
+    'us-faa': { book: 'us', page: 16, perks: 'standard', names: RANKS_ARMY },
+    'us-cass': { book: 'us', page: 16, perks: 'standard', names: RANKS_PEOPLE },
+    'ibz-northstar': { book: 'ibz', page: 17, perks: 'standard', names: ['Operator', 'Senior Operator', 'Squad Leader', 'Tactical Chief', 'Mission Commander', 'Contract Lead'] },
+    'ibz-specops': { book: 'ibz', page: 17, perks: 'standard', names: RANKS_ARMY },
+    'tod-fw': { book: 'tod', page: 26, perks: 'standard', names: RANKS_ARMY },
+    'tod-com': { book: 'tod', page: 26, perks: 'standard', names: RANKS_PEOPLE },
+    'dh-sas': { book: 'dh', page: 20, perks: 'dh', names: ['Private', 'Lance Corporal', 'Corporal', 'Sergeant', 'Staff Sergeant', 'Warrant Officer'] },
+    'dh-axis': { book: 'dh', page: 20, perks: 'dh', names: ['Soldat', 'Gefreiter', 'Obergefreiter', 'Unteroffizier', 'Feldwebel', 'Oberfeldwebel'] },
+  };
+  const RANK_XP = [50, 100, 150, 200, 250, 300];
+  // Which rank unlocks the Specialisation promotion perk, per rank perk table.
+  const promoAt = { standard: 100, dh: 150 };
+
+  // Factions and sets. expertisePage is where that Expertise table is printed.
+  const sets = [
+    { id: 'core', label: 'Core Rules', book: 'core', gearPoints: 5, team: 4, expertisePage: 9,
+      expertise: six('core', ['Raiders', 'Counter Terrorism', 'Hostage Rescue', 'Counter Insurgency', 'Covert Ops', 'Reconnaissance']),
+      specs: 'core', weapons: ['core'], gear: ['core'] },
+    { id: 'rd', label: 'Rapid Deployment', book: 'rd', gearPoints: 5, team: 4, expertisePage: 2,
+      expertise: [Object.assign(E('rd-hostage-rescue', 'Hostage Rescue', 'initiative'), { page: 2 }), Object.assign(E('rd-guerrilla-tactics', 'Guerrilla Tactics', 'movement'), { page: 4 })],
+      specs: 'tb', weapons: ['core', 'rd'], gear: ['core', 'rd'] },
+    { id: 'tb-specops', label: 'Tiger Blood: Spec Ops', book: 'tb', gearPoints: 5, team: 4, platoon: 10, expertisePage: 9, ranks: 'tb-specops',
+      expertise: six('tb-specops', ['Raiders', 'Counter Terrorism', 'Hostage Rescue', 'Counter Insurgency', 'Covert Ops', 'Reconnaissance']),
+      specs: 'tb', weapons: ['tb-specops'], gear: ['tb-specops'] },
+    { id: 'tb-tigers', label: 'Tiger Blood: Toros Tigers', book: 'tb', gearPoints: 5, team: 4, platoon: 10, expertisePage: 9, ranks: 'tb-tigers',
+      expertise: six('tb-tigers', ['Guerilla Tactics', 'Sniper Operations', 'Terror Tactics', 'Demolition and IED Tactics', 'Ambush Tactics', 'Resource Acquisition']),
+      specs: 'tb', weapons: ['tb-tigers'], gear: ['tb-tigers'] },
+    { id: 'us-cass', label: 'Urban Strike: C.A.S.S.', book: 'us', gearPoints: 10, team: 4, platoon: 10, expertisePage: 9, ranks: 'us-cass',
+      expertise: six('us-cass', ['Paratroopers', 'Spetsnaz Training', 'Interrogators', 'Crowd Control', 'Strike Team', 'Check Point Guards']),
+      specs: 'us', weapons: ['us'], gear: ['us'] },
+    { id: 'us-faa', label: 'Urban Strike: F.A.A.', book: 'us', gearPoints: 10, team: 4, platoon: 10, expertisePage: 9, ranks: 'us-faa',
+      expertise: six('us-faa', ['Local Knowledge', 'Rooftop Ambush', 'Guerilla Tactics', 'Demolition and Distraction', 'Ambush Tactics', 'Resource Acquisition']),
+      specs: 'us', weapons: ['us'], gear: ['us'] },
+    { id: 'ibz-northstar', label: 'Ice Base Zero: Northstar', book: 'ibz', gearPoints: 10, team: 4, platoon: 10, expertisePage: 10, ranks: 'ibz-northstar',
+      expertise: six('ibz-northstar', ['Reaction Force', 'Close Protection', 'Intelligence', 'Base Security', 'Ice Base Patrol', 'Outpost Guards']),
+      specs: 'ibz', weapons: ['ibz', 'ibz-drones', 'ibz-experimental'], gear: ['ibz'] },
+    { id: 'ibz-specops', label: 'Ice Base Zero: Spec Ops', book: 'ibz', gearPoints: 10, team: 4, platoon: 10, expertisePage: 10, ranks: 'ibz-specops',
+      expertise: six('ibz-specops', ['Recon', 'Fire Team', 'Mountain Leaders', 'Demolition and Sabotage', 'Forward Observation', 'Heavy Assault']),
+      specs: 'ibz', weapons: ['ibz', 'ibz-drones', 'ibz-experimental'], gear: ['ibz'] },
+    { id: 'tod-fw', label: 'Tour of Duty: Free World', book: 'tod', gearPoints: 5, team: 4, platoon: 10, expertisePage: 17, ranks: 'tod-fw',
+      expertise: six('tod-fw', ['Raiders', 'Fire Team', 'POW Rescue', 'Anti-Guerilla Warfare', 'MACV', 'LRRP']),
+      specs: 'tod', weapons: ['tod'], gear: ['tod'] },
+    { id: 'tod-com', label: 'Tour of Duty: Communists', book: 'tod', gearPoints: 10, team: 4, platoon: 10, expertisePage: 17, ranks: 'tod-com', soldierType: 'enlisted',
+      teamNote: 'Communist Teams take 3 Enlisted or 2 Recruit Specialists, then Non-Specialists (ToD p. 21).',
+      expertise: six('tod-com', ['Guerilla Tactics', 'Đặc Công', 'Terror Tactics', 'Jungle Masters', 'Ambush Tactics', 'Camouflage Experts']),
+      specs: 'tod', weapons: ['tod'], gear: ['tod'] },
+    { id: 'dh-sas', label: 'Desert Heroes: The SAS', book: 'dh', gearPoints: 10, team: 4, platoon: 12, expertisePage: 15, ranks: 'dh-sas',
+      expertise: [E('dh-sas-stealth-operators', 'Stealth Operators', 'insertion'), E('dh-sas-tactical-assault', 'Tactical Assault', 'vehicle')].concat(six('dh-sas-core', ['Raiders', 'Counter Terrorism', 'Hostage Rescue', 'Counter Insurgency', 'Covert Ops', 'Reconnaissance'])),
+      specs: ['core', 'dh'], weapons: ['core'], gear: ['core', 'dh'] },
+    { id: 'dh-axis', label: 'Desert Heroes: The Axis', book: 'dh', gearPoints: 10, team: 4, platoon: 12, expertisePage: 15, ranks: 'dh-axis',
+      expertise: [E('dh-axis-stealth-operators', 'Stealth Operators', 'insertion'), E('dh-axis-tactical-assault', 'Tactical Assault', 'vehicle')].concat(six('dh-axis-core', ['Raiders', 'Counter Terrorism', 'Hostage Rescue', 'Counter Insurgency', 'Covert Ops', 'Reconnaissance'])),
+      specs: ['core', 'dh'], weapons: ['core'], gear: ['core', 'dh'] },
+  ];
+  // Where each Expertise is printed. Desert Heroes lets you take core Expertise too (core p. 9).
+  for (const s of sets) for (const e of s.expertise) {
+    e.set = s.id;
+    if (!e.book) e.book = /-core-/.test(e.id) ? 'core' : s.book;
+    if (!e.page) e.page = /-core-/.test(e.id) ? 9 : s.expertisePage;
+    e.promo = s.book !== 'core' && !/-core-/.test(e.id);
+  }
+
+  window.RW = { books, soldierTypes, mechanics, specs, specTables, weaponTables, gearTables, rankTables, RANK_XP, promoAt, sets };
+})();

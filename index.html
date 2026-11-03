@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rogue Warriors Card Builder</title>
+<meta name="description" content="Design and print modular cards for Rogue Warriors: team, operator, weapon and gear cards for one-off Missions, plus campaign Warrior cards.">
+<link rel="icon" href="assets/icons/expertise/exp-shooting.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/fonts.css?v=202611030307">
+<link rel="stylesheet" href="css/styles.css?v=202611030307">
+<script>try { const t = localStorage.getItem('rw-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><img src="assets/icons/specialisations/tactician.svg" alt=""><div><strong>Rogue Warriors</strong><span>Card Builder</span></div></div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-view="deck" aria-selected="true">Card deck</button>
+    <button role="tab" data-view="mission">Mission team</button>
+    <button role="tab" data-view="campaign">Campaign</button>
+    <button role="tab" data-view="about">Backup &amp; about</button>
+  </nav>
+  <button class="theme" id="theme" title="Switch between light and dark">Light / dark</button>
+</header>
+
+<main>
+  <!-- CARD DECK -->
+  <section class="view" id="view-deck">
+    <aside class="side">
+      <h2>Books and factions</h2>
+      <p class="hint">Tick the sets you play. Shared tables appear once.</p>
+      <div id="set-list" class="set-list"></div>
+      <h2>Print</h2>
+      <label class="row">Paper <select id="paper"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
+      <label class="row check"><input type="checkbox" id="crop" checked> Crop marks</label>
+      <div class="stack">
+        <button id="copies-default">Suggested copies</button>
+        <button id="copies-zero" class="ghost">Set all to 0</button>
+        <button id="print-deck" class="primary">Print deck PDF</button>
+      </div>
+      <p class="hint" id="deck-count"></p>
+      <div class="progress" id="deck-progress" hidden><div></div></div>
+    </aside>
+    <div class="content">
+      <div class="subtabs" id="deck-tabs">
+        <button data-kind="team" aria-selected="true">Team <span></span></button>
+        <button data-kind="operator">Operators <span></span></button>
+        <button data-kind="weapon">Weapons <span></span></button>
+        <button data-kind="gear">Gear <span></span></button>
+      </div>
+      <div class="filter"><input id="deck-search" type="search" placeholder="Filter by name"></div>
+      <ul class="card-list" id="card-list"></ul>
+    </div>
+    <div class="preview-pane" id="preview-pane">
+      <div class="editor-empty">Pick a card to preview it here.</div>
+    </div>
+    <aside class="editor" id="editor">
+      <div class="editor-empty">Pick a card to preview and customise it.</div>
+    </aside>
+  </section>
+
+  <!-- MISSION TEAM -->
+  <section class="view" id="view-mission" hidden>
+    <aside class="side">
+      <h2>Saved teams</h2>
+      <ul class="saved" id="team-saved"></ul>
+      <button id="team-new" class="primary">New team</button>
+    </aside>
+    <div class="content wide" id="team-editor"></div>
+  </section>
+
+  <!-- CAMPAIGN -->
+  <section class="view" id="view-campaign" hidden>
+    <aside class="side">
+      <h2>Platoons</h2>
+      <ul class="saved" id="platoon-saved"></ul>
+      <button id="platoon-new" class="primary">New platoon</button>
+    </aside>
+    <div class="content wide" id="platoon-editor"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" id="view-about" hidden>
+    <div class="content prose">
+      <h2>Backup</h2>
+      <p>Everything you make (copies, card names and wording, pictures, teams and platoons) is saved in this browser. Export a backup file to move it to another computer or keep it safe.</p>
+      <div class="stack inline"><button id="export">Export backup</button><label class="button ghost">Import backup<input type="file" id="import" accept=".json,application/json" hidden></label></div>
+      <p class="hint" id="backup-note"></p>
+      <h2>Rules text</h2>
+      <p id="text-status"></p>
+      <h2>About</h2>
+      <p><strong>Rogue Warriors</strong> is a modern warfare skirmish game by Lee Fox-Smith and Nicholas Fox-Smith, published by Tabletop Skirmish Games. Card data is used with permission. Get the books at <a href="https://www.tabletopskirmishgames.com" target="_blank" rel="noopener">tabletopskirmishgames.com</a>.</p>
+      <p>Icons are adapted from <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a> by Lorc, Delapouite, Skoll, John Colburn, Sbed, DarkZaitzev, Rihlsul, Cathelineau, Lord Berandas and others, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Some weapon silhouettes were drawn for this project. Fonts: League Gothic, Anton, Oswald and PT Sans Narrow (SIL Open Font License).</p>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/vendor/jspdf.umd.min.js?v=202611030307"></script>
+<script src="js/data/rules.js?v=202611030307"></script>
+<script src="js/catalog.js?v=202611030307"></script>
+<script src="js/render.js?v=202611030307"></script>
+<script src="js/print.js?v=202611030307"></script>
+<script src="js/store.js?v=202611030307"></script>
+<script src="js/app.js?v=202611030307"></script>
+</body>
+</html>

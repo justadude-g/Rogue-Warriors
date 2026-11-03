@@ -1,0 +1,3285 @@
+{
+  "version": 1,
+  "note": "Icons are keyed to the rules type, not the faction name. appliesTo lists every name that uses the icon, with the book and page holding its rules.",
+  "categories": {
+    "weapon": {
+      "folder": "weapons",
+      "frame": "#b8392f",
+      "shape": "square"
+    },
+    "gear": {
+      "folder": "gear",
+      "frame": "#7a8f39",
+      "shape": "square"
+    },
+    "specialisation": {
+      "folder": "specialisations",
+      "frame": "#3874bd",
+      "shape": "circle"
+    },
+    "expertise": {
+      "folder": "expertise",
+      "frame": "#d9a93a",
+      "shape": "shield"
+    }
+  },
+  "icons": [
+    {
+      "id": "pistol",
+      "category": "weapon",
+      "label": "Pistol",
+      "file": "weapons/pistol.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Pistol / Revolver",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Beretta 92SB",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Makarov PM",
+          "book": "Tiger Blood",
+          "page": "14"
+        },
+        {
+          "name": "Colt M1911, Makarov PM",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "Glock 19",
+          "book": "Ice Base Zero",
+          "page": "12"
+        },
+        {
+          "name": "Colt M1911, Tokarev TT-33",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "John Colburn",
+          "source": "https://game-icons.net/1x1/john-colburn/pistol-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "shotgun",
+      "category": "weapon",
+      "label": "Shotgun",
+      "file": "weapons/shotgun.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Shotgun",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Remington 870",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Mossberg 500",
+          "book": "Tiger Blood",
+          "page": "14"
+        },
+        {
+          "name": "Mossberg 500, Remington 870",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "Benelli M4",
+          "book": "Ice Base Zero",
+          "page": "12"
+        },
+        {
+          "name": "Ithaca 37, Remington 870",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "smg",
+      "category": "weapon",
+      "label": "Submachine Gun",
+      "file": "weapons/smg.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Submachine Gun",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "HK MP5SD3",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Uzi",
+          "book": "Tiger Blood",
+          "page": "14"
+        },
+        {
+          "name": "Uzi",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "B&T APC9 Pro",
+          "book": "Ice Base Zero",
+          "page": "12"
+        },
+        {
+          "name": "Type 50",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/uzi.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "smg-compact",
+      "category": "weapon",
+      "label": "Submachine Gun (15\")",
+      "file": "weapons/smg-compact.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "HK MP5",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "B&T MP9",
+          "book": "Ice Base Zero",
+          "page": "12"
+        },
+        {
+          "name": "Carl Gustaf M/45",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/mp5.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "assault-rifle",
+      "category": "weapon",
+      "label": "Assault Rifle",
+      "file": "weapons/assault-rifle.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Assault Rifle",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Assault Rifle",
+          "book": "Rapid Deployment",
+          "page": "2"
+        },
+        {
+          "name": "XM177 Carbine",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "AK-47",
+          "book": "Tiger Blood",
+          "page": "14"
+        },
+        {
+          "name": "AK47",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "AK47",
+          "book": "Tour of Duty",
+          "page": "22"
+        },
+        {
+          "name": "AK-12",
+          "book": "Ice Base Zero",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/ak47.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "assault-rifle-ar",
+      "category": "weapon",
+      "label": "Assault Rifle (M16 pattern)",
+      "file": "weapons/assault-rifle-ar.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "M16 A1",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "HK416",
+          "book": "Ice Base Zero",
+          "page": "12"
+        },
+        {
+          "name": "M16",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "dmr",
+      "category": "weapon",
+      "label": "Designated Marksman Rifle",
+      "file": "weapons/dmr.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "M14, SKS",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "M14, SKS",
+          "book": "Tour of Duty",
+          "page": "22"
+        },
+        {
+          "name": "FN SCAR-H",
+          "book": "Ice Base Zero",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "lmg",
+      "category": "weapon",
+      "label": "Light Machine Gun",
+      "file": "weapons/lmg.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Light Machine Gun",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "FN Minimi",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "M60",
+          "book": "Tiger Blood",
+          "page": "14"
+        },
+        {
+          "name": "RPD, M60",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "RPD, M60",
+          "book": "Tour of Duty",
+          "page": "22"
+        },
+        {
+          "name": "FN MK48 Mod 1",
+          "book": "Ice Base Zero",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "hmg",
+      "category": "weapon",
+      "label": "Heavy Machine Gun",
+      "file": "weapons/hmg.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Heavy Machine Gun",
+          "book": "Rapid Deployment",
+          "page": "3"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/machine-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sniper-rifle",
+      "category": "weapon",
+      "label": "Sniper Rifle",
+      "file": "weapons/sniper-rifle.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Sniper Rifle",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Barrett M82A1",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Dragunov SVD",
+          "book": "Tiger Blood",
+          "page": "14"
+        },
+        {
+          "name": "M40, SVD Dragunov",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "M40, SVD Dragunov",
+          "book": "Tour of Duty",
+          "page": "22"
+        },
+        {
+          "name": "Barrett MRAD",
+          "book": "Ice Base Zero",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "melee",
+      "category": "weapon",
+      "label": "Combat Melee Weapon",
+      "file": "weapons/melee.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Combat Melee Weapon",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "ATAK Combat Knife",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Jambiya Tactical Knife",
+          "book": "Tiger Blood",
+          "page": "14"
+        },
+        {
+          "name": "Survival Knife, Bowie Knife",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "Ulu Knife",
+          "book": "Ice Base Zero",
+          "page": "12"
+        },
+        {
+          "name": "Survival Knife, Bayonet",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/bowie-knife.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "frag-grenade",
+      "category": "weapon",
+      "label": "Frag Grenade",
+      "file": "weapons/frag-grenade.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Frag Grenade",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Frag Grenade",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Frag Grenade",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "Frag Grenade",
+          "book": "Ice Base Zero",
+          "page": "12"
+        },
+        {
+          "name": "Frag Grenade",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/grenade.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "grenade-launcher",
+      "category": "weapon",
+      "label": "Grenade Launcher",
+      "file": "weapons/grenade-launcher.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "M79 Grenade Launcher",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "M79 Grenade Launcher",
+          "book": "Tour of Duty",
+          "page": "22"
+        },
+        {
+          "name": "HK M320 Grenade Launcher",
+          "book": "Ice Base Zero",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        },
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "rocket-launcher-law",
+      "category": "weapon",
+      "label": "Rocket Launcher (LAW)",
+      "file": "weapons/rocket-launcher-law.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "M72 LAW",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "M72 LAW",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "rocket-launcher-rpg",
+      "category": "weapon",
+      "label": "Rocket Launcher (RPG)",
+      "file": "weapons/rocket-launcher-rpg.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "RPG",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "RPG-7",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "RPG-7",
+          "book": "Tiger Blood",
+          "page": "14"
+        },
+        {
+          "name": "RPG-7",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "RPG-2, RPG-7",
+          "book": "Tour of Duty",
+          "page": "22"
+        },
+        {
+          "name": "Carl Gustaf M4",
+          "book": "Ice Base Zero",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "flamethrower",
+      "category": "weapon",
+      "label": "Flamethrower",
+      "file": "weapons/flamethrower.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "M2 Flame Thrower",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "Flame Thrower",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/flamethrower.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bow",
+      "category": "weapon",
+      "label": "Bow & Grenade Arrow",
+      "file": "weapons/bow.svg",
+      "colour": "wood",
+      "appliesTo": [
+        {
+          "name": "Compound Bow & Grenade Arrow",
+          "book": "Urban Strike",
+          "page": "11"
+        },
+        {
+          "name": "Bow & Grenade Arrow",
+          "book": "Tour of Duty",
+          "page": "22"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/bow-arrow.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "viral-dartgun",
+      "category": "weapon",
+      "label": "Viral Dartgun",
+      "file": "weapons/viral-dartgun.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Viral Dartgun",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/dart.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cryo-flamer",
+      "category": "weapon",
+      "label": "Cryo-Flamer",
+      "file": "weapons/cryo-flamer.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Cryo-Flamer",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/flamethrower.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "plasma-cutter",
+      "category": "weapon",
+      "label": "Polar Plasma Cutter",
+      "file": "weapons/plasma-cutter.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Polar Plasma Cutter",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/plasma-bolt.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "ice-blaster",
+      "category": "weapon",
+      "label": "Ice Blaster",
+      "file": "weapons/ice-blaster.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Ice Blaster",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/ray-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "anti-drone",
+      "category": "weapon",
+      "label": "Anti-Drone Weapon",
+      "file": "weapons/anti-drone.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Skyfang (Anti-Drone Prototype)",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/target-laser.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "drone-attack",
+      "category": "weapon",
+      "label": "Attack Drone",
+      "file": "weapons/drone-attack.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Storm Piercer",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/delivery-drone.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "drone-recon",
+      "category": "weapon",
+      "label": "Recon Drone",
+      "file": "weapons/drone-recon.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Whiteout Recon",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/eye-target.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "drone-bomber",
+      "category": "weapon",
+      "label": "Bomber Drone",
+      "file": "weapons/drone-bomber.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Avalanche Bomber",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/falling-bomb.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "drone-ground",
+      "category": "weapon",
+      "label": "Ground Drone",
+      "file": "weapons/drone-ground.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Polar Sentinel",
+          "book": "Ice Base Zero",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/laser-turret.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "rope",
+      "category": "gear",
+      "label": "Rope",
+      "file": "gear/rope.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Rope",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Rope",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Rope",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Rope",
+          "book": "Tour of Duty",
+          "page": "23"
+        },
+        {
+          "name": "Grappling Hook",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/rope-coil.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "nvg",
+      "category": "gear",
+      "label": "Night Vision",
+      "file": "gear/nvg.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Night Vision Goggles",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Night Vision Goggles",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Night Vision Goggles",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Night Vision Goggles",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "Starlight Scopes",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/steampunk-goggles.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "suppressor",
+      "category": "gear",
+      "label": "Suppressor",
+      "file": "gear/suppressor.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Suppressor",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Suppressor",
+          "book": "Tiger Blood",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "smoke-grenade",
+      "category": "gear",
+      "label": "Smoke Grenade",
+      "file": "gear/smoke-grenade.svg",
+      "colour": "grey",
+      "appliesTo": [
+        {
+          "name": "Smoke Grenade",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Smoke Grenade",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Smoke Grenade",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Smoke Grenade",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "Smoke Grenade",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "DarkZaitzev",
+          "source": "https://game-icons.net/1x1/darkzaitzev/smoke-bomb.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "frag-grenade-gear",
+      "category": "gear",
+      "label": "Frag Grenade",
+      "file": "gear/frag-grenade-gear.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Frag Grenade",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Frag Grenade",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Frag Grenade",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Frag Grenade",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "Frag Grenade",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/grenade.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "flash-bang",
+      "category": "gear",
+      "label": "Flash Bang",
+      "file": "gear/flash-bang.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Flash Bang Grenade",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Flash Bang Grenade",
+          "book": "Tiger Blood",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/stun-grenade.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "optics",
+      "category": "gear",
+      "label": "Optics",
+      "file": "gear/optics.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Advanced Optics",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Advanced Optics",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Telescopic Sights",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Telescopic Sights",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "Telescopic Sights",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/spyglass.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "med-kit",
+      "category": "gear",
+      "label": "Med Kit",
+      "file": "gear/med-kit.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Med Kit",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Med Kit",
+          "book": "Tiger Blood",
+          "page": "13"
+        },
+        {
+          "name": "Med Kit",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "Med Kit, Healing Herbs",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Med Kit, Healing Herbs",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/first-aid-kit.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "body-armour",
+      "category": "gear",
+      "label": "Tactical Body Armour",
+      "file": "gear/body-armour.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Tactical Body Armour",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Tactical Body Armour",
+          "book": "Rapid Deployment",
+          "page": "2"
+        },
+        {
+          "name": "Tactical Body Armour",
+          "book": "Tiger Blood",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/kevlar-vest.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "rations",
+      "category": "gear",
+      "label": "Rations",
+      "file": "gear/rations.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Survival Rations",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "C-Ration",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/opened-food-can.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "body-armour"
+    },
+    {
+      "id": "chocolate",
+      "category": "gear",
+      "label": "Soda & Chocolate",
+      "file": "gear/chocolate.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Soda & Chocolate Stash",
+          "book": "Urban Strike",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Rihlsul",
+          "source": "https://game-icons.net/1x1/rihlsul/chocolate-bar.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "body-armour"
+    },
+    {
+      "id": "drones-eye",
+      "category": "gear",
+      "label": "Drone's Eye View",
+      "file": "gear/drones-eye.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Drone's Eye View",
+          "book": "Core Rulebook",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/delivery-drone.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "intel",
+      "category": "gear",
+      "label": "Confirmed Intel",
+      "file": "gear/intel.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Confirmed Intel",
+          "book": "Tiger Blood",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/papers.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "drones-eye"
+    },
+    {
+      "id": "local-knowledge",
+      "category": "gear",
+      "label": "Local Knowledge",
+      "file": "gear/local-knowledge.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Local Knowledge",
+          "book": "Rapid Deployment",
+          "page": "4"
+        },
+        {
+          "name": "Local Knowledge",
+          "book": "Tiger Blood",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/treasure-map.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "drones-eye"
+    },
+    {
+      "id": "ghillie-deploy",
+      "category": "gear",
+      "label": "Ghillie Suit (deploy)",
+      "file": "gear/ghillie-deploy.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Gillie Suit",
+          "book": "Core Rulebook",
+          "page": "10"
+        },
+        {
+          "name": "Gillie Suit",
+          "book": "Tiger Blood",
+          "page": "13"
+        }
+      ],
+      "credit": [
+        {
+          "author": "DarkZaitzev",
+          "source": "https://game-icons.net/1x1/darkzaitzev/hooded-figure.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "civilian-disguise",
+      "category": "gear",
+      "label": "Civilian Disguise",
+      "file": "gear/civilian-disguise.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Civilian Disguise",
+          "book": "Tiger Blood",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/spy.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "ghillie-deploy"
+    },
+    {
+      "id": "lucky-charm",
+      "category": "gear",
+      "label": "Lucky Charm",
+      "file": "gear/lucky-charm.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Lucky Charm",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Lucky Piece, Bao ve Phu",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/clover.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "lucky-compass",
+      "category": "gear",
+      "label": "Lucky Compass",
+      "file": "gear/lucky-compass.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Lucky Compass",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/compass.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "lucky-charm"
+    },
+    {
+      "id": "melee-tool",
+      "category": "gear",
+      "label": "Baseball Bat",
+      "file": "gear/melee-tool.svg",
+      "colour": "wood",
+      "appliesTo": [
+        {
+          "name": "Baseball Bat",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Ice Axe",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/baseball-bat.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "entrenching-tool",
+      "category": "gear",
+      "label": "Entrenching Tool",
+      "file": "gear/entrenching-tool.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Entrenching Tool",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/trench-spade.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "melee-tool"
+    },
+    {
+      "id": "injury-book",
+      "category": "gear",
+      "label": "War Surgery Book",
+      "file": "gear/injury-book.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Emergency War Surgery Book",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Insect Repellant",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/open-book.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "stim-pen",
+      "category": "gear",
+      "label": "Stim Pen",
+      "file": "gear/stim-pen.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Stim Pen",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/syringe.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "injury-book"
+    },
+    {
+      "id": "boots",
+      "category": "gear",
+      "label": "Boots",
+      "file": "gear/boots.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Hiking Boots",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Krampons",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "Jungle Boots, Ho Chi Minh Sandals",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/boots.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "flashlight",
+      "category": "gear",
+      "label": "Flashlight",
+      "file": "gear/flashlight.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Flashlight",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Flashlight",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "TL-122 Flashlight",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/flashlight.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "molotov",
+      "category": "gear",
+      "label": "Molotov Cocktail",
+      "file": "gear/molotov.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Molotov Cocktail",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Molotov Cocktail",
+          "book": "Tour of Duty",
+          "page": "23"
+        },
+        {
+          "name": "Improvised Oxygen Tank",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/molotov.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "gas-tank",
+      "category": "gear",
+      "label": "Gas Tank",
+      "file": "gear/gas-tank.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Gas Tank",
+          "book": "Urban Strike",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/poison-gas.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "claymore",
+      "category": "gear",
+      "label": "Claymore",
+      "file": "gear/claymore.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Claymore",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Claymore",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/claymore-explosive.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "category": "gear",
+      "label": "C4",
+      "file": "gear/c4.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "C4",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "C4",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "Plastic Explosive",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/time-dynamite.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cloak",
+      "category": "gear",
+      "label": "Camouflage Poncho",
+      "file": "gear/cloak.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Gillie Suit",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Camouflage Poncho",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/poncho.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "polar-bear-skin",
+      "category": "gear",
+      "label": "Polar Bear Skin",
+      "file": "gear/polar-bear-skin.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Polar Bear Skin",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Cathelineau",
+          "source": "https://game-icons.net/1x1/cathelineau/polar-bear.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "cloak"
+    },
+    {
+      "id": "remote-bomb",
+      "category": "gear",
+      "label": "Skateboard Bomb",
+      "file": "gear/remote-bomb.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Skateboard Bomb",
+          "book": "Urban Strike",
+          "page": "12"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/skateboard.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "drone-bomb",
+      "category": "gear",
+      "label": "Mini Drone Bomb",
+      "file": "gear/drone-bomb.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Mini Drone Bomb",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/delivery-drone.html",
+          "license": "CC BY 3.0"
+        }
+      ],
+      "variantOf": "remote-bomb"
+    },
+    {
+      "id": "incendiary",
+      "category": "gear",
+      "label": "Incendiary Device",
+      "file": "gear/incendiary.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Incendiary Device",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Incendiary Device",
+          "book": "Tour of Duty",
+          "page": "23"
+        },
+        {
+          "name": "Thermal Detonator",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/fire-bomb.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "last-stand",
+      "category": "gear",
+      "label": "Family Photo",
+      "file": "gear/last-stand.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Family Photo",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Experimental Stim",
+          "book": "Ice Base Zero",
+          "page": "14"
+        },
+        {
+          "name": "Pin Up",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/portrait.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "walkie-talkie",
+      "category": "gear",
+      "label": "Walkie-talkies",
+      "file": "gear/walkie-talkie.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Walkie-talkies",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Tethering Kit",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/walkie-talkie.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "ubgl",
+      "category": "gear",
+      "label": "Under Barrel Grenade Launcher",
+      "file": "gear/ubgl.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Under Barrel Grenade Launcher",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Under Barrel Grenade Launcher",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Custom (drawn for this project)"
+        },
+        {
+          "author": "Custom (drawn for this project)"
+        }
+      ]
+    },
+    {
+      "id": "ap-rounds",
+      "category": "gear",
+      "label": "Armour Piercing Rounds",
+      "file": "gear/ap-rounds.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Armour Piercing Rounds",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Armour Piercing Rounds",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/bullets.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "tactical-vest",
+      "category": "gear",
+      "label": "Tactical Vest",
+      "file": "gear/tactical-vest.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Tactical Vest",
+          "book": "Urban Strike",
+          "page": "12"
+        },
+        {
+          "name": "Tactical Vest",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/kevlar.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "antidote",
+      "category": "gear",
+      "label": "Antidote",
+      "file": "gear/antidote.svg",
+      "colour": "toxic",
+      "appliesTo": [
+        {
+          "name": "Antidote",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/vial.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bear-trap",
+      "category": "gear",
+      "label": "Bear Trap",
+      "file": "gear/bear-trap.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Bear Trap",
+          "book": "Ice Base Zero",
+          "page": "14"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/wolf-trap.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "smoke-marker",
+      "category": "gear",
+      "label": "Smoke Marker",
+      "file": "gear/smoke-marker.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Smoke Marker",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "DarkZaitzev",
+          "source": "https://game-icons.net/1x1/darkzaitzev/smoke-bomb.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "radio-set",
+      "category": "gear",
+      "label": "Radio Set",
+      "file": "gear/radio-set.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Radio Set",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/pocket-radio.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "booby-trap",
+      "category": "gear",
+      "label": "Booby Trap",
+      "file": "gear/booby-trap.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Booby Trap",
+          "book": "Tour of Duty",
+          "page": "23"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/land-mine.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "ied",
+      "category": "gear",
+      "label": "IED",
+      "file": "gear/ied.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "IED",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/explosive-materials.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "at-mine",
+      "category": "gear",
+      "label": "Anti-Tank Mine",
+      "file": "gear/at-mine.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Anti-Tank Mine",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/teller-mine.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sticky-bomb",
+      "category": "gear",
+      "label": "Sticky Bomb",
+      "file": "gear/sticky-bomb.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Sticky Bomb",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/unlit-bomb.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "tactician",
+      "category": "specialisation",
+      "label": "Tactician",
+      "file": "specialisations/tactician.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Tactician",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Tactician",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "Tactician",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "Tactician",
+          "book": "Ice Base Zero",
+          "page": "11"
+        },
+        {
+          "name": "Tactician",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/chess-knight.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "medic",
+      "category": "specialisation",
+      "label": "Medic",
+      "file": "specialisations/medic.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Medic",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Medic",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "Medic",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "Medic",
+          "book": "Ice Base Zero",
+          "page": "11"
+        },
+        {
+          "name": "Medic",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Sbed",
+          "source": "https://game-icons.net/1x1/sbed/medical-pack.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "sniper",
+      "category": "specialisation",
+      "label": "Sniper",
+      "file": "specialisations/sniper.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Sniper",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Sniper",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "Sniper",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "Sniper",
+          "book": "Ice Base Zero",
+          "page": "11"
+        },
+        {
+          "name": "Sniper",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/human-target.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "hand-to-hand",
+      "category": "specialisation",
+      "label": "Hand-to-Hand",
+      "file": "specialisations/hand-to-hand.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Hand-to-Hand",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Hand-to-Hand",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "Hand-to-Hand",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "Hand-to-Hand",
+          "book": "Ice Base Zero",
+          "page": "11"
+        },
+        {
+          "name": "Hand-to-Hand",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/fist.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "demolitions",
+      "category": "specialisation",
+      "label": "Demolitions",
+      "file": "specialisations/demolitions.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Demolitions",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Demolitions",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "Demolitions",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "Demolitions",
+          "book": "Ice Base Zero",
+          "page": "11"
+        },
+        {
+          "name": "Demolitions",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/dynamite.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "eod",
+      "category": "specialisation",
+      "label": "EOD",
+      "file": "specialisations/eod.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "EOD",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "EOD",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "EOD",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "EOD",
+          "book": "Ice Base Zero",
+          "page": "11"
+        },
+        {
+          "name": "EOD",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/riot-shield.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "comms",
+      "category": "specialisation",
+      "label": "Comms",
+      "file": "specialisations/comms.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Comms",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Comms",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "Comms",
+          "book": "Urban Strike",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/radio-tower.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cqb",
+      "category": "specialisation",
+      "label": "CQB",
+      "file": "specialisations/cqb.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "CQB",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "CQB",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "CQB",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "CQB",
+          "book": "Ice Base Zero",
+          "page": "11"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/entry-door.html",
+          "license": "CC BY 3.0"
+        },
+        {
+          "author": "John Colburn",
+          "source": "https://game-icons.net/1x1/john-colburn/pistol-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "scout",
+      "category": "specialisation",
+      "label": "Scout",
+      "file": "specialisations/scout.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Scout",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Scout",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "Scout",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "Scout",
+          "book": "Ice Base Zero",
+          "page": "11"
+        },
+        {
+          "name": "Scout",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/binoculars.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "fire-support",
+      "category": "specialisation",
+      "label": "Fire Support",
+      "file": "specialisations/fire-support.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Fire Support",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Fire Support",
+          "book": "Tiger Blood",
+          "page": "10"
+        },
+        {
+          "name": "Fire Support",
+          "book": "Urban Strike",
+          "page": "10"
+        },
+        {
+          "name": "Fire Support",
+          "book": "Ice Base Zero",
+          "page": "11"
+        },
+        {
+          "name": "Fire Support",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/machine-gun-magazine.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "survivalist",
+      "category": "specialisation",
+      "label": "Survivalist",
+      "file": "specialisations/survivalist.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Survivalist",
+          "book": "Urban Strike",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/campfire.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "saboteur",
+      "category": "specialisation",
+      "label": "Saboteur",
+      "file": "specialisations/saboteur.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Saboteur",
+          "book": "Urban Strike",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/time-bomb.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "disguise",
+      "category": "specialisation",
+      "label": "Disguise",
+      "file": "specialisations/disguise.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Disguise",
+          "book": "Urban Strike",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/domino-mask.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "propagandist",
+      "category": "specialisation",
+      "label": "Propagandist",
+      "file": "specialisations/propagandist.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Propagandist",
+          "book": "Urban Strike",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/megaphone.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "checkpoint-guard",
+      "category": "specialisation",
+      "label": "Checkpoint Guard",
+      "file": "specialisations/checkpoint-guard.svg",
+      "colour": "brown",
+      "appliesTo": [
+        {
+          "name": "Checkpoint Guard",
+          "book": "Urban Strike",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/watchtower.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "intimidator",
+      "category": "specialisation",
+      "label": "Intimidator",
+      "file": "specialisations/intimidator.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Intimidator",
+          "book": "Urban Strike",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/skull-crossed-bones.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "drone-operator",
+      "category": "specialisation",
+      "label": "Drone Operator",
+      "file": "specialisations/drone-operator.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Drone Operator",
+          "book": "Ice Base Zero",
+          "page": "11"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/delivery-drone.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "meteorologist",
+      "category": "specialisation",
+      "label": "Meteorologist",
+      "file": "specialisations/meteorologist.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Meteorologist",
+          "book": "Ice Base Zero",
+          "page": "11"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/thermometer-cold.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "trapper",
+      "category": "specialisation",
+      "label": "Trapper",
+      "file": "specialisations/trapper.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Trapper",
+          "book": "Ice Base Zero",
+          "page": "11"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/mantrap.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "biologist",
+      "category": "specialisation",
+      "label": "Biologist",
+      "file": "specialisations/biologist.svg",
+      "colour": "teal",
+      "appliesTo": [
+        {
+          "name": "Biologist",
+          "book": "Ice Base Zero",
+          "page": "11"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lord Berandas",
+          "source": "https://game-icons.net/1x1/lord-berandas/microscope.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "arctic-pilot",
+      "category": "specialisation",
+      "label": "Arctic Pilot",
+      "file": "specialisations/arctic-pilot.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Arctic Pilot",
+          "book": "Ice Base Zero",
+          "page": "11"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/helicopter.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "intelligence-agent",
+      "category": "specialisation",
+      "label": "Intelligence Agent",
+      "file": "specialisations/intelligence-agent.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Intelligence Agent",
+          "book": "Ice Base Zero",
+          "page": "11"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/spy.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "biohazard",
+      "category": "specialisation",
+      "label": "Biohazard",
+      "file": "specialisations/biohazard.svg",
+      "colour": "yellow",
+      "appliesTo": [
+        {
+          "name": "Biohazard",
+          "book": "Ice Base Zero",
+          "page": "11"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/biohazard.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "forward-observer",
+      "category": "specialisation",
+      "label": "Forward Observer",
+      "file": "specialisations/forward-observer.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Forward Observer",
+          "book": "Tour of Duty",
+          "page": "18"
+        },
+        {
+          "name": "Forward Observer",
+          "book": "Desert Heroes",
+          "page": "16"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/binoculars.html",
+          "license": "CC BY 3.0"
+        },
+        {
+          "author": "Quoting",
+          "source": "https://game-icons.net/1x1/quoting/artillery-shell.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "designated-marksman",
+      "category": "specialisation",
+      "label": "Designated Marksman",
+      "file": "specialisations/designated-marksman.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Designated Marksman",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Badges",
+          "source": "https://game-icons.net/1x1/badges/crosshair.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "non-specialist",
+      "category": "specialisation",
+      "label": "Non-Specialist",
+      "file": "specialisations/non-specialist.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Non-Specialist",
+          "book": "Tour of Duty",
+          "page": "18"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/brodie-helmet.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "mechanic",
+      "category": "specialisation",
+      "label": "Mechanic",
+      "file": "specialisations/mechanic.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Mechanic",
+          "book": "Desert Heroes",
+          "page": "16"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/spanner.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "gunner",
+      "category": "specialisation",
+      "label": "Gunner",
+      "file": "specialisations/gunner.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Gunner",
+          "book": "Desert Heroes",
+          "page": "16"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/heavy-bullets.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "navigator",
+      "category": "specialisation",
+      "label": "Navigator",
+      "file": "specialisations/navigator.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Navigator",
+          "book": "Desert Heroes",
+          "page": "16"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/compass.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "commander",
+      "category": "specialisation",
+      "label": "Commander",
+      "file": "specialisations/commander.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Commander",
+          "book": "Desert Heroes",
+          "page": "16"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/rank-3.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "security-detail",
+      "category": "specialisation",
+      "label": "Security Detail",
+      "file": "specialisations/security-detail.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Security Detail",
+          "book": "Desert Heroes",
+          "page": "16"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/metal-detector.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-movement",
+      "category": "expertise",
+      "label": "+1 MA",
+      "file": "expertise/exp-movement.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Raiders",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Raiders",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Raiders",
+          "book": "Tour of Duty",
+          "page": "17"
+        },
+        {
+          "name": "Guerrilla Tactics",
+          "book": "Rapid Deployment",
+          "page": "4"
+        },
+        {
+          "name": "Guerrilla Tactics",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Guerrilla Tactics",
+          "book": "Tour of Duty",
+          "page": "17"
+        },
+        {
+          "name": "Paratroopers, Local Knowledge",
+          "book": "Urban Strike",
+          "page": "9"
+        },
+        {
+          "name": "Reaction Force, Recon",
+          "book": "Ice Base Zero",
+          "page": "10"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/sprint.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-shooting",
+      "category": "expertise",
+      "label": "Shooting re-roll",
+      "file": "expertise/exp-shooting.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Counter Terrorism",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Counter Terrorism",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Sniper Operations",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Spetsnaz Training, Rooftop Ambush",
+          "book": "Urban Strike",
+          "page": "9"
+        },
+        {
+          "name": "Close Protection, Fire Team",
+          "book": "Ice Base Zero",
+          "page": "10"
+        },
+        {
+          "name": "Fire Team, Dac Cong",
+          "book": "Tour of Duty",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/dice-target.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-initiative",
+      "category": "expertise",
+      "label": "Roll-off bonus",
+      "file": "expertise/exp-initiative.svg",
+      "colour": "navy",
+      "appliesTo": [
+        {
+          "name": "Hostage Rescue",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Hostage Rescue",
+          "book": "Rapid Deployment",
+          "page": "2"
+        },
+        {
+          "name": "Hostage Rescue",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Terror Tactics",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Terror Tactics",
+          "book": "Tour of Duty",
+          "page": "17"
+        },
+        {
+          "name": "Interrogators, Guerilla Tactics",
+          "book": "Urban Strike",
+          "page": "9"
+        },
+        {
+          "name": "Intelligence, Mountain Leaders",
+          "book": "Ice Base Zero",
+          "page": "10"
+        },
+        {
+          "name": "POW Rescue",
+          "book": "Tour of Duty",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Skoll",
+          "source": "https://game-icons.net/1x1/skoll/stopwatch.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-activation",
+      "category": "expertise",
+      "label": "Activation control",
+      "file": "expertise/exp-activation.svg",
+      "colour": "purple",
+      "appliesTo": [
+        {
+          "name": "Counter Insurgency",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Counter Insurgency",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Demolition and IED Tactics",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Crowd Control, Demolition and Distraction",
+          "book": "Urban Strike",
+          "page": "9"
+        },
+        {
+          "name": "Base Security, Demolition and Sabotage",
+          "book": "Ice Base Zero",
+          "page": "10"
+        },
+        {
+          "name": "Anti-Guerilla Warfare, Jungle Masters",
+          "book": "Tour of Duty",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/perspective-dice-six-faces-one.html",
+          "license": "CC BY 3.0"
+        },
+        {
+          "author": "Badges",
+          "source": "https://game-icons.net/1x1/badges/arrow-down.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-deployment",
+      "category": "expertise",
+      "label": "Deployment zone",
+      "file": "expertise/exp-deployment.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Covert Ops",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Covert Ops",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Ambush Tactics",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Ambush Tactics",
+          "book": "Urban Strike",
+          "page": "9"
+        },
+        {
+          "name": "Ambush Tactics",
+          "book": "Tour of Duty",
+          "page": "17"
+        },
+        {
+          "name": "Strike Team",
+          "book": "Urban Strike",
+          "page": "9"
+        },
+        {
+          "name": "Ice Base Patrol, Forward Observation",
+          "book": "Ice Base Zero",
+          "page": "10"
+        },
+        {
+          "name": "MACV",
+          "book": "Tour of Duty",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/position-marker.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-armour",
+      "category": "expertise",
+      "label": "Armour re-roll",
+      "file": "expertise/exp-armour.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Reconnaissance",
+          "book": "Core Rulebook",
+          "page": "9"
+        },
+        {
+          "name": "Reconnaissance",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Resource Acquisition",
+          "book": "Tiger Blood",
+          "page": "9"
+        },
+        {
+          "name": "Resource Acquisition",
+          "book": "Urban Strike",
+          "page": "9"
+        },
+        {
+          "name": "Check Point Guards",
+          "book": "Urban Strike",
+          "page": "9"
+        },
+        {
+          "name": "Outpost Guards, Heavy Assault",
+          "book": "Ice Base Zero",
+          "page": "10"
+        },
+        {
+          "name": "LRRP, Camouflage Experts",
+          "book": "Tour of Duty",
+          "page": "17"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/dice-shield.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-insertion",
+      "category": "expertise",
+      "label": "Insertion",
+      "file": "expertise/exp-insertion.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Stealth Operators",
+          "book": "Desert Heroes",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/parachute.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "exp-vehicle",
+      "category": "expertise",
+      "label": "Vehicle first",
+      "file": "expertise/exp-vehicle.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Tactical Assault",
+          "book": "Desert Heroes",
+          "page": "15"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/jeep.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    }
+  ]
+}
