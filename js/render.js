@@ -251,31 +251,38 @@
     frame(X, T, W, H, b);
     header(X, T, W, b, 8.6, c.vehicleName || c.title, 7.2, 3.6);
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    box(X, 4, 12.6, 24.5, 25.2, T, '#ffffff');
-    if (pic) drawPicture(X, pic, 4.2, 12.8, 24.1, 24.8, 'cover', c.imageFit); else drawPicture(X, icon, 5, 14.0, 22.5, 22.5, 'contain');
+    // Compact top row so the ability text gets the room: small picture, three stat rows, and the Hearts box (still 13.8 by 12.6 mm for a 12 mm die).
+    box(X, 4, 12.6, 16.4, 12.6, T, '#ffffff');
+    if (pic) drawPicture(X, pic, 4.2, 12.8, 16.0, 12.2, 'cover', c.imageFit); else drawPicture(X, icon, 5.0, 13.4, 14.4, 11.4, 'contain');
     const st = c.stats, sg = (n) => (n > 0 ? '+' + n : n < 0 ? '−' + Math.abs(n) : '0');
-    const cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits + '+'], ['ARMOUR', sg(st.armour)], ['HEARTS', String(st.hearts)]];
-    cells.forEach(([lab, val], i) => {
-      const x = 30.3 + (i % 2) * 14.6, y = 12.6 + Math.floor(i / 2) * 12.6, hot = i === 3, bar = hot ? RED : T.dark;
-      X.rr(x, y, 13.8, 12.6, 1); X.fill('#ffffff'); X.stroke(hot ? RED : T.mid, hot ? 0.4 : 0.25);
-      X.rr(x, y, 13.8, 3.4, 1); X.fill(bar); X.rect(x, y + 2, 13.8, 1.4, bar);
-      X.text(lab, x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
-      X.text(val, x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
+    [['MOVE', st.ma + '"'], ['HITS ON', st.hits + '+'], ['ARMOUR', sg(st.armour)]].forEach(([lab, val], i) => {
+      const x = 21.2, y = 12.6 + i * 4.35, w = 23.2, lw = 10.8;
+      X.rr(x, y, w, 3.9, 0.8); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
+      X.rr(x, y, lw, 3.9, 0.8); X.fill(T.dark); X.rect(x + lw - 1.0, y, 1.0, 3.9, T.dark);
+      X.text(lab, x + lw / 2, y + 2.75, LBL_SM, F.label, '#ffffff', 'center', '600');
+      X.text(val, x + lw + (w - lw) / 2, y + 3.2, 3.4, F.num, T.ink, 'center');
     });
+    {
+      const x = 45.2, y = 12.6;
+      X.rr(x, y, 13.8, 12.6, 1); X.fill('#ffffff'); X.stroke(RED, 0.4);
+      X.rr(x, y, 13.8, 3.4, 1); X.fill(RED); X.rect(x, y + 2, 13.8, 1.4, RED);
+      X.text('HEARTS', x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
+      X.text(String(st.hearts), x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
+    }
     // strip: class, points value, capacity, crew
     const strip = [['CLASS', c.cls.toUpperCase(), 18.2], ['PV', String(c.pv), 10.2], ['CAP.', String(st.capacity), 12.0], ['CREW', st.crew ? 'Y' : 'N', 11.8]];
     let sx = 4;
     for (const [lab, val, w] of strip) {
-      X.rr(sx, 39.2, w, 5.0, 0.9); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
-      X.text(lab, sx + 1.2, 42.5, LBL_SM - 0.1, F.label, T.mid, 'left', '600');
+      X.rr(sx, 26.4, w, 5.0, 0.9); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
+      X.text(lab, sx + 1.2, 29.7, LBL_SM - 0.1, F.label, T.mid, 'left', '600');
       const lw = X.width(lab, LBL_SM - 0.1, F.label, '600');
-      X.fitLine(val, sx + w - 1.0, 43.1, w - lw - 3.0, 3.8, 2.4, F.num, T.ink, 'right');
+      X.fitLine(val, sx + w - 1.0, 30.3, w - lw - 3.0, 3.8, 2.4, F.num, T.ink, 'right');
       sx += w + 0.8;
     }
-    const top = 45.6, bottom = 66.2;
+    const top = 32.8, bottom = 66.2;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
     const blocks = String(c.perk || '').split('\n').filter((l) => l.trim()).map((l, i) => ({ gapBefore: i ? 0.3 : 0, runs: [{ t: l }] }));
-    paragraphs(X, blocks, 5.6, top + 0.8, 51.8, bottom - top - 1.4, 3.0, 2.0, T.ink);
+    paragraphs(X, blocks, 5.6, top + 0.8, 51.8, bottom - top - 1.4, 3.3, 2.2, T.ink);
     [0, 1].forEach((i) => {
       const w = c.weapons[i], y = 66.8 + i * 8.4;
       X.rr(4, y, 55, 8.0, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
