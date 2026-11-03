@@ -253,3 +253,9 @@ table.platoon td:last-child button { padding: 5px 9px; }
   .about-nav ul { display: flex; flex-wrap: wrap; gap: 4px 6px; }
   .about-nav a { border: 1px solid var(--line); }
 }
+
+/* About page: a wide, open face reads better in long text than the narrow card font */
+#about-body, .about-nav a { font-family: 'Atkinson Hyperlegible', 'PT Sans', system-ui, sans-serif; }
+#about-body { font-size: 17px; line-height: 1.6; }
+#about-body li { margin: 4px 0; }
+#about-body p, #about-body li { hyphens: none; }

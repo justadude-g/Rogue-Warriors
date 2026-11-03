@@ -83,7 +83,7 @@ js/print.js                   PDF sheets (jsPDF) and the mission team sheet
 js/store.js                   IndexedDB storage and backup download
 js/app.js                     deck, mission team, campaign and backup views
 assets/icons/                 colour icons and icons.json (which names use which icon, with book and page)
-assets/fonts/                 League Gothic, Anton, Oswald, PT Sans Narrow (SIL Open Font License)
+assets/fonts/                 League Gothic, Anton, Oswald, PT Sans Narrow, Atkinson Hyperlegible (SIL Open Font License)
 tools/build.py, custom.py     rebuild the icons from a game-icons.net clone
 tools/publish-public.js       build the public copy
 tools/stamp.js                version the CSS and JS links in index.html
