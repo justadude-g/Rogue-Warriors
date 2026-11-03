@@ -16,7 +16,7 @@
           slots: [sl('Hollis', SW('team-leader'), WS('m4'), [GS('flash-bang'), GS('handcuffs')]), sl('Brick', SW('breacher'), WS('breaching-shotgun'), [GS('ram')]),
             sl('Kestrel', SW('police-sniper'), WS('remington-700'), [GS('flashlight')]), sl('Wall', SW('shield-operator'), WS('mp5'), [GS('riot-shield')])] },
         { id: 'c3os1-syn', side: 'The Syndicate (Red Team)', name: 'The First National Crew', setId: 'c3-syn', expId: 'c3-syn-getaway-crew', extraGear: 0,
-          slots: [sl('The Professor', SY('mastermind'), WY('tommy-gun'), [GY('burner')]), sl('Feathers', SY('safecracker'), '', [GY('lockpicks'), GY('drill')]),
+          slots: [sl('The Professor', SY('mastermind'), WY('tommy-gun'), [GY('burner')]), sl('Feathers', SY('safecracker'), WY('mac-10'), [GY('lockpicks'), GY('drill')]),
             sl('Sacks', SY('bagman'), WY('mac-10'), [GY('smoke')]), sl('Moose', SY('enforcer'), WY('sawn-off'), [GY('balaclava')])] },
       ],
       text: {
