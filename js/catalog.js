@@ -89,9 +89,23 @@
     };
   }
 
+  // Vehicle card (Desert Heroes). Details are numbered lines separated by newlines.
+  function vehicle(v) {
+    const k = 'veh:' + v.id, c = custom[k] || {};
+    const txt = packText('veh:' + v.id);
+    return {
+      kind: 'vehicle', key: k, title: c.name || v.title, baseTitle: v.title, cls: v.cls, pv: v.pv, value: v.value,
+      vehicleName: c.vehicleName || '', names: v.names,
+      icon: ICON + 'vehicles/' + v.icon + '.svg', image: c.image || null, imageFit: c.imageFit,
+      perk: c.perk ? c.perk : (txt || see('dh', v.page)),
+      stats: { ma: v.ma, hits: v.hits, hearts: v.hearts, armour: v.armour, capacity: v.capacity, crew: v.crew },
+      weapons: v.weapons, ref: ref('dh', v.page), source: v,
+    };
+  }
+
   // Every card the chosen sets can print, without duplicates (shared tables appear once).
   function deck(setIds) {
-    const out = { team: [], operator: [], weapon: [], gear: [] };
+    const out = { team: [], operator: [], weapon: [], gear: [], vehicle: [] };
     const seenSpec = new Set(), seenW = new Set(), seenG = new Set(), seenT = new Set();
     for (const id of setIds) {
       const s = set(id); if (!s) continue;
@@ -108,6 +122,7 @@
       }
       for (const tid of s.weapons) for (const w of R.weaponTables[tid].items) if (!seenW.has(w.uid)) { seenW.add(w.uid); out.weapon.push(weapon(w, tid)); }
       for (const tid of s.gear) for (const g of R.gearTables[tid].items) if (!seenG.has(g.uid)) { seenG.add(g.uid); out.gear.push(gear(g, tid)); }
+      if (s.vehicles) for (const v of R.vehicles) if (!out.vehicle.some((x) => x.source === v)) out.vehicle.push(vehicle(v));
     }
     return out;
   }
@@ -125,10 +140,14 @@
     };
   }
 
+  // Vehicle cards and vehicle gear for the team builder.
+  const vehicles = () => R.vehicles.map(vehicle);
+  const vehicleGear = () => R.gearTables['dh-vehicle'].items.map((g) => gear(g, 'dh-vehicle'));
+
   function rankPerks(kind) { return pack['ranks:' + kind] || null; }
 
   window.RWCatalog = {
-    deck, forSet, set, ref, rankPerks,
+    deck, forSet, set, ref, rankPerks, vehicles, vehicleGear,
     setPack(p) { pack = p || {}; }, hasPack() { return Object.keys(pack).length > 0; }, packSize() { return Object.keys(pack).length; },
     setCustom(c) { custom = c || {}; }, getCustom() { return custom; },
   };

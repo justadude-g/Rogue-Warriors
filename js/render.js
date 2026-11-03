@@ -1,12 +1,13 @@
 /* Canvas renderer. Every position is in millimetres; render(card, dpi) returns a canvas at that resolution.
    Card sizes: team, operator, weapon and gear 63 x 88 mm (poker), campaign 127 x 89 mm. */
 (function () {
-  const SIZE = { team: [63, 88], operator: [63, 88], weapon: [63, 88], gear: [63, 88], campaign: [127, 89] };
+  const SIZE = { team: [63, 88], operator: [63, 88], weapon: [63, 88], gear: [63, 88], vehicle: [63, 88], campaign: [127, 89] };
   const THEME = {
     team: { dark: '#4a3408', mid: '#b8862a', light: '#e2b84e', paper: '#fffaea', paper2: '#f3e6c2', ink: '#2a1f08' },
     operator: { dark: '#132c52', mid: '#2c5f9e', light: '#4f86cc', paper: '#f7fafd', paper2: '#dde8f4', ink: '#10223d' },
     weapon: { dark: '#4f100c', mid: '#a12f26', light: '#c9463b', paper: '#fffaf0', paper2: '#efe3c8', ink: '#2b0d0a' },
     gear: { dark: '#2c3816', mid: '#647a2c', light: '#8aa040', paper: '#fbfcef', paper2: '#e3e8c9', ink: '#1f2810' },
+    vehicle: { dark: '#4a2e0c', mid: '#a56a26', light: '#d29a4c', paper: '#fdf8ee', paper2: '#efe0c0', ink: '#2a1a08' },
     campaign: { dark: '#132c52', mid: '#2c5f9e', light: '#4f86cc', paper: '#fbf8ef', paper2: '#ece4cc', ink: '#10223d' },
   };
   const RED = '#a3261c';
@@ -139,6 +140,7 @@
     if (mods.ma) out.push('MA ' + signed(mods.ma));
     if (mods.mdp) out.push('MDP ' + signed(mods.mdp));
     if (mods.hearts) out.push('HEARTS ' + signed(mods.hearts));
+    if (mods.capacity) out.push('CAPACITY ' + signed(mods.capacity));
     return out;
   }
   function box(X, x, y, w, h, T, fill) { X.rr(x, y, w, h, 1); X.fill(fill || '#ffffff'); X.stroke(T.mid, 0.25); }
@@ -215,6 +217,51 @@
         X.text(v, x + X.width(lab, LBL_SM, F.label, '600') + 1.2, y + 8.1, 3.1, F.num, T.ink, 'left');
       });
     }
+  }
+
+  // Vehicle card: stats with a Hearts box for a 12 mm die, capacity and crew, the numbered notes, then Primary and Secondary weapons.
+  async function drawVehicle(X, c) {
+    const T = THEME.vehicle, W = 63, H = 88, b = 2.2;
+    frame(X, T, W, H, b);
+    header(X, T, W, b, 8.6, c.vehicleName || c.title, 7.2, 3.6);
+    const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
+    box(X, 4, 12.6, 24.5, 25.2, T, '#ffffff');
+    if (pic) drawPicture(X, pic, 4.2, 12.8, 24.1, 24.8, 'cover', c.imageFit); else drawPicture(X, icon, 5, 14.0, 22.5, 22.5, 'contain');
+    const st = c.stats, sg = (n) => (n > 0 ? '+' + n : n < 0 ? '−' + Math.abs(n) : '0');
+    const cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits + '+'], ['ARMOUR', sg(st.armour)], ['HEARTS', String(st.hearts)]];
+    cells.forEach(([lab, val], i) => {
+      const x = 30.3 + (i % 2) * 14.6, y = 12.6 + Math.floor(i / 2) * 12.6, hot = i === 3, bar = hot ? RED : T.dark;
+      X.rr(x, y, 13.8, 12.6, 1); X.fill('#ffffff'); X.stroke(hot ? RED : T.mid, hot ? 0.4 : 0.25);
+      X.rr(x, y, 13.8, 3.4, 1); X.fill(bar); X.rect(x, y + 2, 13.8, 1.4, bar);
+      X.text(lab, x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
+      X.text(val, x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
+    });
+    // strip: class, points value, capacity, crew
+    const strip = [['CLASS', c.cls.toUpperCase(), 18.2], ['PV', String(c.pv), 10.2], ['CAP.', String(st.capacity), 12.0], ['CREW', st.crew ? 'Y' : 'N', 11.8]];
+    let sx = 4;
+    for (const [lab, val, w] of strip) {
+      X.rr(sx, 39.2, w, 5.0, 0.9); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
+      X.text(lab, sx + 1.2, 42.5, LBL_SM - 0.1, F.label, T.mid, 'left', '600');
+      const lw = X.width(lab, LBL_SM - 0.1, F.label, '600');
+      X.fitLine(val, sx + w - 1.0, 43.1, w - lw - 3.0, 3.8, 2.4, F.num, T.ink, 'right');
+      sx += w + 0.8;
+    }
+    const top = 45.6, bottom = 66.2;
+    box(X, 4, top, 55, bottom - top, T, '#ffffff');
+    const blocks = String(c.perk || '').split('\n').filter((l) => l.trim()).map((l, i) => ({ gapBefore: i ? 0.3 : 0, runs: [{ t: l }] }));
+    paragraphs(X, blocks, 5.6, top + 0.8, 51.8, bottom - top - 1.4, 3.0, 2.0, T.ink);
+    [0, 1].forEach((i) => {
+      const w = c.weapons[i], y = 67.4 + i * 9.0;
+      X.rr(4, y, 55, 8.6, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
+      X.text(i ? 'SECONDARY' : 'PRIMARY', 5.6, y + 3.3, LBL_SM, F.label, T.mid, 'left', '600');
+      if (!w) { X.text('NONE', 22, y + 5.2, LBL, F.label, T.mid, 'left', '600'); return; }
+      X.fitLine(w.name, 22, y + 3.5, 35.4, 3.0, 2.2, F.body, T.ink, 'left', 'bold');
+      [['RANGE', w.range], ['DICE', String(w.dice)], ['DMG', String(w.dmg)], ['AP', w.ap === '-' ? '–' : String(w.ap)]].forEach(([lab, v], j) => {
+        const x = [5.6, 25.0, 37.2, 47.8][j];
+        X.text(lab, x, y + 7.3, LBL_SM - 0.2, F.label, T.mid, 'left', '600');
+        X.text(v, x + X.width(lab, LBL_SM - 0.2, F.label, '600') + 1.0, y + 7.5, 3.0, F.num, T.ink, 'left');
+      });
+    });
   }
 
   async function drawTeam(X, c) {
@@ -349,7 +396,7 @@
     lines('INJURIES', 66.5, 75.6, 56, c.injuries);
   }
 
-  const DRAW = { operator: drawOperator, team: drawTeam, weapon: drawWeapon, gear: drawGear, campaign: drawCampaign };
+  const DRAW = { operator: drawOperator, team: drawTeam, weapon: drawWeapon, gear: drawGear, vehicle: drawVehicle, campaign: drawCampaign };
 
   async function render(card, dpi) {
     await fonts();

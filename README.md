@@ -10,6 +10,7 @@ Every card is a standard poker card (63 x 88 mm), so the whole deck uses one sle
 
 - **Team card:** the Team Expertise, its perk and promotion perk, the gear budget and a line for the team name.
 - **Operator card:** one per Specialisation, with the soldier type's stats, the Specialisation perk and promotion, the sidearm and a Hearts box sized for a 12 mm die, which tracks health.
+- **Vehicle card:** one per Desert Heroes vehicle type (One-Man ATV, Jeep, APC, Light Helicopter, Light Tank, Ranged Ordnance) with stats, a Hearts box for a 12 mm die, capacity, crew, the numbered vehicle notes and the Primary and Secondary weapon. The vehicle-only weapons and vehicle gear are ordinary weapon and gear cards. Tick "Desert Heroes: Vehicles" in the deck to print them.
 - **Weapon and gear cards:** built to tuck under the card above. Everything needed in play sits in the bottom half: name, points, stat changes and rules text. The top half holds the picture and is hidden in a stack.
 
 Lay an operator card down, tuck its weapon card under it so the bottom half shows, then tuck each gear card under that. Each Warrior becomes one column you read top to bottom.

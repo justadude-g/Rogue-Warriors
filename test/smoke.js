@@ -42,9 +42,19 @@ srv.listen(0, async () => {
     await (await p.$('#preview-pane .preview canvas')).screenshot({ path: path.join(out, 'named-card.png') });
     await p.waitForTimeout(600);
     await p.screenshot({ path: path.join(out, 'app-deck.png') });
+    // vehicles: tick Desert Heroes Vehicles, check the tab, name a vehicle
+    await p.click('#set-list label:has-text("Vehicles") >> nth=0');
+    await p.click('#deck-tabs button[data-kind="vehicle"]');
+    const nVeh = await p.evaluate(() => document.querySelectorAll('#card-list li:not(.empty)').length);
+    if (nVeh !== 6) throw new Error('expected 6 vehicle cards, got ' + nVeh);
+    await p.click('#card-list li >> nth=1');
+    await p.waitForSelector('#preview-pane canvas');
+    await p.fill('#editor input[list="veh-names"]', 'Willys MB Jeep');
+    await p.waitForTimeout(500);
+    await (await p.$('#preview-pane .preview canvas')).screenshot({ path: path.join(out, 'vehicle-card.png') });
     // print one card of each kind
     await p.click('#copies-zero');
-    for (const k of ['team', 'operator', 'weapon', 'gear']) {
+    for (const k of ['team', 'operator', 'weapon', 'gear', 'vehicle']) {
       await p.click(`#deck-tabs button[data-kind="${k}"]`);
       await p.click('#card-list li .stepper button[aria-label="One more"] >> nth=0');
     }
@@ -58,6 +68,11 @@ srv.listen(0, async () => {
       await (await (await p.$$('#team-editor .slot'))[i].$$('select'))[2].selectOption({ index: 3 + i });
       await (await (await p.$$('#team-editor .slot'))[i].$$('select'))[3].selectOption({ index: 1 + i });
     }
+    // add a Jeep with an Auxiliary Fuel Tank to the team
+    await p.evaluate(() => { const sel = [...document.querySelectorAll('#team-editor select')].find((x) => /^Add a vehicle/.test(x.options[0].text)); sel.value = sel.options[2].value; sel.dispatchEvent(new Event('change')); });
+    await p.evaluate(() => { const sel = [...document.querySelectorAll('#team-editor select')].find((x) => /^Add vehicle gear/.test(x.options[0].text)); sel.value = [...sel.options].find((o) => /Fuel Tank/.test(o.text)).value; sel.dispatchEvent(new Event('change')); });
+    const vstat = await p.evaluate(() => document.querySelector('#team-editor .slots:nth-of-type(2) .stats, #team-editor .stats:last-of-type') && [...document.querySelectorAll('#team-editor .stats')].pop().textContent);
+    if (!/Move11/.test(vstat || '')) throw new Error('vehicle stats not updated by fuel tank: ' + vstat);
     await p.screenshot({ path: path.join(out, 'app-team.png'), fullPage: true });
     await save(() => p.click('button:has-text("Print team sheet")'), 'team-sheet.pdf');
     await save(() => p.click("button:has-text(\"Print this team's cards\")"), 'team-cards.pdf');

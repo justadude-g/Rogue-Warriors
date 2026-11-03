@@ -65,11 +65,11 @@
   // =====================================================================
   // CARD DECK
   // =====================================================================
-  let deck = { team: [], operator: [], weapon: [], gear: [] };
-  const KIND_LABEL = { team: 'Team', operator: 'Operators', weapon: 'Weapons', gear: 'Gear' };
+  let deck = { team: [], operator: [], weapon: [], gear: [], vehicle: [] };
+  const KIND_LABEL = { team: 'Team', operator: 'Operators', weapon: 'Weapons', gear: 'Gear', vehicle: 'Vehicles' };
 
   function suggested(card) {
-    if (card.kind === 'team' || card.kind === 'operator') return 1;
+    if (card.kind === 'team' || card.kind === 'operator' || card.kind === 'vehicle') return 1;
     if (card.kind === 'weapon') {
       if (card.source.sidearm) return 2;
       if (card.source.droneOnly || card.source.type2 === 'Experimental') return 1;
@@ -118,10 +118,11 @@
       const step = (d) => (e) => { e.stopPropagation(); S.copies[c.key] = Math.max(0, Math.min(20, copiesOf(c) + d)); out.textContent = S.copies[c.key]; save(); renderDeckCount(); };
       const sub = c.kind === 'team' ? `${c.setLabel} · ${c.mechLabel} · ${c.ref}`
         : c.kind === 'operator' ? `${c.warriorName ? c.warriorName + ' · ' : ''}${c.perkName ? c.perkName + ' · ' : ''}${c.ref}`
+        : c.kind === 'vehicle' ? `${c.vehicleName ? c.vehicleName + ' · ' : ''}${c.pv} PV · Capacity ${c.stats.capacity} · ${c.ref}`
         : c.kind === 'weapon' ? `${c.typeLabel} · ${c.range} · ${c.ref}`
         : `${c.pts} pts · ${c.ref}`;
       const cu0 = S.custom[c.key] || {};
-      const edited = ['name', 'warriorName', 'perk', 'promo', 'drawback', 'image', 'soldierType'].some((k) => cu0[k]);
+      const edited = ['name', 'warriorName', 'vehicleName', 'perk', 'promo', 'drawback', 'image', 'soldierType'].some((k) => cu0[k]);
       list.append(h('li', { class: S.ui.sel === c.key ? 'sel' : '', onclick: () => { S.ui.sel = c.key; save(); renderCardList(); renderEditor(); } },
         h('img', { src: c.icon, alt: '', loading: 'lazy' }),
         h('div', {}, h('div', { class: 't' }, c.title, edited ? h('span', { class: 'edited' }, 'edited') : null), h('div', { class: 's' }, sub)),
@@ -145,7 +146,7 @@
   }
 
   // Picture box size on each card type, in mm (matches render.js), used to turn a drag into an offset.
-  const PIC_BOX = { operator: [24.1, 24.1], team: [25.6, 25.6], weapon: [54.6, 37.2], gear: [54.6, 37.2] };
+  const PIC_BOX = { operator: [24.1, 24.1], team: [25.6, 25.6], vehicle: [24.1, 24.8], weapon: [54.6, 37.2], gear: [54.6, 37.2] };
 
   function renderEditor() {
     const ed = $('#editor'), pane = $('#preview-pane');
@@ -172,7 +173,7 @@
     const field = (label, el) => h('label', { class: 'field' }, h('span', {}, label), el);
     const text = (prop, label, multi, ph) => {
       const el = h(multi ? 'textarea' : 'input', { type: 'text', value: cu[prop] || '', placeholder: ph || '' });
-      el.addEventListener('input', () => { cu[prop] = el.value; refresh(prop === 'name' || prop === 'warriorName'); });
+      el.addEventListener('input', () => { cu[prop] = el.value; refresh(prop === 'name' || prop === 'warriorName' || prop === 'vehicleName'); });
       return field(label, el);
     };
     const src = card.source;
@@ -181,7 +182,8 @@
     const fit = cu.imageFit = cu.imageFit || { zoom: 1, x: 0, y: 0 };
     const pick = filePicker((url) => { cu.image = url; cu.imageFit = { zoom: 1, x: 0, y: 0 }; refresh(true); renderEditor(); });
     const picHint = card.kind === 'operator' ? 'Without a picture the card shows the Specialisation icon.'
-      : card.kind === 'team' ? 'Optional team emblem. Without one the card shows the Expertise badge.' : 'Without a picture the card shows its icon.';
+      : card.kind === 'team' ? 'Optional team emblem. Without one the card shows the Expertise badge.'
+      : card.kind === 'vehicle' ? 'Without a picture the card shows the vehicle icon.' : 'Without a picture the card shows its icon.';
     const controls = h('div', { class: 'piccontrols' },
       h('button', { onclick: () => pick.click() }, cu.image ? 'Replace' : 'Upload picture'), pick);
     if (cu.image) {
@@ -226,7 +228,13 @@
         Object.entries(R.soldierTypes).map(([k, v]) => opt(k, v.label, (cu.soldierType || card.soldierType) === k)));
       ed.append(field('Soldier type', sel));
     }
-    if (card.kind !== 'campaign') ed.append(text('perk', card.kind === 'team' ? 'Team perk wording' : 'Perk wording', true, 'Standard wording'));
+    if (card.kind === 'vehicle') {
+      const nameBox = text('vehicleName', 'Vehicle name (printed in the title)', false, 'Leave empty to print the class');
+      const list = h('datalist', { id: 'veh-names' }, card.names.map((n) => h('option', { value: n })));
+      nameBox.querySelector('input').setAttribute('list', 'veh-names');
+      ed.append(nameBox, list, h('p', { class: 'hint' }, 'Suggestions are the D10 vehicle prompts from Desert Heroes p. 10. Type anything you like.'));
+    }
+    if (card.kind !== 'campaign') ed.append(text('perk', card.kind === 'team' ? 'Team perk wording' : card.kind === 'vehicle' ? 'Vehicle notes (one numbered line per row)' : 'Perk wording', true, 'Standard wording'));
     if (card.promo != null) ed.append(text('promo', 'Promotion wording', true, 'Standard wording'));
     if (card.kind === 'weapon') ed.append(text('drawback', 'Drawback wording', true, 'Standard wording'));
     ed.append(h('div', { class: 'stack inline' },
@@ -253,7 +261,7 @@
     $('#copies-default').addEventListener('click', () => { for (const k of Object.keys(deck)) for (const c of deck[k]) delete S.copies[c.key]; save(); renderDeck(); toast('Suggested copies restored.'); });
     $('#copies-zero').addEventListener('click', () => { for (const k of Object.keys(deck)) for (const c of deck[k]) S.copies[c.key] = 0; save(); renderDeck(); });
     $('#print-deck').addEventListener('click', () => {
-      const items = []; for (const k of ['team', 'operator', 'weapon', 'gear']) for (const c of deck[k]) items.push({ card: c, copies: copiesOf(c) });
+      const items = []; for (const k of ['team', 'operator', 'weapon', 'gear', 'vehicle']) for (const c of deck[k]) items.push({ card: c, copies: copiesOf(c) });
       printItems(items, 'rogue-warriors-deck', $('#deck-progress'));
     });
   }
@@ -291,7 +299,20 @@
     });
     if (used > budget) warnings.push(`Gear costs ${used} points; the budget is ${budget}.`);
     if (L.set.teamNote) warnings.push(L.set.teamNote);
-    return { L, exp, budget, used, rows, warnings };
+    // Vehicles (Desert Heroes rules, usable with any team)
+    const vcards = C.vehicles(), vgear = C.vehicleGear();
+    const vehicles = (t.vehicles || []).map((vh, i) => {
+      const card = vcards.find((x) => x.source.id === vh.type) || vcards[0];
+      const gear = (vh.gear || []).map((g) => vgear.find((x) => x.source.uid === g)).filter(Boolean);
+      const sum = (k) => gear.reduce((n, g) => n + ((g.mods && g.mods[k]) || 0), 0);
+      const stats = Object.assign({}, card.stats, { ma: card.stats.ma + sum('ma'), capacity: card.stats.capacity + (card.stats.capacity > 0 ? sum('capacity') : 0) });
+      const label = vh.name || card.baseTitle;
+      if (gear.some((g) => g.source.id === 'v-cargo') && card.stats.capacity === 0) warnings.push(`${label}: a Capacity of 0 can not be increased by the Modular Cargo System.`);
+      if (gear.some((g) => g.source.id === 'v-fuel-tank') && card.stats.ma === 0) warnings.push(`${label}: it can not Move, so the Auxiliary Fuel Tank does nothing.`);
+      return { vh, card, gear, stats, name: vh.name || '', label };
+    });
+    const vpv = vehicles.reduce((n, v) => n + v.card.pv, 0);
+    return { L, exp, budget, used, rows, warnings, vehicles, vpv };
   }
 
   function renderTeams() {
@@ -310,7 +331,7 @@
     const field = (label, el) => h('label', { class: 'field' }, h('span', {}, label), el);
     const name = h('input', { type: 'text', value: t.name });
     name.addEventListener('change', () => { t.name = name.value || 'Team'; save(); renderTeams(); });
-    const setSel = h('select', { onchange: (e) => { const n = teamDefaults(e.target.value); Object.assign(t, { setId: n.setId, expId: n.expId, slots: n.slots }); redraw(); } }, R.sets.map((s) => opt(s.id, s.label, s.id === t.setId)));
+    const setSel = h('select', { onchange: (e) => { const n = teamDefaults(e.target.value); Object.assign(t, { setId: n.setId, expId: n.expId, slots: n.slots }); redraw(); } }, R.sets.filter((s) => !s.vehicles).map((s) => opt(s.id, s.label, s.id === t.setId)));
     const expSel = h('select', { onchange: (e) => { t.expId = e.target.value; redraw(); } }, L.expertise.map((e) => opt(e.source.id, `${e.baseTitle} (${e.mechLabel})`, e.source.id === t.expId)));
     const extra = h('input', { type: 'number', min: -5, max: 20, value: t.extraGear || 0 });
     extra.addEventListener('change', () => { t.extraGear = parseInt(extra.value, 10) || 0; redraw(); });
@@ -339,17 +360,41 @@
             h('button', { class: 'ghost danger', onclick: () => { t.slots.splice(i, 1); redraw(); } }, 'Remove')))));
     });
     box.append(slots, h('div', { class: 'stack inline' }, h('button', { onclick: () => { t.slots.push({ name: '', op: '', soldierType: L.set.soldierType || 'warrior', weapon: '', gear: [] }); redraw(); } }, 'Add Warrior')));
+    // vehicles
+    t.vehicles = t.vehicles || [];
+    const vcards = C.vehicles(), vgear = C.vehicleGear();
+    box.append(h('h3', {}, 'Vehicles (optional)'), h('p', { class: 'hint' }, 'Desert Heroes vehicle rules (DH p. 4). Agree a Vehicle Points Value (PV) before the Mission. Vehicle gear has no budget in the rules, so pick what fits the scenario.'));
+    const vlist = h('div', { class: 'slots' });
+    res.vehicles.forEach((v, i) => {
+      const vh = v.vh;
+      const typeSel = h('select', { onchange: (e) => { vh.type = e.target.value; vh.name = ''; redraw(); } }, vcards.map((x) => opt(x.source.id, `${x.baseTitle} (${x.pv} PV)`, x.source.id === vh.type)));
+      const dl = h('datalist', { id: 'vn-' + i }, v.card.names.map((n) => h('option', { value: n })));
+      const nm = h('input', { type: 'text', value: vh.name || '', placeholder: 'Vehicle name (optional)', list: 'vn-' + i });
+      nm.addEventListener('change', () => { vh.name = nm.value; redraw(); });
+      const gSel = h('select', { onchange: (e) => { if (e.target.value) { vh.gear = (vh.gear || []).concat(e.target.value); redraw(); } } }, opt('', 'Add vehicle gear...', true), vgear.map((g) => opt(g.source.uid, `${g.title} (${g.pts} pts)`)));
+      const chips = h('div', { class: 'chips' }, v.gear.map((g, gi) => h('span', { class: 'chip' }, `${g.title} · ${g.pts}`, h('button', { 'aria-label': 'Remove ' + g.title, onclick: () => { vh.gear.splice(gi, 1); redraw(); } }, '×'))));
+      const s2 = v.stats;
+      vlist.append(h('div', { class: 'slot' }, h('img', { class: 'spec', src: v.card.icon, alt: '' }),
+        h('div', {}, h('div', { class: 'grid' }, field('Vehicle ' + (i + 1), typeSel), field('Name', nm), field('Gear', gSel)), dl, chips,
+          h('div', { class: 'stats' }, [['Move', s2.ma + '"'], ['Hits on', s2.hits + '+'], ['Hearts', s2.hearts], ['Armour', (s2.armour > 0 ? '+' : '') + s2.armour], ['Capacity', s2.capacity], ['Crew', s2.crew ? 'Yes' : 'No']].map(([a, b]) => h('span', { class: 'stat' }, a, h('b', {}, b))),
+            h('button', { class: 'ghost danger', onclick: () => { t.vehicles.splice(i, 1); redraw(); } }, 'Remove')))));
+    });
+    const addV = h('select', { onchange: (e) => { if (e.target.value) { t.vehicles.push({ type: e.target.value, name: '', gear: [] }); redraw(); } } }, opt('', 'Add a vehicle...', true), vcards.map((x) => opt(x.source.id, `${x.baseTitle} (${x.pv} PV, counts as ${x.value})`)));
+    box.append(vlist, h('div', { class: 'stack inline' }, addV), res.vehicles.length ? h('p', { class: 'budget' }, `Vehicle points: ${res.vpv} PV`) : null);
+
     box.append(res.warnings.length ? h('div', { class: 'warn' }, h('strong', {}, 'Check'), h('ul', {}, res.warnings.map((w) => h('li', {}, w)))) : h('div', { class: 'ok' }, 'Team is legal.'));
 
     const pull = () => {
       const by = { Team: [res.exp.title], Operators: [], Weapons: [], Gear: [] };
       res.rows.forEach((r) => { if (r.op) by.Operators.push(r.op.title); if (r.w) by.Weapons.push(r.w.title); r.gear.forEach((g) => by.Gear.push(g.title)); });
+      if (res.vehicles.length) { by.Vehicles = res.vehicles.map((v) => v.card.baseTitle); res.vehicles.forEach((v) => v.gear.forEach((g) => by.Gear.push(g.title + ' (vehicle)'))); }
       return Object.entries(by).filter(([, v]) => v.length);
     };
     const progress = h('div', { class: 'progress', hidden: true }, h('div'));
     box.append(h('div', { class: 'stack inline' },
       h('button', { class: 'primary', onclick: () => window.RWPrint.teamSheet({ name: t.name, setLabel: L.set.label, expertise: res.exp.title, gearUsed: res.used, gearBudget: res.budget,
-        rows: res.rows.map((r) => ({ name: r.name, spec: r.spec, weapon: r.weapon, gear: r.gearNames, stats: r.stats })), warnings: res.warnings, pull: pull() }, { paper: S.paper, filename: t.name.replace(/[^a-z0-9]+/gi, '-') }) }, 'Print team sheet'),
+        rows: res.rows.map((r) => ({ name: r.name, spec: r.spec, weapon: r.weapon, gear: r.gearNames, stats: r.stats })),
+        vehicles: res.vehicles.map((v) => ({ name: v.label, cls: v.card.baseTitle, pv: v.card.pv, stats: v.stats, gear: v.gear.map((g) => g.title), weapons: v.card.weapons.filter(Boolean).map((w) => w.name) })), vpv: res.vpv, warnings: res.warnings, pull: pull() }, { paper: S.paper, filename: t.name.replace(/[^a-z0-9]+/gi, '-') }) }, 'Print team sheet'),
       h('button', { onclick: () => {
         const items = [{ card: res.exp, copies: 1 }];
         res.rows.forEach((r) => {
@@ -357,6 +402,10 @@
             stats: Object.assign({}, r.stats) }), copies: 1 });
           if (r.w) items.push({ card: r.w, copies: 1 });
           r.gear.forEach((g) => items.push({ card: g, copies: 1 }));
+        });
+        res.vehicles.forEach((v) => {
+          items.push({ card: Object.assign({}, v.card, { key: v.card.key + '|' + v.name, vehicleName: v.name || v.card.vehicleName, stats: Object.assign({}, v.stats) }), copies: 1 });
+          v.gear.forEach((g) => items.push({ card: g, copies: 1 }));
         });
         printItems(items, t.name.replace(/[^a-z0-9]+/gi, '-') + '-cards', progress);
       } }, 'Print this team\'s cards'),
@@ -508,7 +557,7 @@
       const next = cur === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = next;
       try { localStorage.setItem('rw-theme', next); } catch (e) { /* private window */ }
     });
-    $('#team-new').addEventListener('click', () => { const t = teamDefaults(S.sets.find((id) => id !== 'core') || S.sets[0] || 'core'); S.teams.push(t); S.ui.team = t.id; save(); renderTeams(); });
+    $('#team-new').addEventListener('click', () => { const t = teamDefaults(S.sets.find((id) => id !== 'core' && id !== 'dh-vehicles') || S.sets.find((id) => id !== 'dh-vehicles') || 'core'); S.teams.push(t); S.ui.team = t.id; save(); renderTeams(); });
     $('#platoon-new').addEventListener('click', () => { const p = newPlatoon(); S.platoons.push(p); S.ui.platoon = p.id; save(); renderPlatoons(); });
     wireDeck(); wireAbout();
     addEventListener('pagehide', () => window.RWStore.put('state', S));

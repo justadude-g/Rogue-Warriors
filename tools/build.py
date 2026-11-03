@@ -28,6 +28,7 @@ CAT = {
     'gear':           ('#7a8f39', '#33401a', '#fbfcef', '#e1e6c6', 'square'),
     'specialisation': ('#3874bd', '#15315a', '#f5f9fd', '#d3e2f1', 'circle'),
     'expertise':      ('#d9a93a', '#6a4b0c', '#fffaea', '#efdeb0', 'shield'),
+    'vehicle':        ('#a56a26', '#4a2e0c', '#fdf8ee', '#efe0c0', 'hex'),
 }
 
 B = {'CORE': 'Core Rulebook', 'RD': 'Rapid Deployment', 'TB': 'Tiger Blood', 'US': 'Urban Strike',
@@ -64,21 +65,21 @@ ICONS = [
      'M14, SKS@US:11,TOD:22;FN SCAR-H@IBZ:12'),
     ('lmg', 'weapon', 'Light Machine Gun', 'custom:lmg', 'gunmetal',
      'Light Machine Gun@CORE:10;FN Minimi@TB:13;M60@TB:14;RPD, M60@US:11,TOD:22;FN MK48 Mod 1@IBZ:12'),
-    ('hmg', 'weapon', 'Heavy Machine Gun', 'skoll/machine-gun', 'gunmetal', 'Heavy Machine Gun@RD:3'),
+    ('hmg', 'weapon', 'Heavy Machine Gun', 'skoll/machine-gun', 'gunmetal', 'Heavy Machine Gun@RD:3,DH:8'),
     ('sniper-rifle', 'weapon', 'Sniper Rifle', 'custom:sniper-rifle', 'olive',
-     'Sniper Rifle@CORE:10;Barrett M82A1@TB:13;Dragunov SVD@TB:14;M40, SVD Dragunov@US:11,TOD:22;Barrett MRAD@IBZ:12'),
+     'Sniper Rifle@CORE:10;Barrett M82A1@TB:13;Dragunov SVD@TB:14;M40, SVD Dragunov@US:11,TOD:22;Barrett MRAD@IBZ:12;Anti-Tank Rifle@DH:8'),
     ('melee', 'weapon', 'Combat Melee Weapon', 'skoll/bowie-knife', 'steel',
      'Combat Melee Weapon@CORE:10;ATAK Combat Knife@TB:13;Jambiya Tactical Knife@TB:14;Survival Knife, Bowie Knife@US:11;Ulu Knife@IBZ:12;Survival Knife, Bayonet@TOD:22'),
     ('frag-grenade', 'weapon', 'Frag Grenade', 'lorc/grenade', 'olive',
      'Frag Grenade@CORE:10,TB:13,US:11,IBZ:12,TOD:22'),
     ('grenade-launcher', 'weapon', 'Grenade Launcher', [('custom:grenade-launcher', 'black', None), ('custom:round-40mm', 'brass', None)], 'black',
-     'M79 Grenade Launcher@US:11,TOD:22;HK M320 Grenade Launcher@IBZ:12'),
+     'M79 Grenade Launcher@US:11,TOD:22;HK M320 Grenade Launcher@IBZ:12;Grenade Launcher (vehicle)@DH:8'),
     ('rocket-launcher-law', 'weapon', 'Rocket Launcher (LAW)', 'custom:rocket-launcher-law', 'olive',
      'M72 LAW@US:11,TOD:22'),
     ('rocket-launcher-rpg', 'weapon', 'Rocket Launcher (RPG)', 'custom:rocket-launcher-rpg', 'olive',
-     'RPG@CORE:10;RPG-7@TB:13,TB:14,US:11;RPG-2, RPG-7@TOD:22;Carl Gustaf M4@IBZ:12'),
+     'RPG@CORE:10;RPG-7@TB:13,TB:14,US:11;RPG-2, RPG-7@TOD:22;Carl Gustaf M4@IBZ:12;Rocket Launcher (vehicle)@DH:8'),
     ('flamethrower', 'weapon', 'Flamethrower', 'delapouite/flamethrower', 'orange',
-     'M2 Flame Thrower@US:11;Flame Thrower@TOD:22'),
+     'M2 Flame Thrower@US:11;Flame Thrower@TOD:22;Flame Cannon@DH:8'),
     ('bow', 'weapon', 'Bow & Grenade Arrow', 'delapouite/bow-arrow', 'wood',
      'Compound Bow & Grenade Arrow@US:11;Bow & Grenade Arrow@TOD:22'),
     ('viral-dartgun', 'weapon', 'Viral Dartgun', 'delapouite/dart', 'toxic', 'Viral Dartgun@IBZ:13'),
@@ -90,6 +91,12 @@ ICONS = [
     ('drone-recon', 'weapon', 'Recon Drone', 'delapouite/eye-target', 'teal', 'Whiteout Recon@IBZ:13'),
     ('drone-bomber', 'weapon', 'Bomber Drone', 'delapouite/falling-bomb', 'gunmetal', 'Avalanche Bomber@IBZ:13'),
     ('drone-ground', 'weapon', 'Ground Drone', 'delapouite/laser-turret', 'navy', 'Polar Sentinel@IBZ:13'),
+    ('twin-smg', 'weapon', 'Twin Submachine Guns', [('delapouite/uzi', 'gunmetal', (27, 47, 0.62, False)), ('delapouite/uzi', 'black', (167, 157, 0.62, False))], 'gunmetal', 'Twin Submachine Guns@DH:8'),
+    ('water-cannon', 'weapon', 'Water Cannon', 'delapouite/water-gun', 'ice', 'Water Cannon@DH:8'),
+    ('light-mortar', 'weapon', 'Light Mortar', 'delapouite/mortar', 'olive', 'Light Mortar@DH:8'),
+    ('auto-cannon', 'weapon', 'Light Auto Cannon', 'delapouite/walking-turret', 'gunmetal', 'Light Auto Cannon@DH:8'),
+    ('at-missile', 'weapon', 'Anti-Tank Missile', 'delapouite/missile-launcher', 'red', 'Anti-Tank Missile@DH:8'),
+    ('artillery-gun', 'weapon', 'Artillery Gun', 'lorc/cannon', 'gunmetal', 'Artillery Gun@DH:8'),
 
     # ---------------- GEAR ----------------
     ('rope', 'gear', 'Rope', 'delapouite/rope-coil', 'khaki', 'Rope@CORE:10,TB:13,US:12,TOD:23;Grappling Hook@IBZ:14'),
@@ -154,6 +161,24 @@ ICONS = [
     ('ied', 'gear', 'IED', 'lorc/explosive-materials', 'orange', 'IED@DH:8'),
     ('at-mine', 'gear', 'Anti-Tank Mine', 'skoll/teller-mine', 'olive', 'Anti-Tank Mine@DH:8'),
     ('sticky-bomb', 'gear', 'Sticky Bomb', 'lorc/unlit-bomb', 'black', 'Sticky Bomb@DH:8'),
+    ('nv-scope', 'gear', 'Night Vision Scope', 'lorc/arrow-scope', 'green', 'Night Vision Scope@DH:8'),
+    ('nav-tools', 'gear', 'Navigation Tools', 'delapouite/sextant', 'brass', 'Navigation Tools@DH:8'),
+    ('camo-nets', 'gear', 'Camo Nets', 'lorc/fishing-net', 'olive', 'Camo Nets@DH:8'),
+    ('rangefinder', 'gear', 'Rangefinder', 'delapouite/telescope', 'steel', 'Rangefinder@DH:8'),
+    ('blast-mats', 'gear', 'Blast Mats', 'delapouite/shield-impact', 'orange', 'Blast Mats@DH:8'),
+    ('anti-rocket-netting', 'gear', 'Anti-Rocket Netting', 'lorc/spider-web', 'gunmetal', 'Anti-Rocket Netting@DH:8'),
+    ('improved-tyres', 'gear', 'Improved Tyres', 'delapouite/car-wheel', 'black', 'Improved Tyres@DH:8'),
+    ('cargo-system', 'gear', 'Modular Cargo System', 'delapouite/cargo-crate', 'khaki', 'Modular Cargo System@DH:8'),
+    ('fuel-tank', 'gear', 'Auxiliary Fuel Tank', 'delapouite/jerrycan', 'olive', 'Auxiliary Fuel Tank@DH:8'),
+    ('bulldozer-blade', 'gear', 'Bulldozer Blade', 'delapouite/bulldozer', 'orange', 'Bulldozer Blade@DH:8'),
+
+    # ---------------- VEHICLES ----------------
+    ('atv', 'vehicle', 'One-Man ATV', 'delapouite/aero-bike', 'olive', 'One-Man ATV@DH:49'),
+    ('jeep', 'vehicle', 'Jeep', 'delapouite/jeep', 'khaki', 'Jeep@DH:49'),
+    ('apc', 'vehicle', 'Armoured Personnel Carrier', 'delapouite/truck', 'olive', 'Armoured Personnel Carrier@DH:50'),
+    ('light-helicopter', 'vehicle', 'Light Helicopter', 'delapouite/helicopter', 'gunmetal', 'Light Helicopter@DH:50'),
+    ('light-tank', 'vehicle', 'Light Tank', 'lorc/battle-tank', 'olive', 'Light Tank@DH:51'),
+    ('ranged-ordnance', 'vehicle', 'Ranged Ordnance', 'lorc/cannon', 'gunmetal', 'Ranged Ordnance@DH:51'),
 
     # ---------------- SPECIALISATIONS ----------------
     ('tactician', 'specialisation', 'Tactician', 'skoll/chess-knight', 'navy', 'Tactician@CORE:9,TB:10,US:10,IBZ:11,TOD:18'),
@@ -238,6 +263,12 @@ def frame_svg(cat, uid):
                 f'<circle cx="256" cy="256" r="232" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="5"/>'
                 f'<circle cx="256" cy="256" r="220" fill="url(#{uid}b)"/>')
         centre, scale = (256, 256), 0.6
+    elif shape == 'hex':
+        outer = 'M256 8 L484 134 V378 L256 504 L28 378 V134 Z'
+        body = (f'<path d="{outer}" stroke-linejoin="round" fill="url(#{uid}f)"/>'
+                f'<path d="{outer}" transform="translate(256 256) scale(.92) translate(-256 -256)" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="5"/>'
+                f'<path d="{outer}" transform="translate(256 256) scale(.86) translate(-256 -256)" fill="url(#{uid}b)"/>')
+        centre, scale = (256, 256), 0.62
     else:  # shield
         outer = 'M256 6 L494 58 V248 C494 384 392 470 256 508 C120 470 18 384 18 248 V58 Z'
         body = (f'<path d="{outer}" fill="url(#{uid}f)"/>'
@@ -288,7 +319,7 @@ def icon_svg(entry):
             f'<title>{label}</title><defs>{defs}</defs>{frame}{obj}</svg>')
 
 
-FOLDER = {'weapon': 'weapons', 'gear': 'gear', 'specialisation': 'specialisations', 'expertise': 'expertise'}
+FOLDER = {'weapon': 'weapons', 'gear': 'gear', 'specialisation': 'specialisations', 'expertise': 'expertise', 'vehicle': 'vehicles'}
 
 
 def main():

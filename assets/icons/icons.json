@@ -21,6 +21,11 @@
       "folder": "expertise",
       "frame": "#d9a93a",
       "shape": "shield"
+    },
+    "vehicle": {
+      "folder": "vehicles",
+      "frame": "#a56a26",
+      "shape": "hex"
     }
   },
   "icons": [
@@ -355,6 +360,11 @@
           "name": "Heavy Machine Gun",
           "book": "Rapid Deployment",
           "page": "3"
+        },
+        {
+          "name": "Heavy Machine Gun",
+          "book": "Desert Heroes",
+          "page": "8"
         }
       ],
       "credit": [
@@ -401,6 +411,11 @@
           "name": "Barrett MRAD",
           "book": "Ice Base Zero",
           "page": "12"
+        },
+        {
+          "name": "Anti-Tank Rifle",
+          "book": "Desert Heroes",
+          "page": "8"
         }
       ],
       "credit": [
@@ -517,6 +532,11 @@
           "name": "HK M320 Grenade Launcher",
           "book": "Ice Base Zero",
           "page": "12"
+        },
+        {
+          "name": "Grenade Launcher (vehicle)",
+          "book": "Desert Heroes",
+          "page": "8"
         }
       ],
       "credit": [
@@ -588,6 +608,11 @@
           "name": "Carl Gustaf M4",
           "book": "Ice Base Zero",
           "page": "12"
+        },
+        {
+          "name": "Rocket Launcher (vehicle)",
+          "book": "Desert Heroes",
+          "page": "8"
         }
       ],
       "credit": [
@@ -612,6 +637,11 @@
           "name": "Flame Thrower",
           "book": "Tour of Duty",
           "page": "22"
+        },
+        {
+          "name": "Flame Cannon",
+          "book": "Desert Heroes",
+          "page": "8"
         }
       ],
       "credit": [
@@ -833,6 +863,137 @@
         {
           "author": "Delapouite",
           "source": "https://game-icons.net/1x1/delapouite/laser-turret.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "twin-smg",
+      "category": "weapon",
+      "label": "Twin Submachine Guns",
+      "file": "weapons/twin-smg.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Twin Submachine Guns",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/uzi.html",
+          "license": "CC BY 3.0"
+        },
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/uzi.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "water-cannon",
+      "category": "weapon",
+      "label": "Water Cannon",
+      "file": "weapons/water-cannon.svg",
+      "colour": "ice",
+      "appliesTo": [
+        {
+          "name": "Water Cannon",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/water-gun.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "light-mortar",
+      "category": "weapon",
+      "label": "Light Mortar",
+      "file": "weapons/light-mortar.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Light Mortar",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/mortar.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "auto-cannon",
+      "category": "weapon",
+      "label": "Light Auto Cannon",
+      "file": "weapons/auto-cannon.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Light Auto Cannon",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/walking-turret.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "at-missile",
+      "category": "weapon",
+      "label": "Anti-Tank Missile",
+      "file": "weapons/at-missile.svg",
+      "colour": "red",
+      "appliesTo": [
+        {
+          "name": "Anti-Tank Missile",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/missile-launcher.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "artillery-gun",
+      "category": "weapon",
+      "label": "Artillery Gun",
+      "file": "weapons/artillery-gun.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Artillery Gun",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/cannon.html",
           "license": "CC BY 3.0"
         }
       ]
@@ -2068,6 +2229,342 @@
         {
           "author": "Lorc",
           "source": "https://game-icons.net/1x1/lorc/unlit-bomb.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "nv-scope",
+      "category": "gear",
+      "label": "Night Vision Scope",
+      "file": "gear/nv-scope.svg",
+      "colour": "green",
+      "appliesTo": [
+        {
+          "name": "Night Vision Scope",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/arrow-scope.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "nav-tools",
+      "category": "gear",
+      "label": "Navigation Tools",
+      "file": "gear/nav-tools.svg",
+      "colour": "brass",
+      "appliesTo": [
+        {
+          "name": "Navigation Tools",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/sextant.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "camo-nets",
+      "category": "gear",
+      "label": "Camo Nets",
+      "file": "gear/camo-nets.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Camo Nets",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/fishing-net.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "rangefinder",
+      "category": "gear",
+      "label": "Rangefinder",
+      "file": "gear/rangefinder.svg",
+      "colour": "steel",
+      "appliesTo": [
+        {
+          "name": "Rangefinder",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/telescope.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "blast-mats",
+      "category": "gear",
+      "label": "Blast Mats",
+      "file": "gear/blast-mats.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Blast Mats",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/shield-impact.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "anti-rocket-netting",
+      "category": "gear",
+      "label": "Anti-Rocket Netting",
+      "file": "gear/anti-rocket-netting.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Anti-Rocket Netting",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/spider-web.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "improved-tyres",
+      "category": "gear",
+      "label": "Improved Tyres",
+      "file": "gear/improved-tyres.svg",
+      "colour": "black",
+      "appliesTo": [
+        {
+          "name": "Improved Tyres",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/car-wheel.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "cargo-system",
+      "category": "gear",
+      "label": "Modular Cargo System",
+      "file": "gear/cargo-system.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Modular Cargo System",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/cargo-crate.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "fuel-tank",
+      "category": "gear",
+      "label": "Auxiliary Fuel Tank",
+      "file": "gear/fuel-tank.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Auxiliary Fuel Tank",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/jerrycan.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "bulldozer-blade",
+      "category": "gear",
+      "label": "Bulldozer Blade",
+      "file": "gear/bulldozer-blade.svg",
+      "colour": "orange",
+      "appliesTo": [
+        {
+          "name": "Bulldozer Blade",
+          "book": "Desert Heroes",
+          "page": "8"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/bulldozer.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "atv",
+      "category": "vehicle",
+      "label": "One-Man ATV",
+      "file": "vehicles/atv.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "One-Man ATV",
+          "book": "Desert Heroes",
+          "page": "49"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/aero-bike.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "jeep",
+      "category": "vehicle",
+      "label": "Jeep",
+      "file": "vehicles/jeep.svg",
+      "colour": "khaki",
+      "appliesTo": [
+        {
+          "name": "Jeep",
+          "book": "Desert Heroes",
+          "page": "49"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/jeep.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "apc",
+      "category": "vehicle",
+      "label": "Armoured Personnel Carrier",
+      "file": "vehicles/apc.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Armoured Personnel Carrier",
+          "book": "Desert Heroes",
+          "page": "50"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/truck.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "light-helicopter",
+      "category": "vehicle",
+      "label": "Light Helicopter",
+      "file": "vehicles/light-helicopter.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Light Helicopter",
+          "book": "Desert Heroes",
+          "page": "50"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Delapouite",
+          "source": "https://game-icons.net/1x1/delapouite/helicopter.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "light-tank",
+      "category": "vehicle",
+      "label": "Light Tank",
+      "file": "vehicles/light-tank.svg",
+      "colour": "olive",
+      "appliesTo": [
+        {
+          "name": "Light Tank",
+          "book": "Desert Heroes",
+          "page": "51"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/battle-tank.html",
+          "license": "CC BY 3.0"
+        }
+      ]
+    },
+    {
+      "id": "ranged-ordnance",
+      "category": "vehicle",
+      "label": "Ranged Ordnance",
+      "file": "vehicles/ranged-ordnance.svg",
+      "colour": "gunmetal",
+      "appliesTo": [
+        {
+          "name": "Ranged Ordnance",
+          "book": "Desert Heroes",
+          "page": "51"
+        }
+      ],
+      "credit": [
+        {
+          "author": "Lorc",
+          "source": "https://game-icons.net/1x1/lorc/cannon.html",
           "license": "CC BY 3.0"
         }
       ]

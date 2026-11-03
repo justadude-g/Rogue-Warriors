@@ -30,7 +30,7 @@
     const paper = PAPER[opts.paper] || PAPER.letter;
     const dpi = opts.dpi || 300;
     const groups = [
-      { kinds: ['team', 'operator', 'weapon', 'gear'], size: [63, 88], orient: 'p' },
+      { kinds: ['team', 'operator', 'weapon', 'gear', 'vehicle'], size: [63, 88], orient: 'p' },
       { kinds: ['campaign'], size: [127, 89], orient: 'l' },
     ];
     const total = items.reduce((n, it) => n + (it.copies > 0 ? 1 : 0), 0);
@@ -51,7 +51,7 @@
           if (opts.crop !== false) cropMarks(pdf, g, cw, ch, Math.min(per, list.length - i));
         }
         const card = list[i];
-        const key = card.key + '|' + (card.soldierType || '') + '|' + (card.name || '');
+        const key = card.key + '|' + (card.soldierType || '') + '|' + (card.name || '') + '|' + (card.vehicleName || '') + (card.kind === 'vehicle' ? '|' + JSON.stringify(card.stats) : '');
         if (!cache.has(key)) {
           const cv = await window.RWRender.render(card, dpi);
           cache.set(key, cv.toDataURL('image/jpeg', 0.92));
@@ -96,6 +96,17 @@
       y += (lines - 1) * 4;
       pdf.setDrawColor(200); pdf.line(15, y + 3, W - 15, y + 3);
     });
+    if (team.vehicles && team.vehicles.length) {
+      y += 12;
+      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(11); pdf.text(`Vehicles (${team.vpv} PV)`, 15, y);
+      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9.5);
+      team.vehicles.forEach((v) => {
+        const st = v.stats, line = `${v.name}${v.name !== v.cls ? ' (' + v.cls + ')' : ''}  |  Move ${st.ma}"  Hits on ${st.hits}+  Hearts ${st.hearts}  Armour ${st.armour > 0 ? '+' : ''}${st.armour}  Capacity ${st.capacity}  Crew ${st.crew ? 'Y' : 'N'}`;
+        y += 6; pdf.setFont('helvetica', 'bold'); pdf.text(pdf.splitTextToSize(line, W - 30), 18, y); pdf.setFont('helvetica', 'normal');
+        const extra = [v.weapons.join(' + '), v.gear.length ? 'Gear: ' + v.gear.join(', ') : ''].filter(Boolean).join('  |  ');
+        if (extra) { y += 4.5; pdf.text(pdf.splitTextToSize(extra, W - 36), 22, y); }
+      });
+    }
     y += 12;
     if (team.warnings.length) {
       pdf.setFont('helvetica', 'bold'); pdf.text('Check', 15, y); pdf.setFont('helvetica', 'normal');

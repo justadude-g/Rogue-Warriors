@@ -173,6 +173,16 @@
       W('rpg', 'RPG-2 or RPG-7', 'rocket-launcher-rpg', '3-24"', 1, 1, '-2', { single: true })] },
   };
 
+  // Desert Heroes vehicle-only weapons (DH p. 8).
+  const VW = (id, name, type, range, dice, ap) => W(id, name, type, range, dice, 1, ap, { type2: 'Vehicle Weapon', vehicleOnly: true });
+  weaponTables['dh-vehicle'] = { book: 'dh', page: 8, items: [
+    VW('twin-smg', 'Twin Submachine Guns', 'twin-smg', '12"', 6, '-'), VW('flame-cannon', 'Flame Cannon', 'flamethrower', '9"', 1, '-'),
+    VW('water-cannon', 'Water Cannon', 'water-cannon', '9"', 1, '-'), VW('grenade-launcher', 'Grenade Launcher', 'grenade-launcher', '6-18"', 1, '-2'),
+    VW('rocket-launcher', 'Rocket Launcher', 'rocket-launcher-rpg', '9-24"', 1, '-'), VW('light-mortar', 'Light Mortar', 'light-mortar', '6-24"', 1, '-1'),
+    VW('light-auto-cannon', 'Light Auto Cannon', 'auto-cannon', '9-24"', 2, '-2'), VW('at-missile', 'Anti-Tank Missile', 'at-missile', '6-24"', 1, '-3'),
+    VW('at-rifle', 'Anti-Tank Rifle', 'sniper-rifle', '6-48"', 1, '-2'), VW('artillery-gun', 'Artillery Gun (Ranged Ordnance only)', 'artillery-gun', '9-48"', 1, '-1'),
+    VW('hmg', 'Heavy Machine Gun', 'hmg', '9-36"', 3, '-1')] };
+
   const HEART = { mods: { hearts: 1 } };
   const gearTables = {
     core: { book: 'core', page: 10, items: [
@@ -220,6 +230,12 @@
       G('extra-heart', 'C-Ration', 'rations', 5, HEART), G('booby-trap', 'Booby Trap', 'booby-trap', 5),
       G('ubgl', 'M203 Under Barrel Grenade Launcher', 'ubgl', 5), G('ap-rounds', 'Armour Piercing Rounds', 'ap-rounds', 5), G('tunnel-maps', 'Tunnel Maps', 'local-knowledge', 5)] },
     dh: { book: 'dh', page: 8, items: [G('ied', 'IED', 'ied', 1), G('at-mine', 'Anti-Tank Mine', 'at-mine', 1), G('sticky-bomb', 'Sticky Bomb', 'sticky-bomb', 2)] },
+    // Vehicle gear (DH p. 8). Soldiers cannot take these.
+    'dh-vehicle': { book: 'dh', page: 8, items: [
+      G('v-nv-scope', 'Night Vision Scope', 'nv-scope', 2), G('v-nav-tools', 'Navigation Tools', 'nav-tools', 2), G('v-camo-nets', 'Camo Nets', 'camo-nets', 2),
+      G('v-rangefinder', 'Rangefinder', 'rangefinder', 3), G('v-blast-mats', 'Blast Mats', 'blast-mats', 3), G('v-anti-rocket', 'Anti-Rocket Netting', 'anti-rocket-netting', 3),
+      G('v-tyres', 'Improved Tyres', 'improved-tyres', 3), G('v-cargo', 'Modular Cargo System', 'cargo-system', 3, { mods: { capacity: 1 } }),
+      G('v-fuel-tank', 'Auxiliary Fuel Tank', 'fuel-tank', 4, { mods: { ma: 1 } }), G('v-dozer', 'Bulldozer Blade', 'bulldozer-blade', 5)] },
   };
   for (const [tid, t] of Object.entries(weaponTables)) t.items = t.items.map((x) => Object.assign({}, x, { uid: 'wpn-' + tid + '-' + x.id, table: tid }));
   for (const [tid, t] of Object.entries(gearTables)) t.items = t.items.map((x) => Object.assign({}, x, { uid: 'gear-' + tid + '-' + x.id, table: tid }));
@@ -241,6 +257,29 @@
   const RANK_XP = [50, 100, 150, 200, 250, 300];
   // Which rank unlocks the Specialisation promotion perk, per rank perk table.
   const promoAt = { standard: 100, dh: 150 };
+
+  // Desert Heroes vehicles (cards DH p. 49-51). Weapons list the generic weapon each card carries.
+  const VWPN = (slot, name, range, dice, dmg, ap) => ({ slot, name, range, dice, dmg, ap });
+  const vehicles = [
+    { id: 'atv', title: 'One-Man ATV', cls: 'ATV', pv: 1, value: '1W/2E/3R', page: 49, icon: 'atv', ma: 12, hits: 4, hearts: 4, armour: -1, capacity: 1, crew: false,
+      weapons: [VWPN('Primary', 'Twin SMGs', '12"', 6, 1, '-'), VWPN('Secondary', 'Pistol', '6"', 2, 1, '-')],
+      names: ['BMW R75 Motorcycle with Sidecar', 'Daimler Dingo', 'Sachs MadAss', 'Yamaha Raptor 700R', 'Can-Am Renegade 800R', 'Polaris RZR XP 1000', 'Kawasaki KLR 650', 'Husqvarna TE 300', 'Sherco SE 300 Racing', 'Hoverbike (Sci-Fi)'] },
+    { id: 'jeep', title: 'Jeep', cls: 'Jeep', pv: 2, value: '2W/4E/6R', page: 49, icon: 'jeep', ma: 10, hits: 4, hearts: 4, armour: 0, capacity: 3, crew: true,
+      weapons: [VWPN('Primary', 'Heavy Machine Gun', '9-36"', 3, 1, '-1'), VWPN('Secondary', 'Assault Rifle', '18"', 3, 1, '-')],
+      names: ['Willys MB Jeep', 'Bren Gun Carrier', 'Land Rover Series I', 'M151 Mutt', 'Toyota Land Cruiser FJ40', 'Mog 4x4', 'UAZ-469', 'Mercedes-Benz G-Class', 'Humvee (HMMWV)', 'AT-ST Walker (Sci-Fi)'] },
+    { id: 'apc', title: 'Armoured Personnel Carrier', cls: 'APC', pv: 2, value: '2W/4E/6R', page: 50, icon: 'apc', ma: 8, hits: 5, hearts: 6, armour: 1, capacity: 6, crew: true,
+      weapons: [VWPN('Primary', 'Light Machine Gun', '3-24"', 4, 1, '-'), VWPN('Secondary', 'Smoke Launcher', '3-9"', 1, '-', '-')],
+      names: ['M113 APC', 'FV432', 'BMP-1', 'BTR-60', "VAB (Véhicule de l'Avant Blindé)", 'Wheeled Armoured Vehicle (WAV)', 'Patria AMV', 'Boxer APC', 'Stryker', 'APC-3 (Sci-Fi)'] },
+    { id: 'heli', title: 'Light Helicopter', cls: 'Helicopter', pv: 2, value: '2W/4E/6R', page: 50, icon: 'light-helicopter', ma: 12, hits: 5, hearts: 4, armour: -1, capacity: 4, crew: true,
+      weapons: [VWPN('Primary', 'Twin SMGs', '12"', 6, 1, '-'), VWPN('Secondary', 'Assault Rifle', '18"', 3, 1, '-')],
+      names: ['Hughes OH-6 Cayuse', 'Bell UH-1 Iroquois (Huey)', 'Mil Mi-2', 'MD 500 Defender', 'Boeing CH-47 Chinook', 'Eurocopter AS350 Écureuil', 'Bell 407', 'AgustaWestland AW109', 'Sikorsky UH-60 Black Hawk', 'Type 9 Shuttlecraft (Sci-Fi)'] },
+    { id: 'tank', title: 'Light Tank', cls: 'Tank', pv: 3, value: '3W/6E/9R', page: 51, icon: 'light-tank', ma: 6, hits: 5, hearts: 6, armour: 1, capacity: 0, crew: true,
+      weapons: [VWPN('Primary', 'Auto Cannon', '9-24"', 2, 1, '-2'), VWPN('Secondary', 'LMG', '3-24"', 4, 1, '-')],
+      names: ['Type 95 Ha-Go', 'Luchs (Panzer II L)', 'M24 Chaffee', 'T-70', 'AMX-13', 'M41 Walker Bulldog', 'Panhard AML', 'Scorpion CVR(T)', 'WZT-2', 'Dreadnought (Sci-Fi)'] },
+    { id: 'ordnance', title: 'Ranged Ordnance', cls: 'Ordnance', pv: 3, value: '3W/6E/9R', page: 51, icon: 'ranged-ordnance', ma: 0, hits: 5, hearts: 4, armour: 0, capacity: 0, crew: true,
+      weapons: [VWPN('Primary', 'Artillery Gun', '9-48"', 1, 1, '-1'), null],
+      names: ['6-inch Gun M1918', 'Pak 40', 'M101 Howitzer', 'M116 Howitzer', 'M40 Recoilless Rifle', 'M120 Mortar Carrier', 'C3 Howitzer', 'SISU Self-Propelled Mortar', 'César Self-Propelled Howitzer', 'Plasma Cannon (Sci-Fi)'] },
+  ];
 
   // Factions and sets. expertisePage is where that Expertise table is printed.
   const sets = [
@@ -281,6 +320,8 @@
     { id: 'dh-axis', label: 'Desert Heroes: The Axis', book: 'dh', gearPoints: 10, team: 4, platoon: 12, expertisePage: 15, ranks: 'dh-axis',
       expertise: [E('dh-axis-stealth-operators', 'Stealth Operators', 'insertion'), E('dh-axis-tactical-assault', 'Tactical Assault', 'vehicle')].concat(six('dh-axis-core', ['Raiders', 'Counter Terrorism', 'Hostage Rescue', 'Counter Insurgency', 'Covert Ops', 'Reconnaissance'])),
       specs: ['core', 'dh'], weapons: ['core'], gear: ['core', 'dh'] },
+    // Not a faction: the vehicle cards, vehicle-only weapons and vehicle gear from Desert Heroes. Usable in any era (DH p. 4).
+    { id: 'dh-vehicles', label: 'Desert Heroes: Vehicles', book: 'dh', vehicles: true, gearPoints: 0, team: 0, expertise: [], specs: [], weapons: ['dh-vehicle'], gear: ['dh-vehicle'] },
   ];
   // Where each Expertise is printed. Desert Heroes lets you take core Expertise too (core p. 9).
   for (const s of sets) for (const e of s.expertise) {
@@ -290,5 +331,5 @@
     e.promo = s.book !== 'core' && !/-core-/.test(e.id);
   }
 
-  window.RW = { books, soldierTypes, mechanics, specs, specTables, weaponTables, gearTables, rankTables, RANK_XP, promoAt, sets };
+  window.RW = { books, soldierTypes, mechanics, specs, specTables, weaponTables, gearTables, rankTables, RANK_XP, promoAt, sets, vehicles };
 })();
