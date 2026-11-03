@@ -129,10 +129,12 @@ srv.listen(0, async () => {
     // One Shot Missions: two Missions, two teams each, cards print; FAQ list on the About page
     await p.click('.tabs button[data-view="oneshot"]');
     await p.waitForSelector('#os-root .os-table');
-    const os = await p.evaluate(() => ({ missions: document.querySelectorAll('#os-list li').length, tables: document.querySelectorAll('#os-root .os-table').length, rows: document.querySelectorAll('#os-root .os-table tbody tr').length, map: !!document.querySelector('#os-root svg.os-map') }));
-    if (os.missions !== 2 || os.tables !== 2 || os.rows !== 8 || !os.map) throw new Error('One Shot view wrong: ' + JSON.stringify(os));
+    const os = await p.evaluate(() => ({ missions: document.querySelectorAll('#os-list li').length, tables: document.querySelectorAll('#os-root .os-table').length, rows: document.querySelectorAll('#os-root .os-table tbody tr').length, map: !!document.querySelector('#os-root svg.os-map'), priv: !!window.RW_ONESHOT_TEXT }));
+    if (os.missions !== 2 || os.tables !== 2 || os.rows !== 8 || os.map !== os.priv) throw new Error('One Shot view wrong: ' + JSON.stringify(os));
     await save(() => p.click('#os-root button:has-text("Print cards")'), 'oneshot-team-cards.pdf');
     await p.click('.tabs button[data-view="about"]');
+    const nav = await p.evaluate(() => document.querySelectorAll('#about-nav a').length);
+    if (nav < 8) throw new Error('About index should list the sections, got ' + nav);
     const faqN = await p.evaluate(() => document.querySelectorAll('#faq-root .faq-list li').length);
     if (faqN !== 10) throw new Error('FAQ list should have 10 items, got ' + faqN);
     await p.click('.tabs button[data-view="index"]');

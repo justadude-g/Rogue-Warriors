@@ -195,7 +195,7 @@
     if (!m) return null;
     return {
       kind: 'gear', key: 'os:' + id, title: m.title, baseTitle: m.title, pts: 0, icon: ICON + 'gear/' + m.icon + '.svg', image: null, imageFit: undefined,
-      mods: {}, perk: m.perk, ref: m.ref, table: 'os', source: { id, uid: 'os-' + id, name: m.title }, fromLabel: m.from,
+      mods: {}, perk: ((window.RW_ONESHOT_TEXT || {}).cards || {})[id] ? window.RW_ONESHOT_TEXT.cards[id].perk : `See ${m.from} (${m.ref}).`, ref: m.ref, table: 'os', source: { id, uid: 'os-' + id, name: m.title }, fromLabel: m.from,
     };
   }
 

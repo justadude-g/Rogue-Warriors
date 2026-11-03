@@ -59,7 +59,7 @@
     if (v === 'deck') renderDeck();
     if (v === 'mission') renderTeams();
     if (v === 'oneshot') renderOneShots();
-    if (v === 'about') renderFaq();
+    if (v === 'about') { renderFaq(); buildAboutNav(); }
     if (v === 'campaign') renderPlatoons();
     if (v === 'index') renderIndex();
     if (v === 'quickref') renderQuickref();
@@ -510,7 +510,7 @@
   function sheetDiffs(res) {
     const out = [];
     res.rows.forEach((r) => {
-      const p = r.slot.sheet && r.slot.sheet.stats; if (!p) return;
+      const p = r.slot.printed; if (!p) return;
       const c = r.stats, bits = [];
       if (p.ma !== c.ma) bits.push(`Move ${p.ma}" printed, ${c.ma}" on the card`);
       if (p.hearts !== c.hearts) bits.push(`Hearts ${p.hearts} printed, ${c.hearts} on the card`);
@@ -521,6 +521,15 @@
     return out;
   }
 
+  // The private build adds the Mission text (briefing, maps, sheet wording) from js/data/private/oneshots-text.js; the public build has none.
+  const oneShotText = (id) => ((window.RW_ONESHOT_TEXT || {}).missions || {})[id] || null;
+  function oneShotTeam(m, t) {
+    const X = oneShotText(m.id), XT = X && X.teams[t.id];
+    const c = JSON.parse(JSON.stringify(t)); c.vehicles = [];
+    c.slots.forEach((sl, i) => { const x = XT && XT.slots[i]; if (x) { sl.sheet = { spec: x.spec, weapon: x.weapon, gear: x.gear }; if (x.gearText) sl.gearText = x.gearText; } });
+    return c;
+  }
+
   function renderOneShots() {
     const list = window.RW_ONESHOTS || [];
     const side = $('#os-list'); side.textContent = '';
@@ -529,57 +538,84 @@
     const box = $('#os-root'); box.textContent = '';
     const m = list.find((x) => x.id === S.ui.oneshot);
     if (!m) return;
+    const X = oneShotText(m.id);
     const progress = h('div', { class: 'progress', hidden: true }, h('div'));
-    const results = m.teams.map((t) => computeTeam(Object.assign({ vehicles: [] }, t)));
-    box.append(h('div', { class: 'os-head' }, h('div', {}, h('h2', {}, m.code + ' · One Shot Mission'), h('h3', { class: 'os-title' }, m.title), h('p', { class: 'os-tag' }, m.tagline)),
+    const teams = m.teams.map((t) => oneShotTeam(m, t));
+    const results = teams.map((t) => computeTeam(t));
+    box.append(h('div', { class: 'os-head' }, h('div', {}, h('h2', {}, m.code + ' · One Shot Mission'), h('h3', { class: 'os-title' }, m.title), X ? h('p', { class: 'os-tag' }, X.tagline) : null),
       h('div', { class: 'stack inline' }, h('a', { class: 'button', href: m.url, target: '_blank', rel: 'noopener' }, 'Official page'), h('button', { class: 'primary', onclick: () => {
         const items = []; results.forEach((res) => teamCardItems(res).forEach((it) => items.push(it)));
         printItems(items, m.id + '-all-cards', progress);
       } }, 'Print all cards for both teams'))), progress);
 
-    box.append(h('div', { class: 'os-cols' },
-      h('div', {},
-        h('h2', {}, 'Briefing'), m.briefing.map((p) => h('p', {}, p)),
-        h('h2', {}, 'Details'), h('dl', { class: 'os-details' }, m.details.flatMap(([k, v]) => [h('dt', {}, k), h('dd', {}, v)])),
-        h('h2', {}, 'Winning condition: ' + m.winning.name), h('ul', {}, m.winning.lines.map((x) => h('li', {}, x))),
-        h('h2', {}, 'Special instructions'), h('ul', {}, m.special.map((x) => h('li', {}, x))),
-        h('p', { class: 'os-sides' }, m.sides)),
-      h('div', {},
-        h('h2', {}, 'Deployment code: ' + m.map.code), missionMap(m.map),
-        h('ul', { class: 'os-legend' }, m.map.legend.map(([k, label]) => h('li', {}, h('i', { class: 'os-sw os-k-' + k }), label))),
-        m.map.note ? h('p', { class: 'hint' }, m.map.note) : null,
-        h('p', { class: 'hint' }, 'Redrawn from the printed diagram on a 36 by 36 inch Battlefield, with grid lines every 12 inches. Check distances against the PDF if you play on a smaller table.'))));
+    if (X) {
+      box.append(h('div', { class: 'os-cols' },
+        h('div', {},
+          h('h2', {}, 'Briefing'), X.briefing.map((p) => h('p', {}, p)),
+          h('h2', {}, 'Details'), h('dl', { class: 'os-details' }, X.details.flatMap(([k, v]) => [h('dt', {}, k), h('dd', {}, v)])),
+          h('h2', {}, 'Winning condition: ' + X.winning.name), h('ul', {}, X.winning.lines.map((x) => h('li', {}, x))),
+          h('h2', {}, 'Special instructions'), h('ul', {}, X.special.map((x) => h('li', {}, x))),
+          h('p', { class: 'os-sides' }, X.sides)),
+        h('div', {},
+          h('h2', {}, 'Deployment code: ' + X.map.code), missionMap(X.map),
+          h('ul', { class: 'os-legend' }, X.map.legend.map(([k, label]) => h('li', {}, h('i', { class: 'os-sw os-k-' + k }), label))),
+          X.map.note ? h('p', { class: 'hint' }, X.map.note) : null,
+          h('p', { class: 'hint' }, 'Redrawn from the printed diagram on a 36 by 36 inch Battlefield, with grid lines every 12 inches. Check distances against the PDF if you play on a smaller table.'))));
+    } else {
+      box.append(h('p', { class: 'os-pub' }, 'The briefing, special rules and deployment map are in the free Mission PDF on the ', h('a', { href: m.url, target: '_blank', rel: 'noopener' }, 'official page'), '. This page builds the teams and prints their cards.'));
+    }
 
-    m.teams.forEach((t, ti) => {
-      const res = results[ti], L = res.L;
+    m.teams.forEach((t0, ti) => {
+      const t = teams[ti], res = results[ti], L = res.L, XT = X && X.teams[t.id];
       const tprog = h('div', { class: 'progress', hidden: true }, h('div'));
       const diffs = sheetDiffs(res);
       const rows = res.rows.map((r) => {
         const sh = r.slot.sheet, s = r.stats;
-        return h('tr', {}, h('td', {}, h('b', {}, r.name), h('div', { class: 'os-sub' }, r.spec)),
-          h('td', {}, sh.spec), h('td', {}, sh.weapon), h('td', {}, sh.gear),
+        return h('tr', {}, h('td', {}, h('b', {}, r.name), sh ? h('div', { class: 'os-sub' }, r.spec) : null),
+          h('td', {}, sh ? sh.spec : r.spec), h('td', {}, sh ? sh.weapon : (r.slot.weaponTitle || r.weapon || '-')), h('td', {}, sh ? sh.gear : (r.gearNames.join(', ') || '-')),
           h('td', { class: 'num' }, s.ma + '"'), h('td', { class: 'num' }, s.hearts), h('td', { class: 'num' }, s.hits + '+'), h('td', { class: 'num' }, s.mdp));
       });
       box.append(h('div', { class: 'os-team' },
         h('h2', {}, t.side),
         h('h3', { class: 'os-title' }, t.name),
-        h('p', {}, h('b', {}, 'Team Expertise: '), t.expertise),
+        h('p', {}, h('b', {}, 'Team Expertise: '), XT ? XT.expertise : res.exp.title),
         h('div', { class: 'table-wrap' }, h('table', { class: 'os-table' },
           h('thead', {}, h('tr', {}, ['Warrior', 'Specialisation', 'Weapons', 'Gear', 'Move', 'Hearts', 'Hits on', 'MDP'].map((x) => h('th', {}, x)))), h('tbody', {}, rows))),
-        h('p', { class: 'hint' }, 'Move, Hearts, Hits on and MDP are the final numbers that print on the cards. The text columns are as printed in the Mission.'),
+        h('p', { class: 'hint' }, 'Move, Hearts, Hits on and MDP are the final numbers that print on the cards.' + (X ? ' The text columns are as printed in the Mission.' : '')),
         diffs.length ? h('div', { class: 'warn' }, h('strong', {}, 'Mission sheet and cards differ'), h('ul', {}, diffs.map((d) => h('li', {}, d)))) : null,
         t.extraGear ? h('p', { class: 'hint' }, `This team's gear costs ${res.used} points, over the Core budget of ${L.set.gearPoints}. The team builder is set to ${t.extraGear} extra gear points so it stays legal.`) : null,
         h('div', { class: 'stack inline' },
           h('button', { class: 'primary', onclick: () => printItems(teamCardItems(res), t.id + '-cards', tprog) }, `Print cards (${teamCardItems(res).reduce((n, it) => n + it.copies, 0)})`),
-          h('button', { onclick: () => printTeamSheet(Object.assign({}, t, { name: t.name }), res) }, 'Print team sheet'),
+          h('button', { onclick: () => printTeamSheet(t, res) }, 'Print team sheet'),
           h('button', { class: 'ghost', onclick: () => {
-            const c = JSON.parse(JSON.stringify(t)); c.id = uid(); c.name = t.name + ' (' + m.code + ')'; c.vehicles = [];
-            c.slots.forEach((x) => { delete x.sheet; }); delete c.side; delete c.expertise;
+            const c = JSON.parse(JSON.stringify(t)); c.id = uid(); c.name = t.name + ' (' + m.code + ')';
+            c.slots.forEach((x) => { delete x.sheet; delete x.printed; }); delete c.side;
             S.teams.push(c); S.ui.team = c.id; save(); showView('mission'); toast('Copied to Mission team. You can edit it there.');
           } }, 'Open in Mission team')),
         tprog));
     });
     box.append(h('p', { class: 'hint os-credit' }, `${m.title} is a free One Shot Mission by Lee Fox-Smith and Nicholas Fox-Smith, Tabletop Skirmish Games, ${m.date}. Official page: `, h('a', { href: m.url, target: '_blank', rel: 'noopener' }, m.url.replace('https://', '')), '.'));
+  }
+
+  // Left-hand index for the About page: one link per section heading, the section in view is highlighted.
+  let aboutSpy = null;
+  function buildAboutNav() {
+    const nav = $('#about-nav'), body = $('#about-body'); if (!nav || !body) return;
+    const heads = [...body.querySelectorAll(':scope > h2')];
+    heads.forEach((hd, i) => { hd.id = 'about-' + (hd.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || i); });
+    nav.textContent = '';
+    nav.append(h('h2', {}, 'On this page'), h('ul', {}, heads.map((hd) => h('li', {}, h('a', { href: '#' + hd.id, 'data-id': hd.id, onclick: (e) => {
+      e.preventDefault(); hd.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.querySelectorAll('a').forEach((a) => a.removeAttribute('aria-current')); e.currentTarget.setAttribute('aria-current', 'true');
+    } }, hd.textContent)))));
+    if (aboutSpy) aboutSpy.disconnect();
+    if ('IntersectionObserver' in window) {
+      aboutSpy = new IntersectionObserver((entries) => {
+        const vis = entries.filter((en) => en.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (!vis) return;
+        nav.querySelectorAll('a').forEach((a) => { if (a.dataset.id === vis.target.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+      }, { rootMargin: '-80px 0px -70% 0px' });
+      heads.forEach((hd) => aboutSpy.observe(hd));
+    }
   }
 
   // =====================================================================

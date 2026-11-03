@@ -32,7 +32,8 @@ main { padding: 16px; }
 #view-deck { display: grid; grid-template-columns: minmax(190px, 230px) minmax(280px, 1fr) 340px minmax(280px, 330px); grid-template-areas: "side list preview editor"; gap: 16px; align-items: start; }
 #view-deck > .side { grid-area: side; } #view-deck > .content { grid-area: list; } #view-deck > .preview-pane { grid-area: preview; } #view-deck > .editor { grid-area: editor; }
 #view-mission, #view-campaign { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 16px; align-items: start; }
-#view-about, #view-backup, #view-index { display: block; max-width: 660px; margin-inline: auto; }
+#view-backup, #view-index { display: block; max-width: 660px; margin-inline: auto; }
+#view-about { display: grid; grid-template-columns: 230px minmax(0, 700px); gap: 16px; justify-content: center; align-items: start; }
 .view[hidden] { display: none !important; }
 .side, .content, .editor { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
 .side { position: sticky; top: 76px; }
@@ -238,3 +239,17 @@ table.platoon td:last-child button { padding: 5px 9px; }
 @media (max-width: 860px) { .os-cols { grid-template-columns: minmax(0, 1fr); } }
 .os-sw.os-k-zone-a { background: #a4cd8c; } .os-sw.os-k-zone-b { background: #f5a3ae; } .os-sw.os-k-battery { background: #0077b8; } .os-sw.os-k-building { background: #fdae00; }
 .os-sw.os-k-exit-a { background: #087000; } .os-sw.os-k-exit-b { background: #ee220c; } .os-sw.os-k-bag { background: #00a1ff; } .os-sw.os-k-safe { background: #fdae00; }
+
+/* About page index */
+.about-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.about-nav a { display: block; padding: 6px 9px; border-radius: 6px; color: var(--ink); text-decoration: none; border-left: 3px solid transparent; }
+.about-nav a:hover { background: var(--panel2); }
+.about-nav a[aria-current="true"] { background: var(--panel2); border-left-color: var(--accent); font-weight: 700; }
+#about-body h2 { scroll-margin-top: 84px; }
+.os-pub { margin: 10px 0 4px; font-weight: 700; }
+@media (max-width: 860px) {
+  #view-about { grid-template-columns: minmax(0, 1fr); }
+  .about-nav { position: static; }
+  .about-nav ul { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+  .about-nav a { border: 1px solid var(--line); }
+}
