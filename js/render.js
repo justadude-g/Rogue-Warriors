@@ -141,14 +141,6 @@
     if (mods.hearts) out.push('HEARTS ' + signed(mods.hearts));
     return out;
   }
-  function heart(X, cx, cy, s, fill, stroke, dash) {
-    const ctx = X.ctx, k = X.k;
-    ctx.save(); ctx.translate(cx * k, cy * k); ctx.scale(s * k / 20, s * k / 20);
-    ctx.beginPath(); ctx.moveTo(0, 6); ctx.bezierCurveTo(-10, -2, -8, -10, -3, -9); ctx.bezierCurveTo(-1, -8.5, 0, -7, 0, -5.5);
-    ctx.bezierCurveTo(0, -7, 1, -8.5, 3, -9); ctx.bezierCurveTo(8, -10, 10, -2, 0, 6); ctx.closePath();
-    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
-    ctx.lineWidth = 1.6; ctx.strokeStyle = stroke; if (dash) ctx.setLineDash([2.5, 2]); ctx.stroke(); ctx.restore();
-  }
   function box(X, x, y, w, h, T, fill) { X.rr(x, y, w, h, 1); X.fill(fill || '#ffffff'); X.stroke(T.mid, 0.25); }
   function textBlocks(card, T, opts) {
     const blocks = [];
@@ -193,25 +185,26 @@
     frame(X, T, W, H, b);
     header(X, T, W, b, 8.6, c.title, 7.2, 4.5);
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    box(X, 4, 12.6, 24.5, 24.5, T, '#ffffff');
-    if (pic) drawPicture(X, pic, 4.2, 12.8, 24.1, 24.1, 'cover', c.imageFit); else drawPicture(X, icon, 5, 13.6, 22.5, 22.5, 'contain');
-    if (pic && icon) drawPicture(X, icon, 22.2, 30.8, 6.3, 6.3, 'contain');
+    box(X, 4, 12.6, 24.5, 25.2, T, '#ffffff');
+    if (pic) drawPicture(X, pic, 4.2, 12.8, 24.1, 24.8, 'cover', c.imageFit); else drawPicture(X, icon, 5, 14.0, 22.5, 22.5, 'contain');
+    if (pic && icon) drawPicture(X, icon, 22.2, 31.5, 6.3, 6.3, 'contain');
     const st = c.stats, cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits + '+'], ['MDP', String(st.mdp)], ['HEARTS', String(st.hearts)]];
     cells.forEach(([lab, val], i) => {
-      const x = 30.3 + (i % 2) * 14.6, y = 12.6 + Math.floor(i / 2) * 12.5;
-      X.rr(x, y, 13.8, 11.8, 1); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
-      X.rr(x, y, 13.8, 3.4, 1); X.fill(T.dark); X.rect(x, y + 2, 13.8, 1.4, T.dark);
+      // the Hearts cell (bottom right) is 13.8 x 12.6 mm so a 12 mm die sits on it to track health
+      const x = 30.3 + (i % 2) * 14.6, y = 12.6 + Math.floor(i / 2) * 12.6, hot = i === 3, bar = hot ? RED : T.dark;
+      X.rr(x, y, 13.8, 12.6, 1); X.fill('#ffffff'); X.stroke(hot ? RED : T.mid, hot ? 0.4 : 0.25);
+      X.rr(x, y, 13.8, 3.4, 1); X.fill(bar); X.rect(x, y + 2, 13.8, 1.4, bar);
       X.text(lab, x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
-      X.text(val, x + 6.9, y + 10.5, 6.0, F.num, T.ink, 'center');
+      X.text(val, x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
     });
     X.text('NAME', 4, 41.9, LBL, F.label, T.mid, 'left', '600');
     X.line(12, 42.1, 59, 42.1, T.mid, 0.25);
     if (c.warriorName) X.fitLine(c.warriorName, 13, 41.5, 46, 3.8, 2.4, F.title, T.ink, 'left');
-    const top = 44.0, bottom = 66.2;
+    const top = 44.0, bottom = 73.4;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
-    perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, BODY_MAX, BODY_MIN);
+    perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, 3.5, BODY_MIN);
     if (c.sidearm) {
-      const s = c.sidearm, y = 67.4;
+      const s = c.sidearm, y = 74.8;
       X.rr(4, y, 55, 9.4, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
       X.text('SIDEARM', 5.6, y + 3.6, LBL, F.label, T.mid, 'left', '600');
       X.fitLine(s.name, 18.4, y + 3.7, 39.2, 3.0, 2.3, F.body, T.ink, 'left', 'bold');
@@ -222,11 +215,6 @@
         X.text(v, x + X.width(lab, LBL_SM, F.label, '600') + 1.2, y + 8.1, 3.1, F.num, T.ink, 'left');
       });
     }
-    const n = c.stats.hearts, hy = 80.3;
-    X.text('HEARTS', 4, hy + 1.2, LBL, F.label, T.mid, 'left', '600');
-    const slots = n + 1, gap = Math.min(5.0, 41 / slots);
-    for (let i = 0; i < slots; i++) heart(X, 19 + i * gap, hy, Math.min(4.4, gap * 0.95), i < n ? '#ffffff' : null, i < n ? RED : '#999', i >= n);
-    X.text(c.soldierLabel.toUpperCase(), 4, 85.3, FOOT, F.label, T.mid, 'left', '600');
   }
 
   async function drawTeam(X, c) {

@@ -9,7 +9,7 @@ Card data is used with permission from Lee Fox-Smith. Get the books at [tabletop
 Every card is a standard poker card (63 x 88 mm), so the whole deck uses one sleeve size and one cutting pattern.
 
 - **Team card:** the Team Expertise, its perk and promotion perk, the gear budget and a line for the team name.
-- **Operator card:** one per Specialisation, with the soldier type's stats, the Specialisation perk and promotion, the sidearm and a Hearts track.
+- **Operator card:** one per Specialisation, with the soldier type's stats, the Specialisation perk and promotion, the sidearm and a Hearts box sized for a 12 mm die, which tracks health.
 - **Weapon and gear cards:** built to tuck under the card above. Everything needed in play sits in the bottom half: name, points, stat changes and rules text. The top half holds the picture and is hidden in a stack.
 
 Lay an operator card down, tuck its weapon card under it so the bottom half shows, then tuck each gear card under that. Each Warrior becomes one column you read top to bottom.
