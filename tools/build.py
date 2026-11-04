@@ -431,7 +431,7 @@ ICONS = [
     ('dog-biscuits', 'gear', 'Dog Biscuits', 'delapouite/dog-bowl', 'brown', 'Dog Biscuits@UW:20'),
     ('limpet-mine', 'gear', 'Limpet Mine', 'lorc/land-mine', 'gunmetal', 'Limpet Mine@UW:20'),
     ('poison', 'gear', 'Poison', 'lorc/poison-bottle', 'toxic', 'Poison@UW:20'),
-    ('camo-paints', 'gear', 'Camouflage Paints', 'delapouite/paint-brush', 'olive', 'Camouflage Paints@UW:20'),
+    ('camo-paints', 'gear', 'Camouflage Paints', [('delapouite/invisible-face', 'olive', (0, 0, 1, True)), ('delapouite/oak-leaf', 'brown', (300, 290, 0.4, False))], 'olive', 'Camouflage Paints@UW:20'),
     ('cup-of-tea', 'gear', 'Proper Cup of Tea', 'delapouite/teapot-leaves', 'brown', 'Proper Cup of Tea@UW:20'),
     ('caltrops', 'gear', 'Caltrops', 'delapouite/caltrops', 'gunmetal', 'Caltrops@UW:20'),
     # ---------------- CODE THREE (FAN MADE) ----------------
