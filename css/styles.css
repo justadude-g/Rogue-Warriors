@@ -294,3 +294,11 @@ table.platoon td:last-child button { padding: 5px 9px; }
 .os-sw.os-k-bag { background: var(--m-blue); border-radius: 50%; }
 .os-sw.os-k-door { background: var(--m-door); height: 12px; margin: 6px 0; }
 .os-sw.os-k-hostage { background: #fff; border: 3px solid var(--m-purple); border-radius: 50%; }
+
+/* Leader (slot 1) in Teams and Platoons */
+.slot.leader { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.leader-tag, .slot-tag { display: inline-block; font: 600 13px Oswald, sans-serif; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+.leader-tag { background: var(--accent); color: var(--accent-ink); border-radius: 999px; padding: 1px 9px; }
+.slot-tag { color: var(--mute); }
+.order { display: inline-flex; gap: 4px; margin-left: auto; }
+.order button:disabled { opacity: .35; cursor: default; }

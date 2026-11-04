@@ -315,6 +315,14 @@
     return !w.source.mountOnly;
   });
 
+  // Slot 1 of a Team (or Platoon) is the Leader. These move a Warrior to another slot, or make it the Leader by moving it to slot 1.
+  const moveTo = (list, from, to) => { if (to < 0 || to >= list.length || from === to) return; list.splice(to, 0, list.splice(from, 1)[0]); };
+  const orderButtons = (list, i, redraw) => [
+    i > 0 ? h('button', { class: 'ghost', title: 'Make this Warrior the Leader (slot 1)', onclick: () => { moveTo(list, i, 0); redraw(); } }, 'Make Leader') : null,
+    h('button', { class: 'ghost', 'aria-label': 'Move up a slot', title: 'Move up a slot', disabled: i === 0, onclick: () => { moveTo(list, i, i - 1); redraw(); } }, '\u25b2'),
+    h('button', { class: 'ghost', 'aria-label': 'Move down a slot', title: 'Move down a slot', disabled: i === list.length - 1, onclick: () => { moveTo(list, i, i + 1); redraw(); } }, '\u25bc'),
+  ];
+
   function teamDefaults(setId) {
     const s = C.set(setId);
     return { id: uid(), name: 'New team', setId, expId: s.expertise[0].id, extraGear: 0, slots: Array.from({ length: s.team }, () => ({ name: '', op: '', soldierType: s.soldierType || 'warrior', weapon: '', powers: [], gear: [] })) };
@@ -371,10 +379,10 @@
   // then vehicles. One Shot Missions add per-slot title and wording changes and Mission-only gear.
   function teamCardItems(res) {
     const L = res.L, items = [{ card: res.exp, copies: 1 }];
-    res.rows.forEach((r) => {
+    res.rows.forEach((r, ri) => {
       const sl = r.slot;
-      if (r.op) items.push({ card: Object.assign({}, r.op, { key: r.op.key + '|' + sl.name, warriorName: sl.name, soldierType: sl.soldierType, soldierLabel: r.st.label,
-        stats: Object.assign({}, r.stats) }), copies: 1 });
+      if (r.op) items.push({ card: Object.assign({}, r.op, { key: r.op.key + '|' + sl.name + (!res.team.side && ri === 0 ? '|leader' : ''), warriorName: sl.name, soldierType: sl.soldierType, soldierLabel: r.st.label,
+        stats: Object.assign({}, r.stats), leader: !res.team.side && ri === 0 }), copies: 1 });
       if (r.st.big) { const bc = L.bigGuys.find((b) => b.source.id === r.st.big.id); if (bc) items.push({ card: bc, copies: 1 }); }
       if (r.w) items.push({ card: sl.weaponTitle ? Object.assign({}, r.w, { key: r.w.key + '|' + sl.weaponTitle, title: sl.weaponTitle }) : r.w, copies: 1 });
       r.powers.forEach((p) => items.push({ card: p, copies: 1 }));
@@ -402,7 +410,7 @@
   function printTeamSheet(t, res) {
     const L = res.L;
     window.RWPrint.teamSheet({ name: t.name, setLabel: L.set.label, expertise: res.exp.title, gearUsed: res.used, gearBudget: res.budget,
-      rows: res.rows.map((r) => ({ name: r.name, spec: r.spec, weapon: [r.slot.weaponTitle || (r.w && r.w.title) || '', ...r.powers.map((p) => p.title)].filter(Boolean).join(', '), gear: r.gearNames, stats: r.stats })),
+      rows: res.rows.map((r, i) => ({ leader: i === 0 && !t.side, name: r.name, spec: r.spec, weapon: [r.slot.weaponTitle || (r.w && r.w.title) || '', ...r.powers.map((p) => p.title)].filter(Boolean).join(', '), gear: r.gearNames, stats: r.stats })),
       vehicles: res.vehicles.map((v) => ({ name: v.label, cls: v.card.baseTitle, pv: v.card.pv, stats: v.stats, gear: v.gear.map((g) => g.title), weapons: v.card.weapons.filter(Boolean).map((w) => w.name) })), vpv: res.vpv, warnings: res.warnings, pull: teamPull(res) },
     { paper: S.paper, filename: t.name.replace(/[^a-z0-9]+/gi, '-') });
   }
@@ -445,15 +453,17 @@
       const pSel = psychicList.length ? h('select', { onchange: (e) => { if (e.target.value) { sl.powers = (sl.powers || []).concat(e.target.value); redraw(); } } }, opt('', 'Add a Psychic Power...', true), psychicList.map((w) => opt(w.source.uid, w.title))) : null;
       const chips = h('div', { class: 'chips' }, r.powers.map((p, pi) => h('span', { class: 'chip' }, `${p.title} · power`, h('button', { 'aria-label': 'Remove ' + p.title, onclick: () => { sl.powers.splice(pi, 1); redraw(); } }, '×'))), r.gear.map((g, gi) => h('span', { class: 'chip' }, `${g.title} · ${res.costOf(g)}`, h('button', { 'aria-label': 'Remove ' + g.title, onclick: () => { sl.gear.splice(gi, 1); redraw(); } }, '×'))));
       const s = r.stats;
-      slots.append(h('div', { class: 'slot' },
+      slots.append(h('div', { class: 'slot' + (i === 0 ? ' leader' : '') },
         h('img', { class: 'spec', src: r.op ? r.op.icon : 'assets/icons/specialisations/non-specialist.svg', alt: '' }),
         h('div', {},
+          i === 0 ? h('span', { class: 'leader-tag' }, 'Leader \u00b7 slot 1') : h('span', { class: 'slot-tag' }, 'Slot ' + (i + 1)),
           h('div', { class: 'grid' }, field('Warrior ' + (i + 1), nm), field('Specialisation', opSel), field('Soldier type', typeSel), field('Extra weapon', wSel), pSel ? field('Psychic Powers', pSel) : null, field('Gear', gSel)),
           chips,
           h('div', { class: 'stats' }, [['Move', s.ma + '"'], ['Hits on', hitsText(s.hits)], ['MDP', s.mdp == null ? '–' : s.mdp], ['Hearts', s.hearts]].map(([a, b]) => h('span', { class: 'stat' }, a, h('b', {}, b))),
+            h('span', { class: 'order' }, orderButtons(t.slots, i, redraw)),
             h('button', { class: 'ghost danger', onclick: () => { t.slots.splice(i, 1); redraw(); } }, 'Remove')))));
     });
-    box.append(slots, h('div', { class: 'stack inline' }, h('button', { onclick: () => { t.slots.push({ name: '', op: '', soldierType: L.set.soldierType || 'warrior', weapon: '', powers: [], gear: [] }); redraw(); } }, L.set.bigGuys ? 'Add Warrior or Big Guy' : 'Add Warrior')));
+    box.append(h('p', { class: 'hint' }, 'Slot 1 is the Leader. Use Make Leader or the arrows to set the order. The team sheet and the printed cards follow it.'), slots, h('div', { class: 'stack inline' }, h('button', { onclick: () => { t.slots.push({ name: '', op: '', soldierType: L.set.soldierType || 'warrior', weapon: '', powers: [], gear: [] }); redraw(); } }, L.set.bigGuys ? 'Add Warrior or Big Guy' : 'Add Warrior')));
     // vehicles
     t.vehicles = t.vehicles || [];
     const vcards = C.vehicles(), vgear = C.vehicleGear();
@@ -760,7 +770,7 @@
       const pick = filePicker((url) => { m.image = url; redraw(); });
       const thumb = h('img', { src: m.image || (op ? op.icon : ''), alt: '', title: 'Upload a picture', style: 'cursor:pointer;object-fit:cover;border-radius:4px', onclick: () => pick.click() });
       tb.append(h('tr', {},
-        h('td', {}, thumb, pick),
+        h('td', {}, thumb, pick, h('div', { class: i === 0 ? 'leader-tag' : 'slot-tag' }, i === 0 ? 'Leader' : 'Slot ' + (i + 1))),
         h('td', {}, inp('name', 'text', { placeholder: 'Name' })),
         h('td', {}, h('select', { onchange: (e) => { m.op = e.target.value; redraw(); } }, L.operators.map((o) => opt(o.source.id, o.baseTitle, o.source.id === m.op)))),
         h('td', {}, h('select', { onchange: (e) => { m.soldierType = e.target.value; redraw(); } }, soldierKinds(set).map(([k, label]) => opt(k, label, k === (m.soldierType || 'warrior'))))),
@@ -771,6 +781,7 @@
         h('td', {}, inp('injuries', 'text', { placeholder: 'Injuries' })),
         h('td', {}, h('input', { type: 'checkbox', checked: m.print !== false, onchange: (e) => { m.print = e.target.checked; save(); } })),
         h('td', {}, h('button', { class: 'ghost', 'aria-label': 'Replace', title: 'Replace (Casualty of War): new Warrior, same Specialisation', onclick: () => { if (confirm('Replace this Warrior? XP, rank, badges and injuries reset.')) { Object.assign(m, { name: '', xp: 0, maAdj: 0, badges: '', injuries: '', image: '' }); redraw(); } } }, '\u21bb'),
+          orderButtons(p.members, i, redraw),
           h('button', { class: 'ghost danger', title: 'Remove from platoon', onclick: () => { p.members.splice(i, 1); redraw(); } }, '×'))));
     });
     table.append(tb);
@@ -779,7 +790,7 @@
       h('div', { class: 'stack inline' },
         h('button', { onclick: () => { const used = new Set(p.members.map((m) => m.op)); const free = L.operators.find((o) => !used.has(o.source.id)) || L.operators[0]; p.members.push({ id: uid(), name: '', op: free.source.id, soldierType: set.soldierType || 'warrior', xp: 0, maAdj: 0, badges: '', injuries: '', image: '', imageFit: { zoom: 1, x: 0, y: 0 }, print: true }); redraw(); } }, set.bigGuys ? 'Add Warrior or Big Guy' : 'Add Warrior'),
         h('button', { class: 'primary', onclick: () => {
-          const items = p.members.filter((m) => m.print !== false).map((m) => ({ card: campaignCard(p, m), copies: 1 }));
+          const items = p.members.filter((m) => m.print !== false).map((m) => ({ card: Object.assign(campaignCard(p, m), { leader: m === p.members[0] }), copies: 1 }));
           printItems(items, p.name.replace(/[^a-z0-9]+/gi, '-') + '-campaign', progress);
         } }, 'Print campaign cards'),
         h('button', { class: 'ghost danger', onclick: () => { if (confirm(`Delete ${p.name}?`)) { S.platoons = S.platoons.filter((x) => x !== p); S.ui.platoon = null; save(); renderPlatoons(); } } }, 'Delete platoon')), progress);

@@ -85,6 +85,11 @@ srv.listen(0, async () => {
       await (await (await p.$$('#team-editor .slot'))[i].$$('select'))[2].selectOption({ index: 3 + i });
       await (await (await p.$$('#team-editor .slot'))[i].$$('select'))[3].selectOption({ index: 1 + i });
     }
+    // Leader: slot 1 is tagged, and Make Leader on slot 3 moves that Warrior to slot 1
+    const third = await p.evaluate(() => document.querySelectorAll('#team-editor .slot')[2].querySelector('select').value);
+    await p.click('#team-editor .slot >> nth=2 >> button:has-text("Make Leader")');
+    const lead = await p.evaluate(() => ({ first: document.querySelector('#team-editor .slot').querySelector('select').value, tags: document.querySelectorAll('#team-editor .leader-tag').length }));
+    if (lead.first !== third || lead.tags !== 1) throw new Error('Make Leader did not move the Warrior to slot 1: ' + JSON.stringify(lead) + ' wanted ' + third);
     // add a Jeep with an Auxiliary Fuel Tank to the team
     await p.evaluate(() => { const sel = [...document.querySelectorAll('#team-editor select')].find((x) => /^Add a vehicle/.test(x.options[0].text)); sel.value = sel.options[2].value; sel.dispatchEvent(new Event('change')); });
     await p.evaluate(() => { const sel = [...document.querySelectorAll('#team-editor select')].find((x) => /^Add vehicle gear/.test(x.options[0].text)); sel.value = [...sel.options].find((o) => /Fuel Tank/.test(o.text)).value; sel.dispatchEvent(new Event('change')); });
