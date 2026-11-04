@@ -317,19 +317,27 @@
     X.text(`TEAM OF ${c.teamSize}`, 31, 83.4, LBL, F.label, T.mid, 'left', '600');
   }
 
-  // Weapon and gear cards are standard size and built to be tucked under the card above:
-  // the top 40% (hidden in a stack) holds the picture, the bottom 60% (y 35.2-88) holds everything needed in play.
-  const SPLIT = 35.2;
-  async function topHalf(X, c, T, W) {
+  // Weapon and gear cards are standard size and built to be tucked under the card above: the picture sits in the top part (hidden in a stack),
+  // and everything needed in play sits below the title band. The split starts at 50/50 (y 44). When the rules text will not fit at the shared
+  // ability size, the split moves up, card by card, down to SPLIT_MIN (about 36%), so the text box grows and the size stays even across cards.
+  const SPLIT_MAX = 44, SPLIT_MIN = 28, BAND = 7.0;
+  function pickSplit(X, blocks, offset, bottom) {
+    for (let sp = SPLIT_MAX; sp > SPLIT_MIN; sp -= 0.4) {
+      const inner = bottom - (sp + offset) - 1.4;
+      if (layout(X, blocks, 51.8, ABILITY, 1.18).height <= inner) return sp;
+    }
+    return SPLIT_MIN;
+  }
+  async function topHalf(X, c, T, W, sp) {
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    if (pic) { box(X, 4, 4, W - 8, 29.6, T, '#ffffff'); drawPicture(X, pic, 4.2, 4.2, W - 8.4, 29.2, 'cover', c.imageFit); }
-    else drawPicture(X, icon, (W - 27) / 2, 5.2, 27, 27, 'contain');
+    if (pic) { box(X, 4, 4, W - 8, sp - 6.4, T, '#ffffff'); drawPicture(X, pic, 4.2, 4.2, W - 8.4, sp - 6.8, 'cover', c.imageFit); }
+    else { const d = Math.min(34, sp - 9.6); drawPicture(X, icon, (W - d) / 2, 4.8 + (sp - 9.6 - d) / 2 + 0.8, d, d, 'contain'); }
     return icon;
   }
-  function band(X, c, T, W, icon, rightPad) {
-    X.rect(2.2, SPLIT, W - 4.4, 7.0, X.grad(SPLIT, SPLIT + 7.0, T.mid, T.dark));
-    if (icon) drawPicture(X, icon, 3.2, SPLIT + 0.4, 6.2, 6.2, 'contain');
-    X.fitLine(String(c.title).toUpperCase(), 11.2, SPLIT + 5.4, W - 13.8 - (rightPad || 0), 5.2, 3.0, F.title, '#ffffff', 'left');
+  function band(X, c, T, W, icon, rightPad, sp) {
+    X.rect(2.2, sp, W - 4.4, BAND, X.grad(sp, sp + BAND, T.mid, T.dark));
+    if (icon) drawPicture(X, icon, 3.2, sp + 0.4, 6.2, 6.2, 'contain');
+    X.fitLine(String(c.title).toUpperCase(), 11.2, sp + 5.4, W - 13.8 - (rightPad || 0), 5.2, 3.0, F.title, '#ffffff', 'left');
   }
   function chipsRow(X, list, y, right) {
     let x = right;
@@ -338,15 +346,17 @@
   }
 
   async function drawWeapon(X, c) {
-    const T = THEME.weapon, W = 63, H = 88, b = 2.2;
+    const T = THEME.weapon, W = 63, H = 88, b = 2.2, bottom = 82.8;
+    const blocks = textBlocks(c, T, { drawback: true });
+    const sp = pickSplit(X, blocks, 21.6, bottom);
     frame(X, T, W, H, b);
-    const icon = await topHalf(X, c, T, W);
-    X.line(b, SPLIT - 0.8, W - b, SPLIT - 0.8, T.mid, 0.2, [1, 0.8]);
-    band(X, c, T, W, icon);
-    const chipsLeft = chipsRow(X, modChips(c.mods).map((m) => [m, RED]).concat(c.tags.map((t) => [t.toUpperCase(), T.dark])), 43.4, 59);
-    X.fitLine(c.typeLabel.toUpperCase(), 4, 46.3, Math.max(14, chipsLeft - 5.5), LBL, 1.9, F.label, T.mid, 'left', '600');
+    const icon = await topHalf(X, c, T, W, sp);
+    X.line(b, sp - 0.8, W - b, sp - 0.8, T.mid, 0.2, [1, 0.8]);
+    band(X, c, T, W, icon, 0, sp);
+    const chipsLeft = chipsRow(X, modChips(c.mods).map((m) => [m, RED]).concat(c.tags.map((t) => [t.toUpperCase(), T.dark])), sp + 8.2, 59);
+    X.fitLine(c.typeLabel.toUpperCase(), 4, sp + 11.1, Math.max(14, chipsLeft - 5.5), LBL, 1.9, F.label, T.mid, 'left', '600');
     const cells = [['RANGE', c.range], ['DICE', String(c.dice)], ['DMG', String(c.dmg)], ['AP', String(c.ap)]];
-    const cw = [16.6, 12, 12, 12], gx = 0.8, cy = 47.8;
+    const cw = [16.6, 12, 12, 12], gx = 0.8, cy = sp + 12.6;
     let x = 4;
     cells.forEach(([lab, val], i) => {
       X.rr(x, cy, cw[i], 8.0, 0.9); X.fill('#ffffff'); X.stroke(T.mid, 0.2);
@@ -355,28 +365,30 @@
       X.fitLine(val === '-' ? '–' : val, x + cw[i] / 2, cy + 7.2, cw[i] - 1, 4.2, 2.8, F.num, T.ink, 'center');
       x += cw[i] + gx;
     });
-    const top = cy + 9.0, bottom = 82.8;
+    const top = cy + 9.0;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
-    paragraphs(X, textBlocks(c, T, { drawback: true }), 5.6, top + 0.8, 51.8, bottom - top - 1.4, ABILITY, BODY_MIN, T.ink);
+    paragraphs(X, blocks, 5.6, top + 0.8, 51.8, bottom - top - 1.4, ABILITY, BODY_MIN, T.ink);
     X.text('WEAPON', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
     fromFooter(X, T, c, 38);
   }
 
   async function drawGear(X, c) {
-    const T = THEME.gear, W = 63, H = 88, b = 2.2;
+    const T = THEME.gear, W = 63, H = 88, b = 2.2, bottom = 82.8;
+    const blocks = [{ runs: [{ t: c.perk }] }];
+    const sp = pickSplit(X, blocks, 12.6, bottom);
     frame(X, T, W, H, b);
-    const icon = await topHalf(X, c, T, W);
-    X.line(b, SPLIT - 0.8, W - b, SPLIT - 0.8, T.mid, 0.2, [1, 0.8]);
-    band(X, c, T, W, icon, 10);
-    const my = SPLIT + 3.5;
+    const icon = await topHalf(X, c, T, W, sp);
+    X.line(b, sp - 0.8, W - b, sp - 0.8, T.mid, 0.2, [1, 0.8]);
+    band(X, c, T, W, icon, 10, sp);
+    const my = sp + 3.5;
     X.ctx.beginPath(); X.ctx.arc((W - 7.2) * X.k, my * X.k, 3.3 * X.k, 0, Math.PI * 2); X.fill('#ffffff'); X.stroke(T.dark, 0.35);
     X.text(String(c.pts), W - 7.2, my + 0.9, 3.2, F.num, T.dark, 'center');
     X.text('PTS', W - 7.2, my + 2.6, 1.3, F.label, T.mid, 'center', '600');
-    X.text('GEAR', 4, 46.3, LBL, F.label, T.mid, 'left', '600');
-    chipsRow(X, modChips(c.mods).map((m) => [m, RED]), 43.4, 59);
-    const top = 47.8, bottom = 82.8;
+    X.text('GEAR', 4, sp + 11.1, LBL, F.label, T.mid, 'left', '600');
+    chipsRow(X, modChips(c.mods).map((m) => [m, RED]), sp + 8.2, 59);
+    const top = sp + 12.6;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
-    paragraphs(X, [{ runs: [{ t: c.perk }] }], 5.6, top + 0.8, 51.8, bottom - top - 1.4, ABILITY, BODY_MIN, T.ink);
+    paragraphs(X, blocks, 5.6, top + 0.8, 51.8, bottom - top - 1.4, ABILITY, BODY_MIN, T.ink);
     fromFooter(X, T, c);
   }
 
