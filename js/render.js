@@ -142,9 +142,10 @@
     X.rect(0, 0, W, H, X.grad(0, H, T.light, T.dark));
     X.rr(border, border, W - 2 * border, H - 2 * border, 2); X.fill(X.grad(border, H, T.paper, T.paper2));
   }
-  function header(X, T, W, border, h, title, size, minSize) {
+  function header(X, T, W, border, h, title, size, minSize, leftPad) {
+    const lp = leftPad || 0;
     X.rect(border, border, W - 2 * border, h, X.grad(border, border + h, T.mid, T.dark));
-    X.fitLine(String(title).toUpperCase(), W / 2, border + h * 0.8, W - 2 * border - 3, size, minSize, F.title, '#ffffff', 'center');
+    X.fitLine(String(title).toUpperCase(), W / 2 + lp / 2, border + h * 0.8, W - 2 * border - 3 - lp, size, minSize, F.title, '#ffffff', 'center');
   }
   function chip(X, s, x, y, h, bg, fg, align) {
     const w = X.width(s, h * 0.62, F.label, '600') + h * 0.8;
@@ -173,7 +174,9 @@
   // ---------------- type scale (mm) ----------------
   // One scale for every card so nothing looks out of place: labels and footers share a size,
   // perk and promotion text always share a size, and body text never drops below BODY_MIN.
-  const LBL = 2.4, LBL_SM = 2.0, FOOT = 2.3, BODY_MAX = 3.1, BODY_MIN = 2.2;
+  const LBL = 2.4, LBL_SM = 2.0, FOOT = 2.3, BODY_MIN = 2.2;
+  // Ability text (perks, rules, notes) uses this one size on every card type. A card only drops below it when its text will not fit the box.
+  const ABILITY = 3.6, BODY_MAX = ABILITY;
 
   // Source of the card (book, faction) in the bottom right corner, so printed cards sort by book.
   function fromFooter(X, T, c, maxW) {
@@ -209,26 +212,27 @@
   async function drawOperator(X, c) {
     const T = theme('operator'), W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
-    header(X, T, W, b, 8.6, c.title, 7.2, 4.5);
+    header(X, T, W, b, 6.0, c.title, 5.2, 3.4);
+    const y0 = 9.8; // top of the picture and stats, under the slimmer title bar
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    box(X, 4, 12.6, 24.5, 25.2, T, '#ffffff');
-    if (pic) drawPicture(X, pic, 4.2, 12.8, 24.1, 24.8, 'cover', c.imageFit); else drawPicture(X, icon, 5, 14.0, 22.5, 22.5, 'contain');
-    if (pic && icon) drawPicture(X, icon, 22.2, 31.5, 6.3, 6.3, 'contain');
+    box(X, 4, y0, 24.5, 25.2, T, '#ffffff');
+    if (pic) drawPicture(X, pic, 4.2, y0 + 0.2, 24.1, 24.8, 'cover', c.imageFit); else drawPicture(X, icon, 5, y0 + 1.4, 22.5, 22.5, 'contain');
+    if (pic && icon) drawPicture(X, icon, 22.2, y0 + 18.9, 6.3, 6.3, 'contain');
     const st = c.stats, cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits == null ? '–' : st.hits + '+'], ['MDP', st.mdp == null ? '–' : String(st.mdp)], ['HEARTS', String(st.hearts)]];
     cells.forEach(([lab, val], i) => {
       // the Hearts cell (bottom right) is 13.8 x 12.6 mm so a 12 mm die sits on it to track health
-      const x = 30.3 + (i % 2) * 14.6, y = 12.6 + Math.floor(i / 2) * 12.6, hot = i === 3, bar = hot ? RED : T.dark;
+      const x = 30.3 + (i % 2) * 14.6, y = y0 + Math.floor(i / 2) * 12.6, hot = i === 3, bar = hot ? RED : T.dark;
       X.rr(x, y, 13.8, 12.6, 1); X.fill('#ffffff'); X.stroke(hot ? RED : T.mid, hot ? 0.4 : 0.25);
       X.rr(x, y, 13.8, 3.4, 1); X.fill(bar); X.rect(x, y + 2, 13.8, 1.4, bar);
       X.text(lab, x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
       X.text(val, x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
     });
-    X.text('NAME', 4, 41.9, LBL, F.label, T.mid, 'left', '600');
-    X.line(12, 42.1, 59, 42.1, T.mid, 0.25);
-    if (c.warriorName) X.fitLine(c.warriorName, 13, 41.5, 46, 3.8, 2.4, F.title, T.ink, 'left');
-    const top = 44.0, bottom = c.sidearm ? 72.6 : 82.6;
+    X.text('NAME', 4, y0 + 29.3, LBL, F.label, T.mid, 'left', '600');
+    X.line(12, y0 + 29.5, 59, y0 + 29.5, T.mid, 0.25);
+    if (c.warriorName) X.fitLine(c.warriorName, 13, y0 + 28.9, 46, 3.8, 2.4, F.title, T.ink, 'left');
+    const top = y0 + 31.4, bottom = c.sidearm ? 72.6 : 82.6;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
-    perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, 3.5, BODY_MIN, c.bigGuy ? 'EXTRA RULES' : null);
+    perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, ABILITY, BODY_MIN, c.bigGuy ? 'EXTRA RULES' : null);
     if (c.bigGuy) X.text(c.source && c.source.fighter ? 'FIGHTER' : 'BIG GUY', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
     fromFooter(X, T, c, c.bigGuy ? 38 : 50);
     if (c.sidearm) {
@@ -249,19 +253,24 @@
   async function drawVehicle(X, c) {
     const T = THEME.vehicle, W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
-    header(X, T, W, b, 6.0, c.vehicleName || c.title, 4.8, 3.2);
+    header(X, T, W, b, 6.0, c.vehicleName || c.title, 4.8, 3.2, 7);
     const y0 = 9.8; // top of the stats row, under the slimmer title bar
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    // Compact top row so the ability text gets the room: small picture, three stat rows, and the Hearts box (still 13.8 by 12.6 mm for a 12 mm die).
-    box(X, 4, y0, 16.4, 12.6, T, '#ffffff');
-    if (pic) drawPicture(X, pic, 4.2, y0 + 0.2, 16.0, 12.2, 'cover', c.imageFit); else drawPicture(X, icon, 5.0, y0 + 0.8, 14.4, 11.4, 'contain');
+    // Compact top row so the ability text gets the room: six stat cells in two columns beside the Hearts box (still 13.8 by 12.6 mm for a 12 mm die).
+    // The vehicle's picture is a small icon in the title bar.
     const st = c.stats, sg = (n) => (n > 0 ? '+' + n : n < 0 ? '−' + Math.abs(n) : '0');
-    [['MOVE', st.ma + '"'], ['HITS ON', st.hits + '+'], ['ARMOUR', sg(st.armour)]].forEach(([lab, val], i) => {
-      const x = 21.2, y = y0 + i * 4.35, w = 23.2, lw = 10.8;
-      X.rr(x, y, w, 3.9, 0.8); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
-      X.rr(x, y, lw, 3.9, 0.8); X.fill(T.dark); X.rect(x + lw - 1.0, y, 1.0, 3.9, T.dark);
-      X.text(lab, x + lw / 2, y + 2.75, LBL_SM, F.label, '#ffffff', 'center', '600');
-      X.text(val, x + lw + (w - lw) / 2, y + 3.2, 3.4, F.num, T.ink, 'center');
+    drawPicture(X, pic || icon, 3.2, b + 0.4, 5.2, 5.2, pic ? 'cover' : 'contain');
+    const cap = st.capacity + ' / ' + (st.crew ? 'Y' : 'N');
+    const cols = [
+      { x: 4, w: 18.6, lw: 9.4, cells: [['MOVE', st.ma + '"'], ['HITS ON', st.hits + '+'], ['ARMOUR', sg(st.armour)]] },
+      { x: 23.4, w: 20.8, lw: 8.8, cells: [['CLASS', c.cls.toUpperCase()], ['PV', String(c.pv)], ['CAP/CREW', cap]] },
+    ];
+    for (const col of cols) col.cells.forEach(([lab, val], i) => {
+      const y = y0 + i * 4.35;
+      X.rr(col.x, y, col.w, 3.9, 0.8); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
+      X.rr(col.x, y, col.lw, 3.9, 0.8); X.fill(T.dark); X.rect(col.x + col.lw - 1.0, y, 1.0, 3.9, T.dark);
+      X.fitLine(lab, col.x + col.lw / 2, y + 2.75, col.lw - 1.0, LBL_SM - 0.1, 1.5, F.label, '#ffffff', 'center', '600');
+      X.fitLine(val, col.x + col.lw + (col.w - col.lw) / 2, y + 3.2, col.w - col.lw - 1.6, 3.4, 2.2, F.num, T.ink, 'center');
     });
     {
       const x = 45.2, y = y0;
@@ -270,20 +279,10 @@
       X.text('HEARTS', x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
       X.text(String(st.hearts), x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
     }
-    // strip: class, points value, capacity, crew
-    const strip = [['CLASS', c.cls.toUpperCase(), 18.2], ['PV', String(c.pv), 10.2], ['CAP.', String(st.capacity), 12.0], ['CREW', st.crew ? 'Y' : 'N', 11.8]];
-    let sx = 4;
-    for (const [lab, val, w] of strip) {
-      X.rr(sx, y0 + 13.8, w, 5.0, 0.9); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
-      X.text(lab, sx + 1.2, y0 + 17.1, LBL_SM - 0.1, F.label, T.mid, 'left', '600');
-      const lw = X.width(lab, LBL_SM - 0.1, F.label, '600');
-      X.fitLine(val, sx + w - 1.0, y0 + 17.7, w - lw - 3.0, 3.8, 2.4, F.num, T.ink, 'right');
-      sx += w + 0.8;
-    }
-    const top = y0 + 20.2, bottom = 66.2;
+    const top = y0 + 14.0, bottom = 66.2;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
     const blocks = String(c.perk || '').split('\n').filter((l) => l.trim()).map((l, i) => ({ gapBefore: i ? 0.3 : 0, runs: [{ t: l }] }));
-    paragraphs(X, blocks, 5.6, top + 0.8, 51.8, bottom - top - 1.4, 3.6, 2.2, T.ink);
+    paragraphs(X, blocks, 5.6, top + 0.8, 51.8, bottom - top - 1.4, ABILITY, BODY_MIN, T.ink);
     [0, 1].forEach((i) => {
       const w = c.weapons[i], y = 66.8 + i * 8.4;
       X.rr(4, y, 55, 8.0, 1); X.fill(T.paper2); X.stroke(T.mid, 0.2);
@@ -302,34 +301,35 @@
   async function drawTeam(X, c) {
     const T = THEME.team, W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
-    header(X, T, W, b, 8.6, c.title, 7.2, 4.2);
-    X.fitLine((c.fromLabel || c.setLabel).toUpperCase(), W / 2, 14.4, 55, LBL, 1.9, F.label, T.mid, 'center', '600');
+    header(X, T, W, b, 6.0, c.title, 5.2, 3.4);
+    X.fitLine((c.fromLabel || c.setLabel).toUpperCase(), W / 2, 11.6, 55, LBL, 1.9, F.label, T.mid, 'center', '600');
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    if (pic) { box(X, 18.5, 16.2, 26, 26, T, '#ffffff'); drawPicture(X, pic, 18.7, 16.4, 25.6, 25.6, 'cover', c.imageFit); }
-    else drawPicture(X, icon, 18, 15.8, 27, 27, 'contain');
-    chip(X, c.mechLabel.toUpperCase(), W / 2, 43.6, 4.4, T.dark, '#ffffff', 'center');
-    X.text('TEAM', 4, 52.4, LBL, F.label, T.mid, 'left', '600');
-    X.line(12, 52.6, 59, 52.6, T.mid, 0.25);
-    const top = 54.4, bottom = 78.4;
+    if (pic) { box(X, 21.5, 13.4, 20, 20, T, '#ffffff'); drawPicture(X, pic, 21.7, 13.6, 19.6, 19.6, 'cover', c.imageFit); }
+    else drawPicture(X, icon, 21, 13.2, 21, 21, 'contain');
+    chip(X, c.mechLabel.toUpperCase(), W / 2, 35.0, 4.4, T.dark, '#ffffff', 'center');
+    X.text('TEAM', 4, 44.2, LBL, F.label, T.mid, 'left', '600');
+    X.line(12, 44.4, 59, 44.4, T.mid, 0.25);
+    const top = 46.0, bottom = 78.4;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
-    perkPromo(X, T, [{ runs: [{ t: 'Team perk: ', bold: true }, { t: c.perk }] }], c.promo, 5.6, top, 51.8, bottom, BODY_MAX, BODY_MIN);
+    perkPromo(X, T, [{ runs: [{ t: 'Team perk: ', bold: true }, { t: c.perk }] }], c.promo, 5.6, top, 51.8, bottom, ABILITY, BODY_MIN);
     X.rr(4, 79.6, 25, 5.4, 1); X.fill(T.dark);
     X.text(`GEAR ${c.gearPoints} PTS`, 16.5, 83.4, 2.7, F.label, '#ffffff', 'center', '600');
     X.text(`TEAM OF ${c.teamSize}`, 31, 83.4, LBL, F.label, T.mid, 'left', '600');
   }
 
   // Weapon and gear cards are standard size and built to be tucked under the card above:
-  // the top half (hidden in a stack) holds the picture, the bottom half (y 44-88) holds everything needed in play.
+  // the top 40% (hidden in a stack) holds the picture, the bottom 60% (y 35.2-88) holds everything needed in play.
+  const SPLIT = 35.2;
   async function topHalf(X, c, T, W) {
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    if (pic) { box(X, 4, 4, W - 8, 37.6, T, '#ffffff'); drawPicture(X, pic, 4.2, 4.2, W - 8.4, 37.2, 'cover', c.imageFit); }
-    else drawPicture(X, icon, (W - 34) / 2, 5.6, 34, 34, 'contain');
+    if (pic) { box(X, 4, 4, W - 8, 29.6, T, '#ffffff'); drawPicture(X, pic, 4.2, 4.2, W - 8.4, 29.2, 'cover', c.imageFit); }
+    else drawPicture(X, icon, (W - 27) / 2, 5.2, 27, 27, 'contain');
     return icon;
   }
   function band(X, c, T, W, icon, rightPad) {
-    X.rect(2.2, 44, W - 4.4, 8.4, X.grad(44, 52.4, T.mid, T.dark));
-    if (icon) drawPicture(X, icon, 3.2, 44.4, 7.6, 7.6, 'contain');
-    X.fitLine(String(c.title).toUpperCase(), 12, 50.9, W - 14.6 - (rightPad || 0), 6.4, 3.4, F.title, '#ffffff', 'left');
+    X.rect(2.2, SPLIT, W - 4.4, 7.0, X.grad(SPLIT, SPLIT + 7.0, T.mid, T.dark));
+    if (icon) drawPicture(X, icon, 3.2, SPLIT + 0.4, 6.2, 6.2, 'contain');
+    X.fitLine(String(c.title).toUpperCase(), 11.2, SPLIT + 5.4, W - 13.8 - (rightPad || 0), 5.2, 3.0, F.title, '#ffffff', 'left');
   }
   function chipsRow(X, list, y, right) {
     let x = right;
@@ -341,22 +341,23 @@
     const T = THEME.weapon, W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
     const icon = await topHalf(X, c, T, W);
-    X.line(b, 43.2, W - b, 43.2, T.mid, 0.2, [1, 0.8]);
+    X.line(b, SPLIT - 0.8, W - b, SPLIT - 0.8, T.mid, 0.2, [1, 0.8]);
     band(X, c, T, W, icon);
-    const chipsLeft = chipsRow(X, modChips(c.mods).map((m) => [m, RED]).concat(c.tags.map((t) => [t.toUpperCase(), T.dark])), 53.5, 59);
-    X.fitLine(c.typeLabel.toUpperCase(), 4, 56.4, Math.max(14, chipsLeft - 5.5), LBL, 1.9, F.label, T.mid, 'left', '600');
+    const chipsLeft = chipsRow(X, modChips(c.mods).map((m) => [m, RED]).concat(c.tags.map((t) => [t.toUpperCase(), T.dark])), 43.4, 59);
+    X.fitLine(c.typeLabel.toUpperCase(), 4, 46.3, Math.max(14, chipsLeft - 5.5), LBL, 1.9, F.label, T.mid, 'left', '600');
     const cells = [['RANGE', c.range], ['DICE', String(c.dice)], ['DMG', String(c.dmg)], ['AP', String(c.ap)]];
-    const cw = [16.6, 12, 12, 12], gx = 0.8;
+    const cw = [16.6, 12, 12, 12], gx = 0.8, cy = 47.8;
     let x = 4;
     cells.forEach(([lab, val], i) => {
-      X.rr(x, 58.0, cw[i], 8.0, 0.9); X.fill('#ffffff'); X.stroke(T.mid, 0.2);
-      X.rect(x + 0.1, 58.1, cw[i] - 0.2, 2.9, T.dark);
-      X.text(lab, x + cw[i] / 2, 60.3, LBL_SM, F.label, '#ffffff', 'center', '600');
-      X.fitLine(val === '-' ? '–' : val, x + cw[i] / 2, 65.2, cw[i] - 1, 4.2, 2.8, F.num, T.ink, 'center');
+      X.rr(x, cy, cw[i], 8.0, 0.9); X.fill('#ffffff'); X.stroke(T.mid, 0.2);
+      X.rect(x + 0.1, cy + 0.1, cw[i] - 0.2, 2.9, T.dark);
+      X.text(lab, x + cw[i] / 2, cy + 2.3, LBL_SM, F.label, '#ffffff', 'center', '600');
+      X.fitLine(val === '-' ? '–' : val, x + cw[i] / 2, cy + 7.2, cw[i] - 1, 4.2, 2.8, F.num, T.ink, 'center');
       x += cw[i] + gx;
     });
-    box(X, 4, 67.0, 55, 15.8, T, '#ffffff');
-    paragraphs(X, textBlocks(c, T, { drawback: true }), 5.6, 67.8, 51.8, 14.6, BODY_MAX, BODY_MIN - 0.1, T.ink);
+    const top = cy + 9.0, bottom = 82.8;
+    box(X, 4, top, 55, bottom - top, T, '#ffffff');
+    paragraphs(X, textBlocks(c, T, { drawback: true }), 5.6, top + 0.8, 51.8, bottom - top - 1.4, ABILITY, BODY_MIN, T.ink);
     X.text('WEAPON', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
     fromFooter(X, T, c, 38);
   }
@@ -365,15 +366,17 @@
     const T = THEME.gear, W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
     const icon = await topHalf(X, c, T, W);
-    X.line(b, 43.2, W - b, 43.2, T.mid, 0.2, [1, 0.8]);
+    X.line(b, SPLIT - 0.8, W - b, SPLIT - 0.8, T.mid, 0.2, [1, 0.8]);
     band(X, c, T, W, icon, 10);
-    X.ctx.beginPath(); X.ctx.arc((W - 7.2) * X.k, 48.2 * X.k, 3.8 * X.k, 0, Math.PI * 2); X.fill('#ffffff'); X.stroke(T.dark, 0.35);
-    X.text(String(c.pts), W - 7.2, 49.3, 3.6, F.num, T.dark, 'center');
-    X.text('PTS', W - 7.2, 51.2, 1.4, F.label, T.mid, 'center', '600');
-    X.text('GEAR', 4, 56.4, LBL, F.label, T.mid, 'left', '600');
-    chipsRow(X, modChips(c.mods).map((m) => [m, RED]), 53.5, 59);
-    box(X, 4, 58, 55, 24.8, T, '#ffffff');
-    paragraphs(X, [{ runs: [{ t: c.perk }] }], 5.6, 58.8, 51.8, 23.4, BODY_MAX, BODY_MIN - 0.1, T.ink);
+    const my = SPLIT + 3.5;
+    X.ctx.beginPath(); X.ctx.arc((W - 7.2) * X.k, my * X.k, 3.3 * X.k, 0, Math.PI * 2); X.fill('#ffffff'); X.stroke(T.dark, 0.35);
+    X.text(String(c.pts), W - 7.2, my + 0.9, 3.2, F.num, T.dark, 'center');
+    X.text('PTS', W - 7.2, my + 2.6, 1.3, F.label, T.mid, 'center', '600');
+    X.text('GEAR', 4, 46.3, LBL, F.label, T.mid, 'left', '600');
+    chipsRow(X, modChips(c.mods).map((m) => [m, RED]), 43.4, 59);
+    const top = 47.8, bottom = 82.8;
+    box(X, 4, top, 55, bottom - top, T, '#ffffff');
+    paragraphs(X, [{ runs: [{ t: c.perk }] }], 5.6, top + 0.8, 51.8, bottom - top - 1.4, ABILITY, BODY_MIN, T.ink);
     fromFooter(X, T, c);
   }
 
