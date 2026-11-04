@@ -5,7 +5,3 @@
 @font-face { font-family: 'Oswald'; font-style: normal; font-weight: 600; font-display: block; src: url('../assets/fonts/oswald-latin-600-normal.woff2') format('woff2'); }
 @font-face { font-family: 'PT Sans Narrow'; font-style: normal; font-weight: 400; font-display: block; src: url('../assets/fonts/pt-sans-narrow-latin-400-normal.woff2') format('woff2'); }
 @font-face { font-family: 'PT Sans Narrow'; font-style: normal; font-weight: 700; font-display: block; src: url('../assets/fonts/pt-sans-narrow-latin-700-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 400; font-display: swap; src: url('../assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Atkinson Hyperlegible'; font-style: italic; font-weight: 400; font-display: swap; src: url('../assets/fonts/atkinson-hyperlegible-latin-400-italic.woff2') format('woff2'); }
-@font-face { font-family: 'Atkinson Hyperlegible'; font-style: normal; font-weight: 700; font-display: swap; src: url('../assets/fonts/atkinson-hyperlegible-latin-700-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Atkinson Hyperlegible'; font-style: italic; font-weight: 700; font-display: swap; src: url('../assets/fonts/atkinson-hyperlegible-latin-700-italic.woff2') format('woff2'); }
