@@ -161,6 +161,8 @@ srv.listen(0, async () => {
     await p.fill('#ri-search', 'silent');
     const riS = await p.evaluate(() => [...document.querySelectorAll('#ri-list li')].map((l) => l.textContent).join(' '));
     if (!/UW\s*p\. 12, 19/.test(riS) || !/does not count as/.test(riS)) throw new Error('rules index: Silent entry wrong: ' + riS);
+    const sil = await p.evaluate(() => { const d = RWCatalog.deck(['core']); const g = d.gear.find((x) => /suppressor/.test(x.key)); return g ? g.perk : null; });
+    if (!sil || !/Alarm/.test(sil)) throw new Error('Suppressor card should explain Silent, got: ' + sil);
     await p.fill('#ri-search', 'tactician');
     await p.screenshot({ path: path.join(out, 'app-index.png') });
     await p.fill('#ri-search', '');
