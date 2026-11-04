@@ -263,8 +263,7 @@
     }
     X.text('NAME', 4, nameY, LBL, F.label, T.mid, 'left', '600');
     X.line(12, nameY + 0.2, 59, nameY + 0.2, T.mid, 0.25);
-    if (c.leader) chip(X, 'LEADER', 59, nameY - 3.4, 3.6, RED, '#ffffff', 'right');
-    if (c.warriorName) X.fitLine(c.warriorName, 13, nameY - 0.4, c.leader ? 33 : 46, 3.8, 2.4, F.title, T.ink, 'left');
+    if (c.warriorName) X.fitLine(c.warriorName, 13, nameY - 0.4, 46, 3.8, 2.4, F.title, T.ink, 'left');
     const top = nameY + 2.1;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
     perkPromo(X, T, perkBlocks, c.promo, 5.6, top, 51.8, bottom, ABILITY, BODY_MIN, c.bigGuy ? 'EXTRA RULES' : null);
@@ -481,7 +480,6 @@
     box(X, 4.5, 12.4, 33, 33, T, '#ffffff');
     if (pic) { drawPicture(X, pic, 4.7, 12.6, 32.6, 32.6, 'cover', c.imageFit); if (icon) drawPicture(X, icon, 29.5, 37.2, 8, 8, 'contain'); }
     else drawPicture(X, icon, 6, 13.9, 30, 30, 'contain');
-    if (c.leader) chip(X, 'LEADER', 37.5, 46.8, 3.4, RED, '#ffffff', 'right');
     X.text('RANK', 4.5, 49.8, LBL, F.label, T.mid, 'left', '600');
     X.fitLine(c.rankName || 'Specialist', 4.5, 54.4, 33, 3.8, 2.6, F.title, T.ink, 'left');
     X.text('TYPE', 4.5, 59.0, LBL, F.label, T.mid, 'left', '600');

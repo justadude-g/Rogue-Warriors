@@ -379,10 +379,10 @@
   // then vehicles. One Shot Missions add per-slot title and wording changes and Mission-only gear.
   function teamCardItems(res) {
     const L = res.L, items = [{ card: res.exp, copies: 1 }];
-    res.rows.forEach((r, ri) => {
+    res.rows.forEach((r) => {
       const sl = r.slot;
-      if (r.op) items.push({ card: Object.assign({}, r.op, { key: r.op.key + '|' + sl.name + (!res.team.side && ri === 0 ? '|leader' : ''), warriorName: sl.name, soldierType: sl.soldierType, soldierLabel: r.st.label,
-        stats: Object.assign({}, r.stats), leader: !res.team.side && ri === 0 }), copies: 1 });
+      if (r.op) items.push({ card: Object.assign({}, r.op, { key: r.op.key + '|' + sl.name, warriorName: sl.name, soldierType: sl.soldierType, soldierLabel: r.st.label,
+        stats: Object.assign({}, r.stats) }), copies: 1 });
       if (r.st.big) { const bc = L.bigGuys.find((b) => b.source.id === r.st.big.id); if (bc) items.push({ card: bc, copies: 1 }); }
       if (r.w) items.push({ card: sl.weaponTitle ? Object.assign({}, r.w, { key: r.w.key + '|' + sl.weaponTitle, title: sl.weaponTitle }) : r.w, copies: 1 });
       r.powers.forEach((p) => items.push({ card: p, copies: 1 }));
@@ -463,7 +463,7 @@
             h('span', { class: 'order' }, orderButtons(t.slots, i, redraw)),
             h('button', { class: 'ghost danger', onclick: () => { t.slots.splice(i, 1); redraw(); } }, 'Remove')))));
     });
-    box.append(h('p', { class: 'hint' }, 'Slot 1 is the Leader. Use Make Leader or the arrows to set the order. The team sheet and the printed cards follow it.'), slots, h('div', { class: 'stack inline' }, h('button', { onclick: () => { t.slots.push({ name: '', op: '', soldierType: L.set.soldierType || 'warrior', weapon: '', powers: [], gear: [] }); redraw(); } }, L.set.bigGuys ? 'Add Warrior or Big Guy' : 'Add Warrior')));
+    box.append(h('p', { class: 'hint' }, 'Slot 1 is the designated Leader and slots 2 to 4 are the others (Core rulebook, Team Sheet step 4, Numbers & Characteristics). Use Make Leader or the arrows to set the order. The team sheet shows the numbers and marks the Leader.'), slots, h('div', { class: 'stack inline' }, h('button', { onclick: () => { t.slots.push({ name: '', op: '', soldierType: L.set.soldierType || 'warrior', weapon: '', powers: [], gear: [] }); redraw(); } }, L.set.bigGuys ? 'Add Warrior or Big Guy' : 'Add Warrior')));
     // vehicles
     t.vehicles = t.vehicles || [];
     const vcards = C.vehicles(), vgear = C.vehicleGear();
@@ -790,7 +790,7 @@
       h('div', { class: 'stack inline' },
         h('button', { onclick: () => { const used = new Set(p.members.map((m) => m.op)); const free = L.operators.find((o) => !used.has(o.source.id)) || L.operators[0]; p.members.push({ id: uid(), name: '', op: free.source.id, soldierType: set.soldierType || 'warrior', xp: 0, maAdj: 0, badges: '', injuries: '', image: '', imageFit: { zoom: 1, x: 0, y: 0 }, print: true }); redraw(); } }, set.bigGuys ? 'Add Warrior or Big Guy' : 'Add Warrior'),
         h('button', { class: 'primary', onclick: () => {
-          const items = p.members.filter((m) => m.print !== false).map((m) => ({ card: Object.assign(campaignCard(p, m), { leader: m === p.members[0] }), copies: 1 }));
+          const items = p.members.filter((m) => m.print !== false).map((m) => ({ card: campaignCard(p, m), copies: 1 }));
           printItems(items, p.name.replace(/[^a-z0-9]+/gi, '-') + '-campaign', progress);
         } }, 'Print campaign cards'),
         h('button', { class: 'ghost danger', onclick: () => { if (confirm(`Delete ${p.name}?`)) { S.platoons = S.platoons.filter((x) => x !== p); S.ui.platoon = null; save(); renderPlatoons(); } } }, 'Delete platoon')), progress);
