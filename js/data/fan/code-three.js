@@ -1,7 +1,7 @@
 /* Code Three (Fan Made): Law Enforcement against Criminals. A fan expansion for Rogue Warriors, written for this site.
    Not an official Tabletop Skirmish Games product. All wording here is original fan content, so it ships in the public build.
    It plays with the Core rules, and the Desert Heroes rules for Vehicles.
-   The Police K9 and Attack Dog use the Attack Dog profile: Gear for 5 points, MA 7, Hearts 3, MDP 4, three Action Packages. */
+   The Police K9 and Attack Dog use the Attack Dog profile: Gear for 5 points, MA 6, Hits On 5+, Hearts 3, MDP 4, three Action Packages. */
 (function () {
   const R = window.RW;
   const BOOK = 'c3';
@@ -58,7 +58,7 @@
     'c3-police-sniper': ['Police Sniper', 'sniper', null, '+1 to Rifle Shooting Attacks if this Warrior has not moved during the activation.', 'Overwatch: once per Mission, interrupt an enemy Move in this Warrior\'s LOS and make a Shooting Attack against it.'],
     'c3-breacher': ['Breacher', 'demolitions', null, 'Spend a Shoot action in base contact with a door, window or thin wall to open a 2" breach. Friendly Warriors that pass through it this round gain +1 to their next Shooting Attack.', 'Starts each Mission with 1 free Flash Bang.'],
     'c3-shield-operator': ['Shield Operator', 'eod', null, 'Re-roll 1 Armour Save dice per attack. A friendly Warrior in base contact behind this Warrior counts as in cover.', 'Re-roll 2 Armour Save dice per attack.'],
-    'c3-k9-handler': ['K9 Handler', 'k9-handler', null, 'The Team can take a Police K9 for 3 Gear points instead of 5. While within 6" of this Warrior, the K9 gains +1 MDP.', 'The K9 starts with 1 extra Heart.'],
+    'c3-k9-handler': ['K9 Handler', 'k9-handler', null, 'The Team can take a Police K9 for 3 Gear points instead of 5. While within 6" of this Warrior, the K9 gains +1 MDP.', 'While within 6" of this Warrior, the K9 also gains +1 MA.'],
     'c3-negotiator': ['Negotiator', 'negotiator', null, 'Spend a Shoot action: 1 enemy unit within 9" and in LOS rolls 1D6. On a 1-3, it gains a Pin marker.', 'Range 12". The enemy gains a Pin marker on a 1-4.'],
     'c3-entry-officer': ['Entry Officer', 'cqb', null, 'Re-roll 1 Shooting Attack dice per activation when the target is within 8".', 'Pistols and Shotguns gain +1 Attack Dice.'],
     'c3-detective': ['Detective', 'detective', null, '+1 to Search Rolls. Once per Mission, look at 1 hidden token or face-down Objective within 12".', 'Undercover: once per Mission, at the start of a Round, redeploy this Warrior anywhere more than 9" from the enemy.'],
@@ -122,7 +122,7 @@
     R.gearTables[tid] = { book: BOOK, items: items.map(([g, txt]) => { put('gear:' + tid + ':' + g.id, txt); return Object.assign({}, g, { uid: 'gear-' + tid + '-' + g.id, table: tid }); }) };
   };
   const HEART = { mods: { hearts: 1 } };
-  const DOG = 'Buys a separate Fighter (print its card): MA 7, Hearts 3, MDP 4. It gets no Team Expertise, Specialisation or Gear. It can only use Move & Melee Attack, Move & Run, or Melee Attack.';
+  const DOG = 'Buys a separate Fighter (print its card): MA 6, Hits On 5+, Hearts 3, MDP 4. It gets no Team Expertise, Specialisation or Gear. It can only use Move & Melee Attack, Move & Run, or Melee Attack.';
   gearTable('c3-swat', [
     [G('handcuffs', 'Handcuffs', 'handcuffs', 1), 'Spend a Shoot action in base contact with an enemy unit that is Pinned or on 1 Heart: it is Arrested and counts as Taken Out.'],
     [G('flashlight', 'Weapon Light', 'flashlight', 1), '+1 to Search Rolls. +1 to Shooting Attacks in the dark.'],
@@ -155,9 +155,9 @@
   ]);
 
   // ---------- Dogs: Fighters bought as Gear (shown with the operator cards, like a Big Guy) ----------
-  const dogText = { perk: 'Move & Melee Attack, Move & Run (Run 1D6"), or Melee Attack. In base contact, it can only choose Melee Attack.', extra: 'No Team Expertise, Specialisation or Gear. Bought as Gear.' };
-  R.bigGuyTables['c3-swat'] = { book: BOOK, items: [{ id: 'c3-swat-k9', name: 'Police K9', icon: 'k9-dog', ma: 7, hearts: 3, hits: null, mdp: 4, fighter: true, table: 'c3-swat' }] };
-  R.bigGuyTables['c3-syn'] = { book: BOOK, items: [{ id: 'c3-syn-dog', name: 'Attack Dog', icon: 'attack-dog', ma: 7, hearts: 3, hits: null, mdp: 4, fighter: true, table: 'c3-syn' }] };
+  const dogText = { perk: 'Move & Melee Attack, Move & Run (Run 1D6"), or Melee Attack. In base contact, it can only choose Melee Attack. Takedown: once per Round, a melee Hit by the dog gives the target a Pin marker.', extra: 'No Team Expertise, Specialisation or Gear. Bought as Gear.' };
+  R.bigGuyTables['c3-swat'] = { book: BOOK, items: [{ id: 'c3-swat-k9', name: 'Police K9', icon: 'k9-dog', ma: 6, hearts: 3, hits: 5, mdp: 4, fighter: true, table: 'c3-swat' }] };
+  R.bigGuyTables['c3-syn'] = { book: BOOK, items: [{ id: 'c3-syn-dog', name: 'Attack Dog', icon: 'attack-dog', ma: 6, hearts: 3, hits: 5, mdp: 4, fighter: true, table: 'c3-syn' }] };
   put('big:c3-swat-k9', dogText);
   put('big:c3-syn-dog', dogText);
 
