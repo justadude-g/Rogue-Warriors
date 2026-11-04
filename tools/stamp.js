@@ -5,5 +5,5 @@ const path = require('path');
 const file = path.join(__dirname, '..', 'index.html');
 const v = new Date().toISOString().replace(/[-:T]/g, '').slice(0, 12);
 const html = fs.readFileSync(file, 'utf8').replace(/((?:href|src)="(?:css|js)\/[^"?]+\.(?:css|js))(?:\?v=[^"]*)?"/g, `$1?v=${v}"`);
-fs.writeFileSync(file, html);
+fs.writeFileSync(file, html.replace(/window\.RW_V = '[^']*'/, `window.RW_V = '${v}'`));
 console.log('stamped', v, (html.match(/\?v=/g) || []).length, 'links');

@@ -3,6 +3,7 @@
 (function () {
   const R = window.RW;
   const ICON = (window.RW_BASE || '') + 'assets/icons/';
+  const V = window.RW_V ? '?v=' + window.RW_V : '';
   let pack = window.RW_TEXT || {}; // rules wording, present only in the private build
   let custom = {};          // per-card overrides from the store: { key: { name, perk, promo, drawback, image, ... } }
 
@@ -38,7 +39,7 @@
     const promoRaw = e.promo ? packText('promo:' + e.id) : undefined;
     return {
       kind: 'team', key: k, title: c.name || e.name, baseTitle: e.name, setLabel: s.label, mech: e.mech, mechLabel: m.label,
-      icon: ICON + m.icon, image: c.image || null, imageFit: c.imageFit,
+      icon: ICON + m.icon + V, image: c.image || null, imageFit: c.imageFit,
       perk: c.perk != null && c.perk !== '' ? c.perk : (packText('mech:' + e.mech) || see(e.book, e.page)),
       promo: e.promo ? (c.promo != null && c.promo !== '' ? c.promo : (promoRaw || see(e.book, e.page))) : null,
       gearPoints: s.gearPoints, teamSize: s.team, mods: m.mods || {}, ref: ref(e.book, e.page), set: s.id, source: e, fromLabel: setLabelOf(s),
@@ -54,7 +55,7 @@
     const mods = sp.mods || {};
     return {
       kind: 'operator', key: k, title: c.name || sp.name, baseTitle: sp.name, spec: item.spec, perkName: item.perkName, warriorName: c.warriorName || '',
-      icon: ICON + 'specialisations/' + sp.icon + '.svg', image: c.image || null, imageFit: c.imageFit,
+      icon: ICON + 'specialisations/' + sp.icon + '.svg' + V, image: c.image || null, imageFit: c.imageFit,
       perk: c.perk ? c.perk : (txt.perk || see(t.book, t.page)),
       promo: hasPromo ? (c.promo ? c.promo : (txt.promo || see(t.book, t.page))) : null,
       soldierType: c.soldierType || soldierType || 'warrior', soldierLabel: st.label,
@@ -70,7 +71,7 @@
     const txt = packText('big:' + item.id) || {};
     return {
       kind: 'operator', bigGuy: true, key: k, title: c.name || item.name, baseTitle: item.name, spec: item.id, perkName: '', warriorName: c.warriorName || '',
-      icon: ICON + 'specialisations/' + item.icon + '.svg', image: c.image || null, imageFit: c.imageFit,
+      icon: ICON + 'specialisations/' + item.icon + '.svg' + V, image: c.image || null, imageFit: c.imageFit,
       perk: c.perk ? c.perk : (txt.perk || see(t.book, t.page)),
       promo: c.promo ? c.promo : (txt.extra || ''),
       soldierType: 'big', soldierLabel: item.fighter ? 'Fighter' : 'Big Guy',
@@ -97,7 +98,7 @@
     if (w.noScout) tags.push('Not Scout');
     return {
       kind: 'weapon', key: k, title: c.name || w.name, baseTitle: w.name, typeLabel: w.type2 || TYPE_LABEL[w.type] || '',
-      icon: ICON + 'weapons/' + w.type + '.svg', image: c.image || null, imageFit: c.imageFit,
+      icon: ICON + 'weapons/' + w.type + '.svg' + V, image: c.image || null, imageFit: c.imageFit,
       range: w.range, dice: w.dice, dmg: w.dmg, ap: w.ap, mods: w.mods || {}, tags,
       perk: c.perk ? c.perk : (txt.perk != null ? txt.perk : fallback),
       drawback: c.drawback ? c.drawback : (txt.perk != null ? txt.drawback : ''),
@@ -115,7 +116,7 @@
     const base = txt || see(t.book, t.page), note = SILENT_GEAR.has(g.id) ? ' ' + SILENT_NOTE : '';
     return {
       kind: 'gear', key: k, title: c.name || g.name, baseTitle: g.name, pts: g.pts,
-      icon: ICON + (g.weaponIcon ? 'weapons/' : 'gear/') + g.type + '.svg', image: c.image || null, imageFit: c.imageFit,
+      icon: ICON + (g.weaponIcon ? 'weapons/' : 'gear/') + g.type + '.svg' + V, image: c.image || null, imageFit: c.imageFit,
       mods: g.mods || {}, perk: c.perk ? c.perk : base + note,
       ref: ref(t.book, t.page), table: tableId, source: g, fromLabel: tableSource('gear', tableId, t.book),
     };
@@ -128,7 +129,7 @@
     return {
       kind: 'vehicle', key: k, title: c.name || v.title, baseTitle: v.title, cls: v.cls, pv: v.pv, value: v.value,
       vehicleName: c.vehicleName || '', names: v.names,
-      icon: ICON + 'vehicles/' + v.icon + '.svg', image: c.image || null, imageFit: c.imageFit,
+      icon: ICON + 'vehicles/' + v.icon + '.svg' + V, image: c.image || null, imageFit: c.imageFit,
       perk: c.perk ? c.perk : (txt || see(book, v.page)),
       stats: { ma: v.ma, hits: v.hits, hearts: v.hearts, armour: v.armour, capacity: v.capacity, crew: v.crew },
       weapons: v.weapons, ref: ref(book, v.page), source: v, fromLabel: book === 'dh' ? 'Desert Heroes' : bookLabelFan(book) || R.books[book].name,
@@ -139,8 +140,8 @@
   function weather(env, row) {
     const k = 'wx:' + env.id + ':' + row.roll, c = custom[k] || {};
     return {
-      kind: 'weather', key: k, title: c.name || row.name, baseTitle: row.name, setLabel: env.name, env: env.id, envName: env.name, envIcon: ICON + 'weather/' + env.icon + '.svg',
-      roll: row.roll, icon: ICON + 'weather/' + row.icon + '.svg', perk: c.perk ? c.perk : row.text, copies: R.weather.COPIES[row.roll] || 1,
+      kind: 'weather', key: k, title: c.name || row.name, baseTitle: row.name, setLabel: env.name, env: env.id, envName: env.name, envIcon: ICON + 'weather/' + env.icon + '.svg' + V,
+      roll: row.roll, icon: ICON + 'weather/' + row.icon + '.svg' + V, perk: c.perk ? c.perk : row.text, copies: R.weather.COPIES[row.roll] || 1,
       ref: ref('weather', env.page), source: row,
     };
   }
@@ -148,7 +149,7 @@
     const k = 'wxb:' + env.id, c = custom[k] || {};
     return {
       kind: 'weatherback', key: k, title: c.name || env.name + ' card back', baseTitle: env.name + ' card back', setLabel: env.name, env: env.id, envName: env.name,
-      icon: ICON + 'weather/' + env.icon + '.svg', envIcon: ICON + 'weather/' + env.icon + '.svg', ref: ref('weather', env.page), source: env,
+      icon: ICON + 'weather/' + env.icon + '.svg' + V, envIcon: ICON + 'weather/' + env.icon + '.svg' + V, ref: ref('weather', env.page), source: env,
     };
   }
 
@@ -201,7 +202,7 @@
     const m = (window.RW_ONESHOT_CARDS || {})[id];
     if (!m) return null;
     return {
-      kind: 'gear', key: 'os:' + id, title: m.title, baseTitle: m.title, pts: 0, icon: ICON + 'gear/' + m.icon + '.svg', image: null, imageFit: undefined,
+      kind: 'gear', key: 'os:' + id, title: m.title, baseTitle: m.title, pts: 0, icon: ICON + 'gear/' + m.icon + '.svg' + V, image: null, imageFit: undefined,
       mods: {}, perk: ((window.RW_ONESHOT_TEXT || {}).cards || {})[id] ? window.RW_ONESHOT_TEXT.cards[id].perk : `See ${m.from} (${m.ref}).`, ref: m.ref, table: 'os', source: { id, uid: 'os-' + id, name: m.title }, fromLabel: m.from,
     };
   }
