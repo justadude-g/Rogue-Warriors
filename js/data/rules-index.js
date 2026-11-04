@@ -299,7 +299,7 @@
     ["Flamer and cryo templates", "Campaign", "evo:46", "templates"],
     ["Hazardous material tokens", "Campaign", "evo:46", "hazmat"],
     // Ungentlemanly Warriors (Solo Campaign). Page numbers only. The Silent row also carries a short note: the books do not define Silent, so the note is this site's own reading.
-    ["Silent", "Special rules", "core:10,tb:13,tb:14,evo:20,uw:12,uw:19", "silenced|suppressor|suppressed|sub-sonic upgrade|welrod|doesn't raise the alarm|quiet", "Not defined in the books. This site reads it as: the shot does not count as \"A Shot has been fired\", so it does not raise the Alarm in the Solo rules (UW p. 12). The Welrod Suppressed Pistol and the Bow & Arrow are the weapons the books confirm work this way (UW p. 19)."],
+    ["Silent", "Special rules", "core:10,tb:13,tb:14,evo:20,uw:12,uw:19", "silenced|suppressor|suppressed|sub-sonic upgrade|welrod|doesn't raise the alarm|quiet", "Not defined in the books. This site defines it as: a standard firearm shot counts as \"A Shot has been fired\", which raises the Alarm and moves the Solo game from the Sentry Phase to the Alarm Phase (UW p. 12). A Silent shot does not count as that, so Sentries are not automatically alerted. The Welrod Suppressed Pistol and the Bow & Arrow are the weapons the books confirm work this way (UW p. 19). Suppressors and Sub-Sonic Upgrades give the same effect."],
     ["Ungentlemanly Warriors", "Basics", "uw:1", "solo expansion|introduction|SOE|special operations executive"],
     ["The Gang", "Background", "uw:3", "gang|platoon|SOE|st clair"],
     ["New Search Action", "Actions and movement", "uw:8", "search"],

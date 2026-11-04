@@ -106,12 +106,12 @@
   }
 
   const SILENT_GEAR = new Set(['suppressor', 'sub-sonic-upgrade']);
-  const SILENT_NOTE = 'Not defined in the books. This site reads it as: the shot does not count as "A Shot has been fired", so it does not raise the Alarm in the Solo rules (Ungentlemanly Warriors p. 12).';
+  const SILENT_NOTE = 'Its shots do not count as "A Shot has been fired", so the Alarm is not raised and Sentries stay in the Sentry Phase (UW p. 12).';
   function gear(g, tableId) {
     const t = R.gearTables[tableId];
     const k = 'gear:' + g.uid, c = custom[k] || {};
     const txt = packText('gear:' + tableId + ':' + g.id);
-    // The books never define Silent. These gear cards add the site's own reading (the same note as the About page and the Rules Index), in both builds.
+    // The books never define Silent. These gear cards add the site's own definition (the same as the About page and the Rules Index), in both builds.
     const base = txt || see(t.book, t.page), note = SILENT_GEAR.has(g.id) ? ' ' + SILENT_NOTE : '';
     return {
       kind: 'gear', key: k, title: c.name || g.name, baseTitle: g.name, pts: g.pts,
