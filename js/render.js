@@ -445,15 +445,14 @@
     X.fitLine('WEATHER', W - b - 2, b + 5.7, 18, LBL_SM, 1.6, F.label, T.light, 'right', '600');
     const lines = String(c.perk || '').split('\n').filter(Boolean).map((t, i) => ({ gapBefore: i ? 0.3 : 0, runs: [{ t }] }));
     let dy = 0;
-    while (dy < 17 && layout(X, lines, 51.8, ABILITY, 1.18).height > 82 - (61.0 - dy) - 1.4) dy += 0.5;
+    while (dy < 17 && layout(X, lines, 51.8, ABILITY, 1.18).height > 83.8 - (61.0 - dy) - 1.4) dy += 0.5;
     const band = 49.4 - dy, size = 33 - dy;
     drawPicture(X, icon, (W - size) / 2, 13.6 + (36 - dy - size) / 2 - 1, size, size, 'contain');
     X.rect(b, band, W - 2 * b, 9.6, X.grad(band, band + 9.6, T.mid, T.dark));
     X.fitLine(String(c.title).toUpperCase(), W / 2, band + 7.4, W - 2 * b - 5, 6.8, 3.2, F.title, '#ffffff', 'center');
     const top = band + 11.6;
-    box(X, 4, top, 55, 82 - top, T, '#ffffff');
-    paragraphs(X, lines, 5.6, top + 0.8, 51.8, 82 - top - 1.4, ABILITY, BODY_MIN, T.ink);
-    X.text('WEATHER TABLES', 4, 85.0, FOOT, F.label, T.mid, 'left', '600');
+    box(X, 4, top, 55, 83.8 - top, T, '#ffffff');
+    paragraphs(X, lines, 5.6, top + 0.8, 51.8, 83.8 - top - 1.4, ABILITY, BODY_MIN, T.ink);
   }
 
   // Card back, one design per environment: dark panel in the environment colour with its badge, so the face-down deck is recognisable.
