@@ -208,31 +208,65 @@
     return size;
   }
 
+  // Does perk text (and the promotion below it) fit the box at the shared ability size? Mirrors the maths in perkPromo.
+  function fitsPerkPromo(X, perkBlocks, promo, w, top, bottom, size) {
+    const avail = bottom - top - 1.8;
+    const hp = layout(X, perkBlocks, w, size, 1.18).height;
+    const hq = promo ? layout(X, [{ runs: [{ t: promo }] }], w, size, 1.18).height + 3.8 : 0;
+    return hp + hq + (promo ? 1.2 : 0) <= avail;
+  }
+
   // ---------------- card types ----------------
+  // Operator card. The picture and the 2 by 2 stats take 25.2 mm. When the rules text will not fit at the shared ability size,
+  // the top compacts to 12.6 mm (small picture, three stat rows, the Hearts box unchanged for a 12 mm die) and the text box gains the difference.
   async function drawOperator(X, c) {
     const T = theme('operator'), W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
     header(X, T, W, b, 6.0, c.title, 5.2, 3.4);
     const y0 = 9.8; // top of the picture and stats, under the slimmer title bar
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    box(X, 4, y0, 24.5, 25.2, T, '#ffffff');
-    if (pic) drawPicture(X, pic, 4.2, y0 + 0.2, 24.1, 24.8, 'cover', c.imageFit); else drawPicture(X, icon, 5, y0 + 1.4, 22.5, 22.5, 'contain');
-    if (pic && icon) drawPicture(X, icon, 22.2, y0 + 18.9, 6.3, 6.3, 'contain');
+    const bottom = c.sidearm ? 72.6 : 82.6, perkBlocks = textBlocks(c, T);
+    const compact = !fitsPerkPromo(X, perkBlocks, c.promo, 51.8, y0 + 31.4, bottom, ABILITY);
     const st = c.stats, cells = [['MOVE', st.ma + '"'], ['HITS ON', st.hits == null ? '–' : st.hits + '+'], ['MDP', st.mdp == null ? '–' : String(st.mdp)], ['HEARTS', String(st.hearts)]];
-    cells.forEach(([lab, val], i) => {
-      // the Hearts cell (bottom right) is 13.8 x 12.6 mm so a 12 mm die sits on it to track health
-      const x = 30.3 + (i % 2) * 14.6, y = y0 + Math.floor(i / 2) * 12.6, hot = i === 3, bar = hot ? RED : T.dark;
-      X.rr(x, y, 13.8, 12.6, 1); X.fill('#ffffff'); X.stroke(hot ? RED : T.mid, hot ? 0.4 : 0.25);
-      X.rr(x, y, 13.8, 3.4, 1); X.fill(bar); X.rect(x, y + 2, 13.8, 1.4, bar);
-      X.text(lab, x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
-      X.text(val, x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
-    });
-    X.text('NAME', 4, y0 + 29.3, LBL, F.label, T.mid, 'left', '600');
-    X.line(12, y0 + 29.5, 59, y0 + 29.5, T.mid, 0.25);
-    if (c.warriorName) X.fitLine(c.warriorName, 13, y0 + 28.9, 46, 3.8, 2.4, F.title, T.ink, 'left');
-    const top = y0 + 31.4, bottom = c.sidearm ? 72.6 : 82.6;
+    const hearts = (x, y) => { // the Hearts cell is 13.8 x 12.6 mm so a 12 mm die sits on it to track health
+      X.rr(x, y, 13.8, 12.6, 1); X.fill('#ffffff'); X.stroke(RED, 0.4);
+      X.rr(x, y, 13.8, 3.4, 1); X.fill(RED); X.rect(x, y + 2, 13.8, 1.4, RED);
+      X.text('HEARTS', x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
+      X.text(cells[3][1], x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
+    };
+    let nameY;
+    if (!compact) {
+      box(X, 4, y0, 24.5, 25.2, T, '#ffffff');
+      if (pic) drawPicture(X, pic, 4.2, y0 + 0.2, 24.1, 24.8, 'cover', c.imageFit); else drawPicture(X, icon, 5, y0 + 1.4, 22.5, 22.5, 'contain');
+      if (pic && icon) drawPicture(X, icon, 22.2, y0 + 18.9, 6.3, 6.3, 'contain');
+      cells.slice(0, 3).forEach(([lab, val], i) => {
+        const x = 30.3 + (i % 2) * 14.6, y = y0 + Math.floor(i / 2) * 12.6;
+        X.rr(x, y, 13.8, 12.6, 1); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
+        X.rr(x, y, 13.8, 3.4, 1); X.fill(T.dark); X.rect(x, y + 2, 13.8, 1.4, T.dark);
+        X.text(lab, x + 6.9, y + 2.65, LBL_SM, F.label, '#ffffff', 'center', '600');
+        X.text(val, x + 6.9, y + 11.2, 6.0, F.num, T.ink, 'center');
+      });
+      hearts(44.9, y0 + 12.6);
+      nameY = y0 + 29.3;
+    } else {
+      box(X, 4, y0, 16.4, 12.6, T, '#ffffff');
+      if (pic) drawPicture(X, pic, 4.2, y0 + 0.2, 16.0, 12.2, 'cover', c.imageFit); else drawPicture(X, icon, 5.0, y0 + 0.8, 14.4, 11.4, 'contain');
+      cells.slice(0, 3).forEach(([lab, val], i) => {
+        const x = 21.2, y = y0 + i * 4.35, w = 23.2, lw = 10.8;
+        X.rr(x, y, w, 3.9, 0.8); X.fill('#ffffff'); X.stroke(T.mid, 0.25);
+        X.rr(x, y, lw, 3.9, 0.8); X.fill(T.dark); X.rect(x + lw - 1.0, y, 1.0, 3.9, T.dark);
+        X.text(lab, x + lw / 2, y + 2.75, LBL_SM, F.label, '#ffffff', 'center', '600');
+        X.text(val, x + lw + (w - lw) / 2, y + 3.2, 3.4, F.num, T.ink, 'center');
+      });
+      hearts(45.2, y0);
+      nameY = y0 + 16.7;
+    }
+    X.text('NAME', 4, nameY, LBL, F.label, T.mid, 'left', '600');
+    X.line(12, nameY + 0.2, 59, nameY + 0.2, T.mid, 0.25);
+    if (c.warriorName) X.fitLine(c.warriorName, 13, nameY - 0.4, 46, 3.8, 2.4, F.title, T.ink, 'left');
+    const top = nameY + 2.1;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
-    perkPromo(X, T, textBlocks(c, T), c.promo, 5.6, top, 51.8, bottom, ABILITY, BODY_MIN, c.bigGuy ? 'EXTRA RULES' : null);
+    perkPromo(X, T, perkBlocks, c.promo, 5.6, top, 51.8, bottom, ABILITY, BODY_MIN, c.bigGuy ? 'EXTRA RULES' : null);
     if (c.bigGuy) X.text(c.source && c.source.fighter ? 'FIGHTER' : 'BIG GUY', 4, 85.2, FOOT, F.label, T.mid, 'left', '600');
     fromFooter(X, T, c, c.bigGuy ? 38 : 50);
     if (c.sidearm) {
@@ -298,20 +332,26 @@
     fromFooter(X, T, c);
   }
 
+  // Team card. The badge starts at 21 mm; when the Team perk and promotion will not fit at the shared ability size, the badge shrinks (down to 9 mm)
+  // and everything under it moves up, so the text box grows.
   async function drawTeam(X, c) {
-    const T = THEME.team, W = 63, H = 88, b = 2.2;
+    const T = THEME.team, W = 63, H = 88, b = 2.2, bottom = 78.4;
     frame(X, T, W, H, b);
     header(X, T, W, b, 6.0, c.title, 5.2, 3.4);
     X.fitLine((c.fromLabel || c.setLabel).toUpperCase(), W / 2, 11.6, 55, LBL, 1.9, F.label, T.mid, 'center', '600');
     const [icon, pic] = await Promise.all([loadImage(c.icon), loadImage(c.image)]);
-    if (pic) { box(X, 21.5, 13.4, 20, 20, T, '#ffffff'); drawPicture(X, pic, 21.7, 13.6, 19.6, 19.6, 'cover', c.imageFit); }
-    else drawPicture(X, icon, 21, 13.2, 21, 21, 'contain');
-    chip(X, c.mechLabel.toUpperCase(), W / 2, 35.0, 4.4, T.dark, '#ffffff', 'center');
-    X.text('TEAM', 4, 44.2, LBL, F.label, T.mid, 'left', '600');
-    X.line(12, 44.4, 59, 44.4, T.mid, 0.25);
-    const top = 46.0, bottom = 78.4;
+    const blocks = [{ runs: [{ t: 'Team perk: ', bold: true }, { t: c.perk }] }];
+    let d = 21;
+    while (d > 9 && !fitsPerkPromo(X, blocks, c.promo, 51.8, 13.2 + d + 0.8 + 11.0, bottom, ABILITY)) d -= 0.5;
+    if (pic) { box(X, (W - (d - 1)) / 2, 13.4, d - 1, d - 1, T, '#ffffff'); drawPicture(X, pic, (W - (d - 1)) / 2 + 0.2, 13.6, d - 1.4, d - 1.4, 'cover', c.imageFit); }
+    else drawPicture(X, icon, (W - d) / 2, 13.2, d, d, 'contain');
+    const cy = 13.2 + d + 0.8;
+    chip(X, c.mechLabel.toUpperCase(), W / 2, cy, 4.4, T.dark, '#ffffff', 'center');
+    X.text('TEAM', 4, cy + 9.2, LBL, F.label, T.mid, 'left', '600');
+    X.line(12, cy + 9.4, 59, cy + 9.4, T.mid, 0.25);
+    const top = cy + 11.0;
     box(X, 4, top, 55, bottom - top, T, '#ffffff');
-    perkPromo(X, T, [{ runs: [{ t: 'Team perk: ', bold: true }, { t: c.perk }] }], c.promo, 5.6, top, 51.8, bottom, ABILITY, BODY_MIN);
+    perkPromo(X, T, blocks, c.promo, 5.6, top, 51.8, bottom, ABILITY, BODY_MIN);
     X.rr(4, 79.6, 25, 5.4, 1); X.fill(T.dark);
     X.text(`GEAR ${c.gearPoints} PTS`, 16.5, 83.4, 2.7, F.label, '#ffffff', 'center', '600');
     X.text(`TEAM OF ${c.teamSize}`, 31, 83.4, LBL, F.label, T.mid, 'left', '600');
@@ -393,6 +433,8 @@
   }
 
   // Weather card: environment name and colour on top, the result in the middle, the effect below.
+  // Weather card. The picture starts at 33 mm; when the effect text will not fit at the shared ability size, the picture shrinks (down to 16 mm)
+  // and the result band and text box move up.
   async function drawWeather(X, c) {
     const T = WX[c.env], W = 63, H = 88, b = 2.2;
     frame(X, T, W, H, b);
@@ -401,12 +443,16 @@
     if (env) drawPicture(X, env, 3.0, 2.6, 8, 8, 'contain');
     X.fitLine(c.envName.toUpperCase(), 13, b + 6.8, W - 2 * b - 13 - 2, 7, 4, F.title, '#ffffff', 'left');
     X.fitLine('WEATHER', W - b - 2, b + 5.7, 18, LBL_SM, 1.6, F.label, T.light, 'right', '600');
-    drawPicture(X, icon, 15, 13.6, 33, 33, 'contain');
-    X.rect(b, 49.4, W - 2 * b, 9.6, X.grad(49.4, 59, T.mid, T.dark));
-    X.fitLine(String(c.title).toUpperCase(), W / 2, 56.8, W - 2 * b - 5, 6.8, 3.2, F.title, '#ffffff', 'center');
-    box(X, 4, 61.0, 55, 21.0, T, '#ffffff');
     const lines = String(c.perk || '').split('\n').filter(Boolean).map((t, i) => ({ gapBefore: i ? 0.3 : 0, runs: [{ t }] }));
-    paragraphs(X, lines, 5.6, 61.8, 51.8, 19.6, 4.0, 2.3, T.ink);
+    let dy = 0;
+    while (dy < 17 && layout(X, lines, 51.8, ABILITY, 1.18).height > 82 - (61.0 - dy) - 1.4) dy += 0.5;
+    const band = 49.4 - dy, size = 33 - dy;
+    drawPicture(X, icon, (W - size) / 2, 13.6 + (36 - dy - size) / 2 - 1, size, size, 'contain');
+    X.rect(b, band, W - 2 * b, 9.6, X.grad(band, band + 9.6, T.mid, T.dark));
+    X.fitLine(String(c.title).toUpperCase(), W / 2, band + 7.4, W - 2 * b - 5, 6.8, 3.2, F.title, '#ffffff', 'center');
+    const top = band + 11.6;
+    box(X, 4, top, 55, 82 - top, T, '#ffffff');
+    paragraphs(X, lines, 5.6, top + 0.8, 51.8, 82 - top - 1.4, ABILITY, BODY_MIN, T.ink);
     X.text('WEATHER TABLES', 4, 85.0, FOOT, F.label, T.mid, 'left', '600');
   }
 
