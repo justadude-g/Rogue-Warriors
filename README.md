@@ -40,10 +40,10 @@ This repository holds the full rules wording in `js/data/private/rules-text.js`.
 `tools/publish-public.js` copies everything else to a clone of the public repository and removes the private script tag. In the public build, cards print the perk names, stats and a page reference (for example "See TB p. 10"), and players who own the books can type their own wording into any card.
 
 ```sh
-git clone https://github.com/justadude-g/Rogue-Warriors-Quartermaster ../Rogue-Warriors-Quartermaster   # once
+git clone https://github.com/justadude-g/Rogue-Warriors ../Rogue-Warriors   # once
 npm run stamp                                    # version the CSS and JS links
 git commit -am "..." && git push                 # private repo
-node tools/publish-public.js ../Rogue-Warriors-Quartermaster --push
+node tools/publish-public.js ../Rogue-Warriors --push
 ```
 
 The script refuses to run against this repository, and it stops if any rules wording would reach the public copy.

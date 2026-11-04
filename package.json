@@ -8,7 +8,7 @@
     "stamp": "node tools/stamp.js",
     "test": "node test/smoke.js /tmp",
     "samples": "node test/render-samples.js /tmp",
-    "publish-public": "node tools/publish-public.js ../Rogue-Warriors-Quartermaster --push"
+    "publish-public": "node tools/publish-public.js ../Rogue-Warriors --push"
   },
   "license": "ISC",
   "devDependencies": {
