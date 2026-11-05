@@ -10,7 +10,7 @@
 :root[data-theme="dark"] { --bg: #15180f; --panel: #1f2419; --panel2: #262c1f; --ink: #e8ebe1; --mute: #a3a996; --line: #3a4230; --accent: #8aa04a; --accent-ink: #11140c; color-scheme: dark; }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16.5px/1.45 'Atkinson Hyperlegible', 'PT Sans', system-ui, sans-serif; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16.5px/1.45 -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
 button, input, select, textarea { font: inherit; color: inherit; }
 h2 { font: 600 14.5px/1.2 Oswald, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin: 18px 0 8px; }
 .hint { color: var(--mute); font-size: 15.5px; margin: 6px 0; }
@@ -242,7 +242,7 @@ table.platoon td:last-child button { padding: 5px 9px; }
   .about-nav a { border: 1px solid var(--line); }
 }
 
-/* About page: slightly larger text for long reading (the whole app uses Atkinson Hyperlegible; the cards keep their own fonts) */
+/* About page: slightly larger text for long reading (the whole app uses the system font, as the 7TV site does; the cards keep their own fonts) */
 #about-body { font-size: 17px; line-height: 1.6; }
 #about-body li { margin: 4px 0; }
 #about-body p, #about-body li { hyphens: none; }
@@ -259,7 +259,7 @@ table.platoon td:last-child button { padding: 5px 9px; }
   --m-board: #1b2016; --m-grid: rgba(232, 235, 225, .07); --m-major: rgba(232, 235, 225, .2); --m-edge: #c9cfbb; --m-tick: #a3a996;
   --m-green: #5cc17f; --m-red: #ef6a80; --m-amber: #e9a92c; --m-amber-d: #f7d27a; --m-roof: rgba(0, 0, 0, .35); --m-blue: #5aa5ee; --m-purple: #b98af0; --m-door: #d3a273;
 }
-.os-map { width: 100%; max-width: 460px; height: auto; display: block; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; }
+.os-map { width: 100%; max-width: 460px; height: auto; display: block; font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
 .os-board { fill: var(--m-board); }
 .os-grid { stroke: var(--m-grid); stroke-width: .1; }
 .os-major { stroke: var(--m-major); stroke-width: .12; }

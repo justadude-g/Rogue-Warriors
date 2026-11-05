@@ -25,8 +25,10 @@ if (srcRemote.replace(/\.git$/, '').toLowerCase() === destRemote.replace(/\.git$
 // bring the public clone up to date first, so the push is never rejected as out of date
 try { git(DEST, 'pull', '--ff-only', '-q'); } catch (e) { if (!/couldn't find remote ref|no tracking information|does not have any commits/i.test(String(e.stderr || e.message))) die('could not update ' + DEST + ': ' + (e.stderr || e.message)); }
 
-// clear the target, keeping its .git
-for (const f of fs.readdirSync(DEST)) if (f !== '.git') fs.rmSync(path.join(DEST, f), { recursive: true, force: true });
+// clear the target, keeping .git and CNAME (CNAME holds the custom domain for GitHub Pages; deleting it takes the site offline)
+const KEEP = new Set(['.git', 'CNAME']);
+for (const f of fs.readdirSync(DEST)) if (!KEEP.has(f)) fs.rmSync(path.join(DEST, f), { recursive: true, force: true });
+if (!fs.existsSync(path.join(DEST, 'CNAME'))) console.warn('publish-public: warning, the public clone has no CNAME file, so the custom domain will not be served');
 
 const files = git(SRC, 'ls-files').split('\n').filter((f) => f && !f.startsWith(PRIVATE));
 for (const f of files) {
