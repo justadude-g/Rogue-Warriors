@@ -62,15 +62,8 @@
     if (v === 'about') { renderFaq(); buildAboutNav(); }
     if (v === 'campaign') renderPlatoons();
     if (v === 'index') renderIndex();
-    if (v === 'quickref') renderQuickref();
+    if (window.RW_VIEW_HOOKS && window.RW_VIEW_HOOKS[v]) window.RW_VIEW_HOOKS[v]();
     if (v === 'backup') renderBackup();
-  }
-
-  // Quick reference sheets: the private build ships their markup in window.RW_QUICKREF (js/data/private/quickref.js).
-  function renderQuickref() {
-    const root = $('#qr-root');
-    if (!root || root.dataset.ready || !window.RW_QUICKREF) return;
-    root.innerHTML = window.RW_QUICKREF.html; root.dataset.ready = '1';
   }
 
   // =====================================================================
@@ -498,7 +491,7 @@
   }
 
   // =====================================================================
-  // ONE SHOT MISSIONS (free Missions with premade teams; full text is public)
+  // ONE SHOT MISSIONS (free Missions with premade teams)
   // =====================================================================
   const SVGNS = 'http://www.w3.org/2000/svg';
   function sv(tag, attrs, ...kids) {
@@ -582,8 +575,7 @@
     return out;
   }
 
-  // The private build adds the Mission text (briefing, maps, sheet wording) from js/data/private/oneshots-text.js; the public build has none.
-  // Fan-made Missions (Code Three) carry their own text, which is public.
+  // Mission text (briefing, maps, sheet wording) comes from window.RW_ONESHOT_TEXT when it is loaded. Fan-made Missions (Code Three) carry their own text.
   const oneShotText = (m) => ((window.RW_ONESHOT_TEXT || {}).missions || {})[m.id] || m.text || null;
   function oneShotTeam(m, t) {
     const X = oneShotText(m), XT = X && X.teams[t.id];
@@ -896,7 +888,7 @@
   // =====================================================================
   function renderBackup() {
     $('#text-status').textContent = C.hasPack()
-      ? `Full rules text is loaded (${C.packSize()} entries). This is the private build: do not publish this copy.`
+      ? `Full rules text is loaded (${C.packSize()} entries).`
       : 'Cards print the perk names, stats and a page reference. If you own the books, type your own wording for any card in the card editor; it stays in your browser.';
   }
 

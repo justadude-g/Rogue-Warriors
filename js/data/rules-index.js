@@ -1,5 +1,5 @@
-/* Rules Index data: a keyword, its category, and where to find it (book and printed page). Page numbers only, no rules wording,
-   so this file is part of the public build. Weapon, gear, Expertise, Specialisation, vehicle and weather entries are added from the
+/* Rules Index data: a keyword, its category, and where to find it (book and printed page). Page numbers only, no rules wording.
+   Weapon, gear, Expertise, Specialisation, vehicle and weather entries are added from the
    tables in rules.js and weather.js when the page opens. Each row: [keyword, category, "book:page,book:page", "search|aliases"]. */
 (function () {
   window.RW.indexTerms = [

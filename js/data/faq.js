@@ -1,5 +1,5 @@
 /* Rogue Warriors FAQ and Errata (21 June 2024, 3 pages): topics and page numbers only.
-   The rulings themselves are rules wording, so they live in js/data/private/rules-text.js under "faq:<id>" and show in the private build only.
+   The rulings themselves are rules wording, so they are not stored here.
    Rogue Warriors (c) Lee Fox-Smith & Nicholas Fox-Smith, Tabletop Skirmish Games. Used with permission. */
 (function () {
   window.RW_FAQ = {

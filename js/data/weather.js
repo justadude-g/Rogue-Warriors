@@ -1,5 +1,5 @@
 /* Rogue Warriors Weather Tables (free supplement by Lee Fox-Smith & Nicholas Fox-Smith, Tabletop Skirmish Games), one card per result.
-   This supplement is free for everyone, so the full wording is part of the public build.
+   This supplement is free for everyone, so the full wording is included.
    Eight environments, each rolled on 2D6. Pages are those of "Weather Tables" (Arctic p. 27, the other seven p. 28-29). */
 (function () {
   const R = window.RW;

@@ -7,8 +7,7 @@
     "start": "python3 -m http.server 8771",
     "stamp": "node tools/stamp.js",
     "test": "node test/smoke.js /tmp",
-    "samples": "node test/render-samples.js /tmp",
-    "publish-public": "node tools/publish-public.js ../Rogue-Warriors --push"
+    "samples": "node test/render-samples.js /tmp"
   },
   "license": "ISC",
   "devDependencies": {

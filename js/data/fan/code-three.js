@@ -1,5 +1,5 @@
 /* Code Three (Fan Made): Law Enforcement against Criminals. A fan expansion for Rogue Warriors, written for this site.
-   Not an official Tabletop Skirmish Games product. All wording here is original fan content, so it ships in the public build.
+   Not an official Tabletop Skirmish Games product. All wording here is original fan content.
    It plays with the Core rules, and the Desert Heroes rules for Vehicles.
    The Police K9 and Attack Dog use the Attack Dog profile: Gear for 5 points, MA 6, Hits On 5+, Hearts 3, MDP 4, three Action Packages. */
 (function () {

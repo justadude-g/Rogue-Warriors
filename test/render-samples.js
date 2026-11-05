@@ -1,6 +1,6 @@
-// node test/render-samples.js <outdir> [public]  -> renders sample cards to PNG (public = without rules text)
+// node test/render-samples.js <outdir> [no-text]  -> renders sample cards to PNG (no-text = without rules text)
 const { chromium } = require('playwright'); const http = require('http'); const fs = require('fs'); const path = require('path');
-const root = path.join(__dirname, '..'); const out = process.argv[2] || '/tmp'; const withText = process.argv[3] !== 'public';
+const root = path.join(__dirname, '..'); const out = process.argv[2] || '/tmp'; const withText = process.argv[3] !== 'no-text';
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.png': 'image/png' };
 const srv = http.createServer((q, r) => { const f = path.join(root, decodeURIComponent(q.url.split('?')[0])); if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'Content-Type': types[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(r); });
 srv.listen(0, async () => {

@@ -1,6 +1,5 @@
 /* Rogue Warriors card data: names, numbers, icons and page references only.
-   Rules wording lives in js/data/private/rules-text.js (private repo only); tools/publish-public.js leaves it out of the public build,
-   where cards show page references instead.
+   Rules wording is not stored here; cards show page references instead.
    Rogue Warriors (c) Lee Fox-Smith & Nicholas Fox-Smith, Tabletop Skirmish Games. Used with permission. */
 (function () {
   const W = (id, name, type, range, dice, dmg, ap, x) => Object.assign({ id, name, type, range, dice, dmg, ap }, x || {});

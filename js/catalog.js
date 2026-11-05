@@ -1,17 +1,17 @@
 /* Turns the rules data into card records for the renderer, the deck list and the team builders.
-   Card text comes from, in order: your own wording for that card, the rules text (private build only), or a page reference. */
+   Card text comes from, in order: your own wording for that card, the rules text pack when one is loaded, or a page reference. */
 (function () {
   const R = window.RW;
   const ICON = (window.RW_BASE || '') + 'assets/icons/';
   const V = window.RW_V ? '?v=' + window.RW_V : '';
-  let pack = window.RW_TEXT || {}; // rules wording, present only in the private build
+  let pack = window.RW_TEXT || {}; // optional rules wording pack
   let custom = {};          // per-card overrides from the store: { key: { name, perk, promo, drawback, image, ... } }
 
   const bookShort = (b) => R.books[b].short;
   // Fan-made books have no page numbers: their wording is always on the card.
   const ref = (book, page) => (R.books[book].fan ? 'Fan made' : `${bookShort(book)} p. ${page}`);
   const see = (book, page) => `See ${ref(book, page)}.`;
-  // Rules wording (private build), then fan-made wording (js/data/fan, public).
+  // Rules wording pack, then fan-made wording (js/data/fan).
   const packText = (k) => (Object.prototype.hasOwnProperty.call(pack, k) ? pack[k] : Object.prototype.hasOwnProperty.call(window.RW_FAN_TEXT || {}, k) ? window.RW_FAN_TEXT[k] : undefined);
   const set = (id) => R.sets.find((s) => s.id === id);
 

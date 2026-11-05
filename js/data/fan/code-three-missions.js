@@ -1,5 +1,5 @@
 /* Code Three (Fan Made): two One Shot Missions written for this site, with premade Metro SWAT and Syndicate teams.
-   Fan wording throughout, so the full text ships in the public build. Not an official Tabletop Skirmish Games product.
+   Fan wording throughout. Not an official Tabletop Skirmish Games product.
    Maps are on a 36 by 36 inch Battlefield; x and y are inches from the top-left corner. */
 (function () {
   const SW = (s) => 'spec-c3-swat-c3-' + s, SY = (s) => 'spec-c3-syn-c3-' + s;

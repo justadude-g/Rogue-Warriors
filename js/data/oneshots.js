@@ -1,6 +1,6 @@
 /* One Shot Missions (free from Tabletop Skirmish Games): the premade teams only, as names, Specialisations, weapons, gear and the
-   stats printed on the team sheet. The briefings, special rules, deployment maps and team sheet wording are in
-   js/data/private/oneshots-text.js (private build only); the public build links to each Mission's official page.
+   stats printed on the team sheet. The briefings, special rules, deployment maps and team sheet wording are not
+   stored here; the site links to each Mission's official page.
    Rogue Warriors (c) Lee Fox-Smith & Nicholas Fox-Smith, Tabletop Skirmish Games. Used with permission. */
 (function () {
   const G = (id) => 'gear-core-' + id, W = (id) => 'wpn-core-' + id;
@@ -55,7 +55,7 @@
     },
   ];
 
-  // Gear cards that only exist inside a Mission. Free, so 0 points. The wording is in the private text file.
+  // Gear cards that only exist inside a Mission. Free, so 0 points.
   window.RW_ONESHOT_CARDS = {
     explosive: { id: 'explosive', title: 'Explosive', icon: 'c4', ref: 'RWOS-1', from: 'Operation Silent Thunder' },
   };

@@ -6,6 +6,8 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.join(__dirname, '..');
+const extraFile = path.join(__dirname, 'extra.js');
+const extra = fs.existsSync(extraFile) ? require(extraFile) : {};
 const out = process.argv[2] || '/tmp';
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.png': 'image/png', '.json': 'application/json' };
 const srv = http.createServer((q, r) => {
@@ -175,16 +177,7 @@ srv.listen(0, async () => {
     const riW = await p.evaluate(() => document.querySelectorAll('#ri-list li').length);
     if (riW < 60) throw new Error('weather entries missing from index: ' + riW);
     await p.selectOption('#ri-book', 'all');
-    // quick reference: private build only (the public build has no rules wording)
-    const hasQr = await p.evaluate(() => !!document.querySelector('.tabs button[data-view="quickref"]'));
-    const qrLeak = await p.evaluate(() => !!document.querySelector('#view-quickref, #qr-root') || !!window.RW_QUICKREF);
-    if (hasQr) {
-      await p.click('.tabs button[data-view="quickref"]');
-      await p.waitForSelector('#qr-root .page');
-      const qr = await p.evaluate(() => ({ pages: document.querySelectorAll('#qr-root .page').length, rows: document.querySelectorAll('#qr-root .s7 tr').length, pdf: document.querySelector('#view-quickref a.button').getAttribute('href') }));
-      if (qr.pages !== 2 || qr.rows < 9 || !/Quick-Reference-A4\.pdf$/.test(qr.pdf)) throw new Error('quick reference incomplete: ' + JSON.stringify(qr));
-      await p.screenshot({ path: path.join(out, 'app-quickref.png') });
-    } else if (qrLeak) throw new Error('public build must not contain the quick reference');
+    if (extra.desktop) await extra.desktop(p, out);
     // backup
     await p.click('.tabs button[data-view="backup"]');
     await save(() => p.click('#export'), 'backup.json');
@@ -197,12 +190,7 @@ srv.listen(0, async () => {
     const kept = keptTeam === 2 && keptPlatoon === 1; // the Code Three check adds a second team
     // phone width
     await p.setViewportSize({ width: 390, height: 844 });
-    if (hasQr) {
-      await p.click('.tabs button[data-view="quickref"]'); await p.waitForTimeout(300);
-      await p.screenshot({ path: path.join(out, 'app-quickref-phone.png'), fullPage: true });
-      const qrOver = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
-      if (qrOver) throw new Error('quick reference overflows at phone width');
-    }
+    if (extra.phone) await extra.phone(p, out);
     await p.click('.tabs button[data-view="deck"]');
     await p.waitForTimeout(300);
     await p.screenshot({ path: path.join(out, 'app-phone.png') });
