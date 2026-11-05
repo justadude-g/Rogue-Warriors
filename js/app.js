@@ -897,7 +897,7 @@
   function renderBackup() {
     $('#text-status').textContent = C.hasPack()
       ? `Full rules text is loaded (${C.packSize()} entries). This is the private build: do not publish this copy.`
-      : 'Cards print the perk names, stats and a page reference. If you own the books, type your own wording for any card in the card editor; it stays in your browser.';
+      : 'This is the public build: cards print the perk names, stats and a page reference. If you own the books, type your own wording for any card in the card editor; it stays in your browser.';
   }
 
   function wireAbout() {
